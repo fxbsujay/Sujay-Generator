@@ -11,7 +11,6 @@ import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
 public class GeneratorApplication {
 
     public static void main(String[] args) {
-
         SpringApplication.run(GeneratorApplication.class, args);
     }
 

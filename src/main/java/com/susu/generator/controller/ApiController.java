@@ -19,11 +19,13 @@ public class ApiController {
     /**
      * 列表
      */
-    @GetMapping("/list")
+    @GetMapping("/page")
     public Result list(@RequestParam Map<String, Object> params){
         PageData page = generatorService.page(new Query(params));
         return Result.ok(page);
     }
+
+
 
 
 }

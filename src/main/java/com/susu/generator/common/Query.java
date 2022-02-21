@@ -6,14 +6,8 @@ import com.susu.generator.constant.Constant;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-/**
- * 查询参数
- *
- * @author chenshun
- * @email sunlightcs@gmail.com
- * @date 2017-03-14 23:15
- */
 public class Query extends LinkedHashMap<String, Object> {
+    
 	private static final long serialVersionUID = 1L;
 	//当前页码
     private int page = 1;
