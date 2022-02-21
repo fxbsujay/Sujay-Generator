@@ -1,6 +1,7 @@
 package com.susu.generator.controller;
 
 import com.susu.generator.common.PageData;
+import com.susu.generator.common.Query;
 import com.susu.generator.common.Result;
 import com.susu.generator.service.GeneratorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ public class ApiController {
      */
     @GetMapping("/list")
     public Result list(@RequestParam Map<String, Object> params){
-        PageData page = generatorService.page(params);
+        PageData page = generatorService.page(new Query(params));
         return Result.ok(page);
     }
 

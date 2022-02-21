@@ -5,7 +5,6 @@ import java.util.Map;
 
 public interface GeneratorDao {
 
-
     List<Map<String, Object>> queryList(Map<String, Object> map);
 
     Map<String, String> queryTable(String tableName);

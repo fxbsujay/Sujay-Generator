@@ -1,10 +1,11 @@
 package com.susu.generator.service;
 
 import com.susu.generator.common.PageData;
+import com.susu.generator.common.Query;
 
 import java.util.Map;
 
 public interface GeneratorService {
 
-    PageData page(Map<String, Object> params);
+    PageData page(Query query);
 }
