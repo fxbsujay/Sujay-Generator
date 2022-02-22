@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.susu.generator.dao.TemplateDao">
+
+	<resultMap id="resultMap" type="com.susu.generator.entity.TemplateEntity">
+		<result column="file_name" property="fileName" />
+		<result column="create_date" property="createDate" />
+		<result column="update_date" property="updateDate" />
+	</resultMap>
+
+	<select id="queryList" resultMap="resultMap" >
+		select * from `template`
+		order by create_date desc
+	</select>
+
+	<select id="selectById" resultMap="resultMap" >
+		select * from `template` where id = #{id}
+	</select>
+
+</mapper>

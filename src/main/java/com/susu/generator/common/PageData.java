@@ -14,7 +14,7 @@ import java.util.List;
  * @version 1.0
  */
 @Data
-public class PageData implements Serializable {
+public class PageData<T> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -26,14 +26,14 @@ public class PageData implements Serializable {
     /**
      * 数据列表
      **/
-    private List<?> list;
+    private List<T> list;
 
     /**
      * 分页
      * @param list   列表数据
      * @param total  总记录数
      */
-    public PageData(List<?> list, long total) {
+    public PageData(List<T> list, long total) {
         this.list = list;
         this.total = (int)total;
     }

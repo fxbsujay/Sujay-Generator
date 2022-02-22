@@ -45,6 +45,8 @@ spring:
 
 mybatis:
   mapperLocations: classpath:mapper/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 pagehelper:
   reasonable: true

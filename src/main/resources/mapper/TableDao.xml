@@ -3,13 +3,27 @@
 
 <mapper namespace="com.susu.generator.dao.TableDao">
 
+	<resultMap id="resultMap" type="com.susu.generator.entity.TableEntity">
+		<result column="source_id" property="sourceId" />
+		<result column="table_name" property="tableName" />
+		<result column="table_comment" property="tableComment" />
+		<result column="class_name" property="className" />
+		<result column="base_class_id" property="baseClassId" />
+		<result column="module_name" property="moduleName" />
+		<result column="sub_module_name" property="subModuleName" />
+		<result column="package_name" property="packageName" />
+		<result column="backend_path" property="backendPath" />
+		<result column="create_date" property="createDate" />
+		<result column="update_date" property="updateDate" />
+	</resultMap>
 
-	<select id="queryList" resultType="com.susu.generator.entity.TableEntity">
+
+	<select id="queryList" resultMap="resultMap">
 		select * from `table`
 		order by create_date desc
 	</select>
 
-	<select id="selectById" resultType="com.susu.generator.entity.TableEntity">
+	<select id="selectById" resultMap="resultMap" >
 		select * from `table` where id = #{id}
 	</select>
 

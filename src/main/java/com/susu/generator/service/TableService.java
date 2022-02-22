@@ -1,9 +1,8 @@
 package com.susu.generator.service;
 
-import com.susu.generator.common.PageData;
-import com.susu.generator.common.Query;
+import com.susu.generator.common.base.BaseService;
+import com.susu.generator.entity.TableEntity;
 
-public interface TableService {
+public interface TableService extends BaseService<TableEntity> {
 
-    PageData page(Query query);
 }

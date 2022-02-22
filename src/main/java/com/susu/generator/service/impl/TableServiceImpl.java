@@ -8,7 +8,6 @@ import com.susu.generator.dao.TableDao;
 import com.susu.generator.entity.TableEntity;
 import com.susu.generator.service.TableService;
 import org.springframework.stereotype.Service;
-
 import javax.annotation.Resource;
 import java.util.List;
 
@@ -19,13 +18,18 @@ public class TableServiceImpl implements TableService {
     private TableDao tableDao;
 
     @Override
-    public PageData page(Query query) {
+    public PageData<TableEntity> page(Query query) {
 
-        Page<?> page = PageHelper.startPage(query.getPage(), query.getLimit());
+        Page<TableEntity> page = PageHelper.startPage(query.getPage(), query.getLimit());
 
         List<TableEntity> list = tableDao.queryList(query);
 
         int total = (int) page.getTotal();
-        return new PageData(list,total);
+        return new PageData<>(list,total);
+    }
+
+    @Override
+    public TableEntity info(Long id) {
+        return tableDao.selectById(id);
     }
 }
