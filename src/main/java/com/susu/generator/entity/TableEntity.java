@@ -4,6 +4,8 @@ import com.susu.generator.common.base.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.util.List;
+
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class TableEntity extends BaseEntity {
@@ -32,6 +34,13 @@ public class TableEntity extends BaseEntity {
      * 类名
      **/
     public String className;
+
+
+    /**
+     * 类名
+     **/
+    public String classname;
+
 
     /**
      * 基类
@@ -64,4 +73,31 @@ public class TableEntity extends BaseEntity {
      **/
     public String createTime;
 
+
+    /**
+     * 主键
+     **/
+    private ColumnEntity pk;
+
+    /**
+     * 表的列名(不包含主键)
+     **/
+    private List<ColumnEntity> columns;
+
+
+    public String getClassname() {
+        return classname;
+    }
+
+    public void setClassname(String classname) {
+        this.classname = classname;
+    }
+
+    public String getClassName() {
+        return className;
+    }
+
+    public void setClassName(String className) {
+        this.className = className;
+    }
 }

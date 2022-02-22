@@ -13,6 +13,7 @@
 		<result column="sub_module_name" property="subModuleName" />
 		<result column="package_name" property="packageName" />
 		<result column="backend_path" property="backendPath" />
+		<result column="create_time" property="createTime" />
 		<result column="create_date" property="createDate" />
 		<result column="update_date" property="updateDate" />
 	</resultMap>
