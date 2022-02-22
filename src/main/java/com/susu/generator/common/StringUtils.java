@@ -1,6 +1,5 @@
 package com.susu.generator.common;
 
-import org.apache.commons.lang.text.StrBuilder;
 
 import java.util.UUID;
 
@@ -14,11 +13,6 @@ import java.util.UUID;
  */
 public class StringUtils {
 
-
-    public static String uncapitalize(String str) {
-        int strLen;
-        return str != null && (strLen = str.length()) != 0 ? (new StrBuilder(strLen)).append(Character.toLowerCase(str.charAt(0))).append(str.substring(1)).toString() : str;
-    }
 
     /**
      * <p>Description: Are they all numbers</p>

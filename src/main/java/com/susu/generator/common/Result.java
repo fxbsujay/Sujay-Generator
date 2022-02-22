@@ -1,15 +1,42 @@
 package com.susu.generator.common;
 
+
+import lombok.Data;
+
+/**
+ * <p>Description: Result</p>
+ * <p>请求响应体</p>
+ * @author sujay
+ * @email fxbsujay@gmail.com
+ * @date 9:40 2022/2/22
+ * @version 1.0
+ */
+@Data
 public class Result  {
 
+    /**
+     * 成功编码
+     **/
     public static final int SUCCESS_CODE = 200;
 
+    /**
+     * 失败编码
+     **/
     public static final int ERROR_CODE = 500;
 
+    /**
+     * 编码
+     **/
     private int code = SUCCESS_CODE;
 
+    /**
+     * 消息内容
+     **/
     private String msg = "操作成功";
 
+    /**
+     * 数据
+     **/
     private Object data;
 
     public static Result ok() {
@@ -44,28 +71,4 @@ public class Result  {
         return result;
     }
 
-
-    public int getCode() {
-        return code;
-    }
-
-    public void setCode(int code) {
-        this.code = code;
-    }
-
-    public String getMsg() {
-        return msg;
-    }
-
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
-
-    public Object getData() {
-        return data;
-    }
-
-    public void setData(Object data) {
-        this.data = data;
-    }
 }

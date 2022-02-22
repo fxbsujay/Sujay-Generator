@@ -1,16 +1,31 @@
 package com.susu.generator.common;
 
+import lombok.Data;
+
 import java.io.Serializable;
 import java.util.List;
 
 /**
- * 分页工具类
+ * <p>Description: Pager</p>
+ * <p>分页器</p>
+ * @author sujay
+ * @email fxbsujay@gmail.com
+ * @date 9:40 2022/2/22
+ * @version 1.0
  */
+@Data
 public class PageData implements Serializable {
+
     private static final long serialVersionUID = 1L;
 
+    /**
+     * 总条数
+     **/
     private int total;
 
+    /**
+     * 数据列表
+     **/
     private List<?> list;
 
     /**
@@ -21,21 +36,5 @@ public class PageData implements Serializable {
     public PageData(List<?> list, long total) {
         this.list = list;
         this.total = (int)total;
-    }
-
-    public int getTotal() {
-        return total;
-    }
-
-    public void setTotal(int total) {
-        this.total = total;
-    }
-
-    public List<?> getList() {
-        return list;
-    }
-
-    public void setList(List<?> list) {
-        this.list = list;
     }
 }

@@ -6,18 +6,30 @@ import com.susu.generator.constant.Constant;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+/**
+ * <p>Description: Query</p>
+ * <p>条件构造器</p>
+ * @author sujay
+ * @email fxbsujay@gmail.com
+ * @date 9:43 2022/2/22
+ * @version 1.0
+ */
 public class Query extends LinkedHashMap<String, Object> {
-    
+
 	private static final long serialVersionUID = 1L;
-	//当前页码
+
+    /**
+     * 当前页码
+     **/
     private int page = 1;
-    //每页条数
+
+    /**
+     * 每页条数
+     **/
     private int limit = 10;
 
     public Query(Map<String, Object> params){
         this.putAll(params);
-
-        //分页参数
         String page = (String) params.get(Constant.PAGE);
         String limit = (String) params.get(Constant.LIMIT);
         if (StringUtils.isNotBlank(page)) {
@@ -29,7 +41,7 @@ public class Query extends LinkedHashMap<String, Object> {
         }
 
         this.put("page", this.page);
-        this.put("limit", limit);
+        this.put("limit", this.limit);
     }
 
 
