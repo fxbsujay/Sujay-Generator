@@ -2,7 +2,6 @@ package com.susu.generator.service.impl;
 
 import com.susu.generator.common.ConfigUtils;
 import com.susu.generator.common.DateUtils;
-import com.susu.generator.common.FileUtils;
 import com.susu.generator.dao.GeneratorDao;
 import com.susu.generator.dao.TableDao;
 import com.susu.generator.dao.TemplateDao;
@@ -15,15 +14,12 @@ import freemarker.cache.StringTemplateLoader;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
-import freemarker.template.TemplateExceptionHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.WordUtils;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.io.*;
-import java.nio.ByteBuffer;
-import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 @Service
@@ -122,15 +118,17 @@ public class GeneratorServiceImpl implements GeneratorService {
             throw new GeneratorException("没有模板！");
         }
         Configuration configuration = configuration();
+
         try {
              for (TemplateEntity templateEntity : templateList) {
+
                 String content = templateEntity.getContent();
                 String fileName = templateEntity.getFileName();
+                StringWriter stringWriter = new StringWriter();
+                Template template = new Template(fileName, content, configuration);
+                template.process(map, stringWriter);
+                System.out.println(stringWriter.toString());
 
-                 StringWriter stringWriter = new StringWriter();
-                 Template template = new Template(fileName, content, configuration);
-                 template.process(map, stringWriter);
-                 System.out.println(stringWriter.toString());
 
             }
         } catch (IOException | TemplateException e) {
@@ -149,34 +147,6 @@ public class GeneratorServiceImpl implements GeneratorService {
 
     public static void main(String[] args) {
         System.out.println(columnToJava("de_nadfe"));
-        test001();
-    }
-
-    public static void test001() {
-        String templateName = "hello-template";
-        String templateValue = "hello,${name}";
-        Configuration configuration = configuration();
-        try {
-            processTemplate(configuration, templateName, templateValue);
-            // -------------------- 进行模板的修改 ------------------------
-            templateValue = "hello,${name},我今年,${age}岁.";
-            processTemplate(configuration, templateName, templateValue);
-        } catch (IOException | TemplateException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * 解析模板
-     */
-    private static void processTemplate(Configuration configuration, String templateName, String templateValue) throws IOException, TemplateException {
-        Map<String, Object> root = new HashMap<>(4);
-        root.put("name", "你好");
-        root.put("age", 25);
-        StringWriter stringWriter = new StringWriter();
-        Template template = new Template(templateName, templateValue, configuration);
-        template.process(root, stringWriter);
-        System.out.println(stringWriter.toString());
     }
 
     /**

@@ -4,7 +4,6 @@ import com.susu.generator.exception.GeneratorException;
 import org.apache.commons.configuration.Configuration;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
-
 import java.util.Arrays;
 import java.util.List;
 
