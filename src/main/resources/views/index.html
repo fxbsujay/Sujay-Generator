@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>代码生成器</title>
+  <!-- 导入样式 -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/element-plus/dist/index.css"/>
+  <!-- 导入 Vue 3 -->
+  <script src="//cdn.jsdelivr.net/npm/vue@next"></script>
+  <!-- 导入组件库 -->
+  <script src="//cdn.jsdelivr.net/npm/element-plus"></script>
+</head>
+<body>
+<div id="app">
+  <div class="common-layout">
+    <el-container>
+      <el-header>
+        <iframe scrolling="yes" frameborder="0" style="width:100%;min-height:200px;overflow:visible;background:#fff;" src="test.html"></iframe>
+      </el-header>
+      <el-main>Main</el-main>
+    </el-container>
+  </div>
+</div>
+
+<script>
+  const App = {
+    name: 'APP',
+    setup() {
+      let message = 'AAAAAA'
+      return {
+        message
+      }
+
+    }
+  }
+  const app = Vue.createApp(App);
+  app.use(ElementPlus);
+  app.mount("#app");
+
+</script>
+</body>
+<style scoped>
+  .common-layout .el-header,
+  .common-layout .el-footer {
+    background-color: #b3c0d1;
+    color: var(--el-text-color-primary);
+    text-align: center;
+    line-height: 60px;
+  }
+  .common-layout .el-footer {
+    line-height: 60px;
+  }
+
+  .common-layout .el-aside {
+    background-color: #d3dce6;
+    color: var(--el-text-color-primary);
+    text-align: center;
+    line-height: 200px;
+  }
+
+  .common-layout .el-main {
+    background-color: #e9eef3;
+    color: var(--el-text-color-primary);
+    text-align: center;
+    line-height: 160px;
+  }
+
+  .common-layout > .el-container {
+    margin-bottom: 40px;
+  }
+
+  .common-layout .el-container:nth-child(5) .el-aside,
+  .common-layout .el-container:nth-child(6) .el-aside {
+    line-height: 260px;
+  }
+
+  .common-layout .el-container:nth-child(7) .el-aside {
+    line-height: 320px;
+  }
+</style>
+</html>

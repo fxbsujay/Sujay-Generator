@@ -35,6 +35,11 @@ public class GeneratorServiceImpl implements GeneratorService {
     @Resource
     private TemplateDao templateDao;
 
+    @Override
+    public List<TableEntity> queryTableList(Map<String, Object> map) {
+        return generatorDao.queryList(map);
+    }
+
     public TableEntity queryTable(String tableName) {
         return generatorDao.queryTable(tableName);
     }
@@ -128,8 +133,6 @@ public class GeneratorServiceImpl implements GeneratorService {
                 Template template = new Template(fileName, content, configuration);
                 template.process(map, stringWriter);
                 System.out.println(stringWriter.toString());
-
-
             }
         } catch (IOException | TemplateException e) {
             e.printStackTrace();
