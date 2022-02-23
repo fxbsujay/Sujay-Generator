@@ -95,24 +95,6 @@ public class GeneratorServiceImpl implements GeneratorService {
             table.setPk(table.getColumns().get(0));
         }
 
-        // 查询模板
-        List<TemplateEntity> templateList = templateDao.selectAll();
-        if (templateList.isEmpty()) {
-            throw new GeneratorException("没有模板！");
-        }
-        // 生成模板
-        String rootPath = System.getProperty("user.dir") + "\\src\\main\\resources\\template\\";
-        log.info("相对路径：{}",rootPath);
-        try {
-            for (TemplateEntity templateEntity : templateList) {
-                String content = templateEntity.getContent();
-                ByteBuffer wrap = ByteBuffer.wrap(content.getBytes());
-                String path = rootPath + templateEntity.getName() + ".ftl";
-                FileUtils.writeFile(path,false,wrap);
-            }
-        }catch (IOException e) {
-           throw new GeneratorException("生成模板失败！");
-        }
         String mainPath = ConfigUtils.getString("mainPath");
         mainPath = StringUtils.isBlank(mainPath) ? "com.susu" : mainPath;
 
@@ -134,22 +116,25 @@ public class GeneratorServiceImpl implements GeneratorService {
         map.put("email", ConfigUtils.getString("email"));
         map.put("datetime", DateUtils.getTime());
 
-        freemarker.template.Configuration configuration = new freemarker.template.Configuration(  freemarker.template.Configuration.VERSION_2_3_22);
-
+        // 查询模板
+        List<TemplateEntity> templateList = templateDao.selectAll();
+        if (templateList.isEmpty()) {
+            throw new GeneratorException("没有模板！");
+        }
+        Configuration configuration = configuration();
         try {
-            configuration.setDirectoryForTemplateLoading(new File(  System.getProperty("user.dir") + "\\src\\main\\resources\\template"));
-            configuration.setDefaultEncoding("UTF-8");
-            configuration.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
-            Template template = configuration.getTemplate( "Entity.java.ftl");
-            Writer out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(table.getBackendPath()), StandardCharsets.UTF_8));
-            template.process(map, out);
-            out.flush();
-            out.close();
+             for (TemplateEntity templateEntity : templateList) {
+                String content = templateEntity.getContent();
+                String fileName = templateEntity.getFileName();
+
+                 StringWriter stringWriter = new StringWriter();
+                 Template template = new Template(fileName, content, configuration);
+                 template.process(map, stringWriter);
+                 System.out.println(stringWriter.toString());
+
+            }
         } catch (IOException | TemplateException e) {
             e.printStackTrace();
-            throw new GeneratorException("渲染模板失败！");
-        } finally {
-            FileUtils.del(new File(rootPath));
         }
 
         return new byte[0];
@@ -183,11 +168,6 @@ public class GeneratorServiceImpl implements GeneratorService {
 
     /**
      * 解析模板
-     *
-     * @param configuration
-     * @param templateName
-     * @throws IOException
-     * @throws TemplateException
      */
     private static void processTemplate(Configuration configuration, String templateName, String templateValue) throws IOException, TemplateException {
         Map<String, Object> root = new HashMap<>(4);
@@ -201,8 +181,6 @@ public class GeneratorServiceImpl implements GeneratorService {
 
     /**
      * 配置 freemarker configuration
-     *
-     * @return
      */
     private static Configuration configuration() {
         Configuration configuration = new Configuration(Configuration.VERSION_2_3_27);
