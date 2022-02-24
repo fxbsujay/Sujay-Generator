@@ -5,78 +5,53 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>代码生成器</title>
   <!-- 导入样式 -->
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/element-plus/dist/index.css"/>
-  <!-- 导入 Vue 3 -->
-  <script src="//cdn.jsdelivr.net/npm/vue@next"></script>
-  <!-- 导入组件库 -->
-  <script src="//cdn.jsdelivr.net/npm/element-plus"></script>
+  <link rel="stylesheet" href="lib/elment.css">
+  <link rel="stylesheet" href="css/index.css">
+  <script src="lib/axios.js"></script>
+  <script src="js/api.js"></script>
+  <script src="lib/vue.js"></script>
+  <script src="lib/elment-ui.js"></script>
+
 </head>
 <body>
 <div id="app">
   <div class="common-layout">
-    <el-container>
+    <el-container direction="vertaical">
       <el-header>
-        <iframe scrolling="yes" frameborder="0" style="width:100%;min-height:200px;overflow:visible;background:#fff;" src="test.html"></iframe>
+        <div>
+          <el-menu
+                  :default-active="activeIndex"
+                  class="el-menu-demo"
+                  mode="horizontal"
+                  background-color="#545c64"
+                  text-color="#fff"
+                  active-text-color="#ffd04b"
+                  @select="handleSelect"
+          >
+            <el-menu-item index="1">Home</el-menu-item>
+            <el-sub-menu index="2">
+              <template #title>Workspace</template>
+              <el-menu-item index="2-1">item one</el-menu-item>
+              <el-menu-item index="2-2">item two</el-menu-item>
+              <el-menu-item index="2-3">item three</el-menu-item>
+              <el-sub-menu index="2-4">
+                <template #title>item four</template>
+                <el-menu-item index="2-4-1">item one</el-menu-item>
+                <el-menu-item index="2-4-2">item two</el-menu-item>
+                <el-menu-item index="2-4-3">item three</el-menu-item>
+              </el-sub-menu>
+            </el-sub-menu>
+            <el-menu-item index="4">Orders</el-menu-item>
+          </el-menu>
+        </div>
       </el-header>
-      <el-main>Main</el-main>
+      <el-main>
+        <iframe scrolling="yes" frameborder="0" src="main.html"></iframe>
+      </el-main>
+      <el-footer>{{message}}</el-footer>
     </el-container>
   </div>
 </div>
-
-<script>
-  const App = {
-    name: 'APP',
-    setup() {
-      let message = 'AAAAAA'
-      return {
-        message
-      }
-
-    }
-  }
-  const app = Vue.createApp(App);
-  app.use(ElementPlus);
-  app.mount("#app");
-
-</script>
+<script src="js/index.js"></script>
 </body>
-<style scoped>
-  .common-layout .el-header,
-  .common-layout .el-footer {
-    background-color: #b3c0d1;
-    color: var(--el-text-color-primary);
-    text-align: center;
-    line-height: 60px;
-  }
-  .common-layout .el-footer {
-    line-height: 60px;
-  }
-
-  .common-layout .el-aside {
-    background-color: #d3dce6;
-    color: var(--el-text-color-primary);
-    text-align: center;
-    line-height: 200px;
-  }
-
-  .common-layout .el-main {
-    background-color: #e9eef3;
-    color: var(--el-text-color-primary);
-    text-align: center;
-    line-height: 160px;
-  }
-
-  .common-layout > .el-container {
-    margin-bottom: 40px;
-  }
-
-  .common-layout .el-container:nth-child(5) .el-aside,
-  .common-layout .el-container:nth-child(6) .el-aside {
-    line-height: 260px;
-  }
-
-  .common-layout .el-container:nth-child(7) .el-aside {
-    line-height: 320px;
-  }
-</style>
 </html>

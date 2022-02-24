@@ -1,0 +1,26 @@
+.common-layout {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.el-container {
+    width: 100%;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content:space-between;
+}
+.el-header {
+    --el-header-padding: 0 0 !important;
+}
+.el-main {
+    --el-main-padding: 0 0 !important;
+}
+.common-layout .el-footer {
+    background-color: #545c64;
+    color: var(--el-text-color-primary);
+    text-align: center;
+    line-height: 60px;
+}
