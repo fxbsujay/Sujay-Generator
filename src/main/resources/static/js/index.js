@@ -22,6 +22,21 @@ const App = {
         }
         var list = Vue.toRaw(data)
         console.log(list)
+
+        const state = Vue.reactive({
+            query: 'vue',
+            hits: []
+        })
+        const fetchData = async (query) => {
+            const data = await fetch( `https://localhost:8001/search?query=${query}` ).then(rsp => rsp.json())
+            state.hits = data.hits
+        }
+        Vue.onMounted(() => {
+            - fetchData(state.query)
+            Vue.watchEffect(() => {
+                fetchData(state.query)
+            })
+        })
         return {
             ...Vue.toRefs(data),
             footerName,
