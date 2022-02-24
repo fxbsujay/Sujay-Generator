@@ -2,7 +2,11 @@ const request = axios.create({
     baseURL: 'http://localhost:8001' // 基础路径
 })
 
-// 请求拦截器
+/**
+ * <p>Description: 请求拦截器</p>
+ * @author sujay
+ * @version 15:56 2022/2/24
+ */
 request.interceptors.request.use(
     config => {
         return config
@@ -12,7 +16,11 @@ request.interceptors.request.use(
     }
 )
 
-// 响应拦截器
+/**
+ * <p>Description: 响应拦截器</p>
+ * @author sujay
+ * @version 15:56 2022/2/24
+ */
 request.interceptors.response.use(
     response => {
         const res = response.data
@@ -35,6 +43,11 @@ request.interceptors.response.use(
 )
 
 
+/**
+ * <p>Description: 数据源分页查询 API</p>
+ * @author sujay
+ * @version 15:56 2022/2/24
+ */
 function sourcePage() {
     return request({
         url: '/source/page',
