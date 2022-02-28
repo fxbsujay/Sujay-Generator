@@ -1,8 +1,6 @@
 const App = {
     name: 'APP',
     setup() {
-
-
         let footerName = '页尾'
         const activeIndex = Vue.ref('1')
 

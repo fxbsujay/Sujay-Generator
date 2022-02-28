@@ -9,6 +9,12 @@ const request = axios.create({
  */
 request.interceptors.request.use(
     config => {
+        if (config.method === 'get') {
+            config.params = {
+                ...config.params,
+                ...{ _t: new Date().getTime() }
+            }
+        }
         return config
     },
     error => {
@@ -48,9 +54,10 @@ request.interceptors.response.use(
  * @author sujay
  * @version 15:56 2022/2/24
  */
-function sourcePage() {
+function sourcePage(data) {
     return request({
         url: '/source/page',
-        method: 'get'
+        method: 'get',
+        params: data
     })
 }
