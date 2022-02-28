@@ -24,3 +24,13 @@
     text-align: center;
     line-height: 60px;
 }
+
+.app-container {
+    padding: 20px;
+}
+.el-table {
+    margin-top: 20px;
+}
+.el-pagination {
+    margin-top: 20px;
+}

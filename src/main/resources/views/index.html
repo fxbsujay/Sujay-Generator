@@ -11,7 +11,7 @@
   <script src="lib/vue.js"></script>
   <script src="lib/elment-ui.js"></script>
 </head>
-<body>
+<body  style="overflow: hidden;">
 <div id="app">
   <div class="common-layout">
     <el-container direction="vertaical">
@@ -26,7 +26,7 @@
                   active-text-color="#ffd04b"
                   @select="handleSelect"
           >
-            <el-menu-item index="1">Home</el-menu-item>
+            <el-menu-item index="1">数据源</el-menu-item>
             <el-sub-menu index="2">
               <template #title>Workspace</template>
               <el-menu-item index="2-1">item one</el-menu-item>
@@ -43,8 +43,8 @@
           </el-menu>
         </div>
       </el-header>
-      <el-main>
-        <iframe scrolling="yes" frameborder="0" style="width:100%;min-height:200px;" src="main.html"></iframe>
+      <el-main >
+        <iframe scrolling="yes" frameborder="0" width="100%"  id="iframeId"  src="source.html"></iframe>
       </el-main>
       <el-footer>页尾</el-footer>
     </el-container>
@@ -52,4 +52,8 @@
 </div>
 <script src="js/index.js"></script>
 </body>
+<script>
+  var ifm = document.getElementById("iframeId");
+  ifm.height = document.documentElement.clientHeight - 120;
+</script>
 </html>
