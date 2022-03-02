@@ -11,6 +11,7 @@ const Source = {
                 page: 1,
                 limit: 10
             },
+
             /**
              *  查询列表
              * @param page 页码
@@ -65,15 +66,12 @@ const Source = {
                     done()
                 })
                 .catch(() => {
-                    // catch error
+                    // TODO catch error
                 })
         }
-
         Vue.onMounted(() => {
             data.getList(null, null, 10).then(r => {})
         })
-
-
         return {
             ...Vue.toRefs(data),
             search,

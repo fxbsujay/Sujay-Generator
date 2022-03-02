@@ -34,3 +34,8 @@
 .el-pagination {
     margin-top: 20px;
 }
+.center {
+    align-content: center;
+    text-align: center;
+}
+
