@@ -6,6 +6,9 @@ import com.susu.generator.entity.TableEntity;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author fxbsujay@gmail.com
+ */
 public interface GeneratorService{
 
     List<TableEntity> queryTableList(Map<String, Object> map);

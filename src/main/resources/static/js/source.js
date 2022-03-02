@@ -5,11 +5,21 @@ const Source = {
         const data = Vue.reactive({
             tableKey: 0,
             listLoading: true,
+            dialogVisible: false,
             total: 0,
             list: [],
             listQuery: {
                 page: 1,
                 limit: 10
+            },
+            dataForm: {
+                id: '',
+                connName: '',
+                connUrl: '',
+                dbType: '',
+                username: '',
+                password: '',
+                status: ''
             },
 
             /**
@@ -47,36 +57,37 @@ const Source = {
              */
             handleSizeChange(val) {
                 data.getList(null, null, val).then(r => {})
+            },
+            /**
+             * 查询按钮
+             * */
+            search(){
+                data.listQuery.page = 1
+                data.getList().then(r => {})
+            },
+
+            init(id) {
+                data.dataForm.id = id
+                data.dialogVisible = true
+            },
+
+            /**
+             * 表单提交
+             */
+            onSubmit() {
+                data.dialogVisible = false
+            },
+            isNotBlank (str = '') {
+                return isNotBlank(str)
             }
         })
 
-        /**
-         * 查询按钮
-         */
-        const search = () => {
-            data.listQuery.page = 1
-            data.getList().then(r => {})
-        }
-
-        const dialogVisible = Vue.ref(false)
-
-        const handleClose = (done) => {
-            ElementPlus.ElMessageBox.confirm('Are you sure to close this dialog?')
-                .then(() => {
-                    done()
-                })
-                .catch(() => {
-                    // TODO catch error
-                })
-        }
         Vue.onMounted(() => {
             data.getList(null, null, 10).then(r => {})
         })
         return {
-            ...Vue.toRefs(data),
-            search,
-            dialogVisible,
-            handleClose
+            ...Vue.toRefs(data)
+
         }
     }
 }

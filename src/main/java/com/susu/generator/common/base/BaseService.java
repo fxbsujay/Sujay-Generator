@@ -3,9 +3,9 @@ package com.susu.generator.common.base;
 import com.susu.generator.common.PageData;
 import com.susu.generator.common.Query;
 
-public interface BaseService<T> {
+public interface BaseService<T,D> {
 
-    PageData<T> page(Query query);
+    PageData<D> page(Query query);
 
-    T info(Long id);
+    D info(Long id);
 }

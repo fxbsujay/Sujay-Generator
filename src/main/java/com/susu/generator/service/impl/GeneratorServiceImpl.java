@@ -22,6 +22,9 @@ import javax.annotation.Resource;
 import java.io.*;
 import java.util.*;
 
+/**
+ * @author fxbsujay@gmail.com
+ */
 @Service
 @Slf4j
 public class GeneratorServiceImpl implements GeneratorService {

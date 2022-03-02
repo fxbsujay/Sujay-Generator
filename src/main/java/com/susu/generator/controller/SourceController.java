@@ -4,7 +4,7 @@ package com.susu.generator.controller;
 import com.susu.generator.common.PageData;
 import com.susu.generator.common.Query;
 import com.susu.generator.common.Result;
-import com.susu.generator.entity.SourceEntity;
+import com.susu.generator.dto.SourceDTO;
 import com.susu.generator.service.SourceService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,7 +28,7 @@ public class SourceController {
      */
     @GetMapping("/page")
     public Result list(@RequestParam Map<String, Object> params){
-        PageData<SourceEntity> page = sourceService.page(new Query(params));
+        PageData<SourceDTO> page = sourceService.page(new Query(params));
         return Result.ok(page);
     }
 

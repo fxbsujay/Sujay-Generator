@@ -3,6 +3,7 @@ package com.susu.generator.controller;
 import com.susu.generator.common.PageData;
 import com.susu.generator.common.Query;
 import com.susu.generator.common.Result;
+import com.susu.generator.dto.TableDTO;
 import com.susu.generator.entity.TableEntity;
 import com.susu.generator.service.GeneratorService;
 import com.susu.generator.service.TableService;
@@ -26,7 +27,7 @@ public class TableController {
      */
     @GetMapping("/page")
     public Result list(@RequestParam Map<String, Object> params){
-        PageData<TableEntity> page = tableService.page(new Query(params));
+        PageData<TableDTO> page = tableService.page(new Query(params));
         return Result.ok(page);
     }
 
