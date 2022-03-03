@@ -11,6 +11,71 @@
 		<result column="update_date" property="updateDate" />
 	</resultMap>
 
+	<insert id="insert" parameterType="com.susu.generator.entity.SourceEntity" useGeneratedKeys="true" keyProperty="id">
+		INSERT  INTO sys_user (
+		<if test="connName != null and connName !=''">
+			conn_name,
+		</if>
+		<if test="connUrl != null and connUrl !=''">
+			conn_url,
+		</if>
+		<if test="dbType != null and dbType !=''">
+			db_type,
+		</if>
+		<if test="username != null and username !=''">
+			username,
+		</if>
+		<if test="password != null and password !=''">
+			password,
+		</if>
+			status)
+		VALUES (
+		<if test="connName != null and connName !=''">
+			#{connName},
+		</if>
+		<if test="connUrl != null and connUrl !=''">
+			#{connUrl},
+		</if>
+		<if test="dbType != null and dbType !=''">
+			#{dbType},
+		</if>
+		<if test="username != null and username !=''">
+			#{username},
+		</if>
+		<if test="password != null and password !=''">
+			#{password},
+		</if>
+			#{status})
+	</insert>
+
+	<update id="updateById" parameterType="com.susu.generator.entity.SourceEntity">
+		update source set
+		<if test="connName != null and connName !=''">
+			conn_name =#{connName},
+		</if>
+		<if test="connUrl != null and connUrl != ''">
+			conn_url =#{connUrl},
+		</if>
+		<if test="dbType != null and dbType != ''">
+			db_type =#{dbType},
+		</if>
+		<if test="username != null and username != ''">
+			username =#{username},
+		</if>
+		<if test="password != null and password != ''">
+			password =#{password},
+		</if>
+		<if test="status != null and status != ''">
+			status =#{status},
+		</if>
+		    id =#{id}
+		where id =#{id}
+	</update>
+
+	<delete id="deleteById">
+		delete from source where id = #{id}
+	</delete>
+
 	<select id="queryList" resultMap="resultMap" >
 		SELECT * FROM `source`
 		ORDER BY update_date DESC
@@ -19,5 +84,6 @@
 	<select id="selectById" resultMap="resultMap" >
 		select * from `source` where id = #{id}
 	</select>
+
 
 </mapper>

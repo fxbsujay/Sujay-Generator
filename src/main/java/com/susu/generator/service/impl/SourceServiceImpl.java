@@ -34,4 +34,28 @@ public class SourceServiceImpl  implements SourceService {
     public SourceDTO info(Long id) {
         return  ConvertUtils.sourceToTarget(sourceDao.selectById(id),SourceDTO.class);
     }
+
+    @Override
+    public Boolean save(SourceDTO dto) {
+         int number = sourceDao.insert(ConvertUtils.sourceToTarget(dto,SourceEntity.class));
+         return true;
+    }
+
+    @Override
+    public Boolean update(SourceDTO dto) {
+        int number = sourceDao.updateById(ConvertUtils.sourceToTarget(dto,SourceEntity.class));
+        return true;
+    }
+
+    @Override
+    public Boolean delete(Long id) {
+        int number = sourceDao.deleteById(id);
+        return true;
+    }
+
+    @Override
+    public SourceDTO selectById(Long id) {
+        SourceEntity entity = sourceDao.selectById(id);
+        return ConvertUtils.sourceToTarget(entity,SourceDTO.class);
+    }
 }

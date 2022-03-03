@@ -68,7 +68,9 @@
           :title="isNotBlank(dataForm.id) ? '修改' : '新增'"
           width="30%"
   >
-    <el-form ref="dataForm" :model="dataForm" label-width="120px">
+
+    <!-- ref 不能跟 v-model 绑定同一个元素-->
+    <el-form ref="form" label-width="120px">
       <el-form-item label="连接名称">
         <el-input v-model="dataForm.connName"></el-input>
       </el-form-item>

@@ -14,8 +14,8 @@ const Source = {
             },
             dataForm: {
                 id: '',
-                connName: '',
-                connUrl: '',
+                connName: 'aaa',
+                connUrl: '11234',
                 dbType: '',
                 username: '',
                 password: '',
@@ -65,11 +65,9 @@ const Source = {
                 data.listQuery.page = 1
                 data.getList().then(r => {})
             },
-
             init(id) {
-                data.dataForm.id = id
                 data.dialogVisible = true
-            },
+             },
 
             /**
              * 表单提交
@@ -79,7 +77,7 @@ const Source = {
             },
             isNotBlank (str = '') {
                 return isNotBlank(str)
-            }
+            },
         })
 
         Vue.onMounted(() => {

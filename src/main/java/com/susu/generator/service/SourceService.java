@@ -10,4 +10,11 @@ import com.susu.generator.entity.SourceEntity;
 public interface SourceService extends BaseService<SourceEntity, SourceDTO> {
 
 
+    Boolean save(SourceDTO dto);
+
+    Boolean update(SourceDTO dto);
+
+    Boolean delete(Long id);
+
+    SourceDTO selectById(Long id);
 }

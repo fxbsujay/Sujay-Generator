@@ -61,3 +61,15 @@ function sourcePage(data) {
         params: data
     })
 }
+
+/**
+ * <p>Description: 数据源详情查询 API</p>
+ * @author sujay
+ * @version 23:39 2022/3/3
+ */
+function sourceInfo(id) {
+    return request({
+        url: '/source/' + id,
+        method: 'get'
+    })
+}
