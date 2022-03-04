@@ -22,7 +22,7 @@
     </el-col>
     <el-col :span="6">
         <el-button type="primary" @click="search">搜索</el-button>
-        <el-button type="success" @click="init">新增</el-button>
+        <el-button type="success" @click="init()">新增</el-button>
         <el-button type="danger">删除</el-button>
     </el-col>
     <el-col :span="6"><div class="grid-content bg-purple"></div></el-col>
@@ -33,6 +33,7 @@
           :header-cell-style="{background:'#eef1f6',color:'#0f59a4'}"
           :data="list"
           stripe
+          size="large"
           v-loading="listLoading"
           class="el-table"
   >
@@ -67,18 +68,41 @@
           v-model="dialogVisible"
           :title="isNotBlank(dataForm.id) ? '修改' : '新增'"
           width="30%"
+          @close="resetForm"
   >
 
-    <!-- ref 不能跟 v-model 绑定同一个元素-->
-    <el-form ref="form" label-width="120px">
-      <el-form-item label="连接名称">
-        <el-input v-model="dataForm.connName"></el-input>
+    <el-form ref="form"
+             label-position="right"
+             label-width="100px"
+             :model="dataForm"
+             :rules="rules"
+             abel-width="120px">
+      <el-form-item label="连接名称" prop="connName">
+        <el-input clearable v-model="dataForm.connName"></el-input>
       </el-form-item>
-      <el-form-item label="连接地址">
-        <el-input v-model="dataForm.connUrl"></el-input>
+      <el-form-item label="连接地址" prop="connUrl">
+        <el-input clearable v-model="dataForm.connUrl"></el-input>
       </el-form-item>
-      <el-form-item label="数据库类型">
-        <el-input v-model="dataForm.dbType"></el-input>
+      <el-form-item label="数据库类型" prop="dbType">
+        <el-select style="width: 100%;" clearable v-model="dataForm.dbType" class="m-2" placeholder="请选择数据库类型" size="large">
+          <el-option
+                  v-for="item in dbTypeList"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+          >
+          </el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="用户名" prop="username">
+        <el-input clearable v-model="dataForm.username"></el-input>
+      </el-form-item>
+      <el-form-item label="密码" prop="password">
+        <el-input clearable type="password" show-password v-model="dataForm.password"></el-input>
+      </el-form-item>
+      <el-form-item label="状态" prop="status">
+          <el-radio v-model="dataForm.status" :label="0" size="large">启用</el-radio>
+          <el-radio v-model="dataForm.status" :label="1" size="large">禁用</el-radio>
       </el-form-item>
       <el-form-item>
         <el-button @click="dialogVisible = false">关闭</el-button>

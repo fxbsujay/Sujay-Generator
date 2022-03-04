@@ -1,7 +1,7 @@
 const Source = {
     name: 'Source',
     setup() {
-
+        const form = Vue.ref(null)
         const data = Vue.reactive({
             tableKey: 0,
             listLoading: true,
@@ -12,14 +12,23 @@ const Source = {
                 page: 1,
                 limit: 10
             },
+            /**
+             * 数据库类型常量
+             */
+            dbTypeList: [
+                {
+                    label: 'MySql',
+                    value: 0
+                }
+            ],
             dataForm: {
                 id: '',
-                connName: 'aaa',
-                connUrl: '11234',
+                connName: '',
+                connUrl: '',
                 dbType: '',
                 username: '',
                 password: '',
-                status: ''
+                status: 0
             },
 
             /**
@@ -65,25 +74,107 @@ const Source = {
                 data.listQuery.page = 1
                 data.getList().then(r => {})
             },
-            init(id) {
+            /**
+             * 表单初始化
+             * @param id  数据源id
+             * @returns {Promise<void>}
+             */
+            async init(id) {
                 data.dialogVisible = true
-             },
-
+                if (id) {
+                    const res = await sourceInfo(id)
+                    data.dataForm = {
+                        ...data.dataForm,
+                        ...res
+                    }
+                }
+            },
+            /**
+             * 清空表单
+             */
+            resetForm() {
+                form.value.resetFields()
+            },
             /**
              * 表单提交
              */
-            onSubmit() {
-                data.dialogVisible = false
-            },
+            onSubmit: debounce(function (){
+                if (!form) return
+                form.value.validate(async (valid) => {
+                    if (valid) {
+                        if (data.dataForm.id) {
+                            await sourceUpdate(data.dataForm)
+                        } else {
+                            await sourceSave(data.dataForm)
+                        }
+                        data.dialogVisible = false
+                        await data.getList()
+                    } else {
+                        return false
+                    }
+                })
+            },1000,true),
+            /**
+             * 判空
+             * @param str
+             * @returns {*}
+             */
             isNotBlank (str = '') {
                 return isNotBlank(str)
             },
+        })
+
+        const rules = Vue.ref({
+            connName: [
+                {
+                    required: true,
+                    message: '该项不能为空！',
+                    trigger: 'blur',
+                }
+            ],
+            connUrl: [
+                {
+                    required: true,
+                    message: '该项不能为空！',
+                    trigger: 'blur',
+                }
+            ],
+            dbType: [
+                {
+                    required: true,
+                    message: '该项不能为空！',
+                    trigger: 'blur',
+                }
+            ],
+            username: [
+                {
+                    required: true,
+                    message: '该项不能为空！',
+                    trigger: 'blur',
+                }
+            ],
+            password: [
+                {
+                    required: true,
+                    message: '该项不能为空！',
+                    trigger: 'blur',
+                }
+            ],
+            status: [
+                {
+                    required: true,
+                    message: '该项不能为空！',
+                    trigger: 'blur',
+                }
+            ]
         })
 
         Vue.onMounted(() => {
             data.getList(null, null, 10).then(r => {})
         })
         return {
+            form,
+            rules,
             ...Vue.toRefs(data)
 
         }

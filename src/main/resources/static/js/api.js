@@ -73,3 +73,32 @@ function sourceInfo(id) {
         method: 'get'
     })
 }
+
+
+/**
+ * <p>Description: 数据源新增 API</p>
+ * @author sujay
+ * @version 23:39 2022/3/3
+ */
+function sourceSave(data) {
+    return request({
+        url: '/source',
+        method: 'post',
+        data
+    })
+}
+
+/**
+ * <p>Description: 数据源修改 API</p>
+ * @author sujay
+ * @version 23:39 2022/3/3
+ */
+function sourceUpdate(data) {
+    return request({
+        url: '/source',
+        method: 'put',
+        data
+    })
+}
+
+

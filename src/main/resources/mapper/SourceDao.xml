@@ -12,14 +12,14 @@
 	</resultMap>
 
 	<insert id="insert" parameterType="com.susu.generator.entity.SourceEntity" useGeneratedKeys="true" keyProperty="id">
-		INSERT  INTO sys_user (
+		INSERT  INTO `source` (
 		<if test="connName != null and connName !=''">
 			conn_name,
 		</if>
 		<if test="connUrl != null and connUrl !=''">
 			conn_url,
 		</if>
-		<if test="dbType != null and dbType !=''">
+		<if test="dbType != null">
 			db_type,
 		</if>
 		<if test="username != null and username !=''">
@@ -36,7 +36,7 @@
 		<if test="connUrl != null and connUrl !=''">
 			#{connUrl},
 		</if>
-		<if test="dbType != null and dbType !=''">
+		<if test="dbType != null">
 			#{dbType},
 		</if>
 		<if test="username != null and username !=''">
@@ -49,14 +49,14 @@
 	</insert>
 
 	<update id="updateById" parameterType="com.susu.generator.entity.SourceEntity">
-		update source set
+		update `source` set
 		<if test="connName != null and connName !=''">
 			conn_name =#{connName},
 		</if>
 		<if test="connUrl != null and connUrl != ''">
 			conn_url =#{connUrl},
 		</if>
-		<if test="dbType != null and dbType != ''">
+		<if test="dbType != null">
 			db_type =#{dbType},
 		</if>
 		<if test="username != null and username != ''">
@@ -65,7 +65,7 @@
 		<if test="password != null and password != ''">
 			password =#{password},
 		</if>
-		<if test="status != null and status != ''">
+		<if test="status != null">
 			status =#{status},
 		</if>
 		    id =#{id}
@@ -73,7 +73,7 @@
 	</update>
 
 	<delete id="deleteById">
-		delete from source where id = #{id}
+		delete from `source` where id = #{id}
 	</delete>
 
 	<select id="queryList" resultMap="resultMap" >
