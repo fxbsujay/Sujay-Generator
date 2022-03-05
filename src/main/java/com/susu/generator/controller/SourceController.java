@@ -31,7 +31,7 @@ public class SourceController {
 
     @GetMapping("{id}")
     public Result info(@PathVariable("id") Long id){
-        SourceDTO dto = sourceService.selectById(id);
+        SourceDTO dto = sourceService.info(id);
         return Result.ok(dto);
     }
 
@@ -55,10 +55,7 @@ public class SourceController {
 
     @DeleteMapping
     public Result delete(@RequestBody Long[] id) {
-        Boolean flag = sourceService.delete(id);
-        if (!flag) {
-            return Result.error();
-        }
+        sourceService.delete(id);
         return Result.ok();
     }
 

@@ -1,20 +1,19 @@
 package com.susu.generator.common.base;
 
-
 import lombok.Data;
 
-import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * @author  sujay
+ * @version  19:34 2022/3/5
+ */
 @Data
-public class BaseEntity implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class BaseDTO {
 
     private Long id;
 
     private Date createDate;
 
     private Date updateDate;
-
 }

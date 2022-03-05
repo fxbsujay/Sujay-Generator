@@ -3,12 +3,19 @@ package com.susu.generator.entity;
 import com.susu.generator.common.base.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-
+import java.io.Serializable;
 import java.util.List;
 
+/**
+ * <p> 表 </p>
+ * @author fxbsujay@gmail.com
+ * @version 19:39 2022/3/5
+ */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class TableEntity extends BaseEntity {
+public class TableEntity extends BaseEntity implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     /**
      * 数据源id

@@ -5,12 +5,11 @@ import com.susu.generator.dto.SourceDTO;
 import com.susu.generator.entity.SourceEntity;
 import org.apache.ibatis.annotations.Mapper;
 
+/**
+ * @author fxbsuajy@gmail.com
+ */
 @Mapper
 public interface SourceDao extends BaseDao<SourceEntity> {
 
-    int insert(SourceEntity entity);
 
-    int updateById(SourceEntity entity);
-
-    int deleteById(Long id);
 }

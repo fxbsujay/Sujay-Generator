@@ -3,12 +3,17 @@ package com.susu.generator.entity;
 import com.susu.generator.common.base.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import java.io.Serializable;
 
-import java.math.BigDecimal;
-
+/**
+ * <p> 数据源 </p>
+ * @author fxbsujay@gmail.com
+ */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class SourceEntity extends BaseEntity {
+public class SourceEntity extends BaseEntity implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     /**
      * 连接名称

@@ -1,15 +1,18 @@
 package com.susu.generator.dto;
 
-import com.susu.generator.common.base.BaseEntity;
+import com.susu.generator.common.base.BaseDTO;
 import com.susu.generator.entity.ColumnEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class TableDTO extends BaseEntity {
+public class TableDTO extends BaseDTO implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     /**
      * 数据源id
@@ -94,11 +97,4 @@ public class TableDTO extends BaseEntity {
         this.classname = classname;
     }
 
-    public String getClassName() {
-        return className;
-    }
-
-    public void setClassName(String className) {
-        this.className = className;
-    }
 }

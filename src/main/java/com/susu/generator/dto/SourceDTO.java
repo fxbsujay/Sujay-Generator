@@ -1,15 +1,19 @@
 package com.susu.generator.dto;
 
-import com.susu.generator.common.base.BaseEntity;
+import com.susu.generator.common.base.BaseDTO;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
+import java.io.Serializable;
 
 /**
  * @author fxbsujay@gmail.com
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class SourceDTO extends BaseEntity {
+public class SourceDTO extends BaseDTO implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     /**
      * 连接名称

@@ -43,10 +43,12 @@ public class GeneratorServiceImpl implements GeneratorService {
         return generatorDao.queryList(map);
     }
 
+    @Override
     public TableEntity queryTable(String tableName) {
         return generatorDao.queryTable(tableName);
     }
 
+    @Override
     public List<ColumnEntity> queryColumns(String tableName) {
         return generatorDao.queryColumns(tableName);
     }

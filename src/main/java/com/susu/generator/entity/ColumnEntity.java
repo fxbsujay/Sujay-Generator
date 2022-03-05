@@ -3,14 +3,17 @@ package com.susu.generator.entity;
 import com.susu.generator.common.base.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import java.io.Serializable;
 
 /**
- * 列的属性
+ * <p> 字段 </p>
+ * @author fxbsujay@gmail.com
  */
-
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class ColumnEntity extends BaseEntity {
+public class ColumnEntity extends BaseEntity implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * 列名
