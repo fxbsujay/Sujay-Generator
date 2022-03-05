@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>代码生成器</title>
+  <title>范学彬的代码生成器</title>
   <!-- 导入样式 -->
   <link rel="stylesheet" href="lib/elment.css">
   <link rel="stylesheet" href="css/index.css">
@@ -19,7 +19,7 @@
       <el-header>
         <div>
           <el-menu
-                  :default-active="activeIndex"
+                  :default-active="menu.index"
                   class="el-menu-demo"
                   mode="horizontal"
                   background-color="#545c64"
@@ -27,27 +27,14 @@
                   active-text-color="#ffd04b"
                   @select="handleSelect"
           >
-            <el-menu-item index="1">数据源</el-menu-item>
-            <el-sub-menu index="2">
-              <template #title>Workspace</template>
-              <el-menu-item index="2-1">item one</el-menu-item>
-              <el-menu-item index="2-2">item two</el-menu-item>
-              <el-menu-item index="2-3">item three</el-menu-item>
-              <el-sub-menu index="2-4">
-                <template #title>item four</template>
-                <el-menu-item index="2-4-1">item one</el-menu-item>
-                <el-menu-item index="2-4-2">item two</el-menu-item>
-                <el-menu-item index="2-4-3">item three</el-menu-item>
-              </el-sub-menu>
-            </el-sub-menu>
-            <el-menu-item index="4">Orders</el-menu-item>
+            <el-menu-item v-for="menu in menuList" :index="menu.index">{{ menu.title }}</el-menu-item>
           </el-menu>
         </div>
       </el-header>
       <el-main>
-        <iframe scrolling="yes" frameborder="0" width="100%"  id="iframeId"  src="source.html"></iframe>
+        <iframe scrolling="yes" frameborder="0" width="100%"  id="iframeId"  :src="menu.path"></iframe>
       </el-main>
-      <el-footer>页尾</el-footer>
+      <el-footer>{{ menu.title }}</el-footer>
     </el-container>
   </div>
 </div>

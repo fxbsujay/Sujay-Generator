@@ -101,4 +101,15 @@ function sourceUpdate(data) {
     })
 }
 
-
+/**
+ * <p>Description: 数据源删除 API</p>
+ * @author sujay
+ * @version 16:09 2022/3/5
+ */
+function sourceDelete(data) {
+    return request({
+        url: '/source',
+        method: 'delete',
+        data
+    })
+}

@@ -48,8 +48,10 @@ public class SourceServiceImpl  implements SourceService {
     }
 
     @Override
-    public Boolean delete(Long id) {
-        int number = sourceDao.deleteById(id);
+    public Boolean delete(Long[] ids) {
+        for (Long id : ids) {
+            sourceDao.deleteById(id);
+        }
         return true;
     }
 

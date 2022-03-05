@@ -53,8 +53,8 @@ public class SourceController {
         return Result.ok();
     }
 
-    @DeleteMapping("{id}")
-    public Result update(@PathVariable("id") Long id) {
+    @DeleteMapping
+    public Result delete(@RequestBody Long[] id) {
         Boolean flag = sourceService.delete(id);
         if (!flag) {
             return Result.error();

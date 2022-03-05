@@ -1,20 +1,36 @@
 const App = {
     name: 'APP',
     setup() {
-        let footerName = '页尾'
-        const activeIndex = Vue.ref('1')
-
-        const handleSelect = (key = '', keyPath = []) => {
-            console.log(key, keyPath)
-            ElementPlus.ElMessage.success({
-                message: '切换页面'
-            });
+        const data = Vue.reactive({
+            menu: {
+                index: 1,
+                path: 'source.html',
+                title: "数据源",
+            },
+            menuList: [
+                {
+                    index: 1,
+                    path: 'source.html',
+                    title: '数据源'
+                },
+                {
+                    index: 2,
+                    path: 'main.html',
+                    title: 'main'
+                }
+            ]
+        })
+        /**
+         * 页面切换
+         * @param key 下标 index
+         * @param keyPath 下标数组
+         */
+        const handleSelect = (key = 1, keyPath = []) => {
+            data.menu = data.menuList.find( item => item.index === key)
         }
-
         return {
-            footerName,
-            activeIndex,
-            handleSelect
+            handleSelect,
+            ...Vue.toRefs(data)
         }
     }
 }

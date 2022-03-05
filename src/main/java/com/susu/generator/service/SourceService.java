@@ -14,7 +14,7 @@ public interface SourceService extends BaseService<SourceEntity, SourceDTO> {
 
     Boolean update(SourceDTO dto);
 
-    Boolean delete(Long id);
+    Boolean delete(Long[] ids);
 
     SourceDTO selectById(Long id);
 }

@@ -7,6 +7,7 @@ const Source = {
             listLoading: true,
             dialogVisible: false,
             total: 0,
+            dataListSelections: [],
             list: [],
             listQuery: {
                 page: 1,
@@ -96,9 +97,16 @@ const Source = {
                 form.value.resetFields()
             },
             /**
+             * 多选
+             * @param rows 行
+             */
+            handleSelectionChange(rows) {
+                data.dataListSelections = rows
+            },
+            /**
              * 表单提交
              */
-            onSubmit: debounce(function (){
+            submitHandle: debounce(function (){
                 if (!form) return
                 form.value.validate(async (valid) => {
                     if (valid) {
@@ -114,6 +122,19 @@ const Source = {
                     }
                 })
             },1000,true),
+            /**
+             * 删除
+             */
+            async deleteHandle(id) {
+                if (!id && data.dataListSelections.length <= 0) {
+                    ElementPlus.ElMessage({
+                        message: '请选择删除项！',
+                        type: 'warning',
+                    })
+                }
+                await sourceDelete(id ? [id] : this.dataListSelections.map(item => item['id']))
+                await data.getList()
+            },
             /**
              * 判空
              * @param str
