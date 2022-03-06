@@ -14,7 +14,7 @@
   <script src="js/utils.js"></script>
 </head>
 <body>
-<div id="source" class="app-container">
+<div id="table" class="app-container">
 
   <el-row :gutter="20">
     <el-col :span="6">
@@ -48,24 +48,10 @@
           class="el-table"
   >
     <el-table-column type="selection" width="55" ></el-table-column>
-    <el-table-column align="center" prop="connName" label="连接名称"></el-table-column>
-    <el-table-column align="center" prop="connUrl" label="连接地址"></el-table-column>
-    <el-table-column align="center" prop="dbType" label="类型">
-      <template #default="scope">
-        {{ dbTypeList.find( item => item.value === scope.row.dbType) ? dbTypeList.find( item => item.value === scope.row.dbType).label : '--'}}
-      </template>
-    </el-table-column>
-    <el-table-column align="center" prop="status" label="状态">
-      <template #default="scope">
-        <el-tag v-if="scope.row.status === 0" class="ml-2" type="success">启用</el-tag>
-        <el-tag v-else-if="scope.row.status === 1" class="ml-2" type="danger">禁用</el-tag>
-        <span v-else>--</span>
-      </template>
-    </el-table-column>
+    <el-table-column align="center" prop="tableName" label="表名"></el-table-column>
     <el-table-column align="center" prop="updateDate" label="修改时间"></el-table-column>
     <el-table-column align="center" label="操作">
       <template #default="scope">
-        <el-button size="small" type="success" @click="connTest(scope.row.id)">测试连接</el-button>
         <el-button size="small" type="primary" @click="init(scope.row.id)">修改</el-button>
         <el-popconfirm
                 title="您确定要删除吗?"
@@ -108,33 +94,10 @@
              :model="dataForm"
              :rules="rules"
              abel-width="120px">
-      <el-form-item label="连接名称" prop="connName">
-        <el-input clearable v-model="dataForm.connName"></el-input>
+      <el-form-item label="表名" prop="connName">
+        <el-input clearable v-model="dataForm.tableName"></el-input>
       </el-form-item>
-      <el-form-item label="连接地址" prop="connUrl">
-        <el-input clearable v-model="dataForm.connUrl"></el-input>
-      </el-form-item>
-      <el-form-item label="数据库类型" prop="dbType">
-        <el-select style="width: 100%;" clearable v-model="dataForm.dbType" class="m-2" placeholder="请选择数据库类型" size="large">
-          <el-option
-                  v-for="item in dbTypeList"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value"
-          >
-          </el-option>
-        </el-select>
-      </el-form-item>
-      <el-form-item label="用户名" prop="username">
-        <el-input clearable v-model="dataForm.username"></el-input>
-      </el-form-item>
-      <el-form-item label="密码" prop="password">
-        <el-input clearable type="password" show-password v-model="dataForm.password"></el-input>
-      </el-form-item>
-      <el-form-item label="状态" prop="status">
-          <el-radio v-model="dataForm.status" :label="0" size="large">启用</el-radio>
-          <el-radio v-model="dataForm.status" :label="1" size="large">禁用</el-radio>
-      </el-form-item>
+
       <el-form-item>
         <el-button @click="dialogVisible = false">关闭</el-button>
         <el-button type="primary" @click="submitHandle"
@@ -145,6 +108,6 @@
   </el-dialog>
 
 </div>
-<script src="js/source.js"></script>
+<script src="js/table.js"></script>
 </body>
 </html>

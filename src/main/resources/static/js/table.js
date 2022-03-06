@@ -1,5 +1,5 @@
-const Source = {
-    name: 'Source',
+const Table = {
+    name: 'Table',
     setup() {
         const form = Vue.ref(null)
         const data = Vue.reactive({
@@ -13,23 +13,9 @@ const Source = {
                 page: 1,
                 limit: 10
             },
-            /**
-             * 数据库类型常量
-             */
-            dbTypeList: [
-                {
-                    label: 'MySql',
-                    value: 0
-                }
-            ],
             dataForm: {
                 id: '',
-                connName: '',
-                connUrl: '',
-                dbType: '',
-                username: '',
-                password: '',
-                status: 0
+                tableName: ''
             },
 
             /**
@@ -47,7 +33,7 @@ const Source = {
                     data.listQuery.limit = limit
                 }
                 data.listLoading = true
-                const res = await sourcePage(data.listQuery)
+                const res = await tablePage(data.listQuery)
                 data.list = res.list
                 data.total = res.total
                 setTimeout(() => {
@@ -83,7 +69,7 @@ const Source = {
             async init(id) {
                 data.dialogVisible = true
                 if (id) {
-                    const res = await sourceInfo(id)
+                    const res = await tableInfo(id)
                     data.dataForm = {
                         ...data.dataForm,
                         ...res
@@ -111,9 +97,9 @@ const Source = {
                 form.value.validate(async (valid) => {
                     if (valid) {
                         if (data.dataForm.id) {
-                            await sourceUpdate(data.dataForm)
+                            await tableSave(data.dataForm)
                         } else {
-                            await sourceSave(data.dataForm)
+                            await tableUpdate(data.dataForm)
                         }
                         data.dialogVisible = false
                         await data.getList()
@@ -132,30 +118,8 @@ const Source = {
                         type: 'warning',
                     })
                 }
-                await sourceDelete(id ? [id] : this.dataListSelections.map(item => item['id']))
+                await tableDelete(id ? [id] : this.dataListSelections.map(item => item['id']))
                 await data.getList()
-            },
-            async connTest(id) {
-                if (!id) {
-                    ElementPlus.ElMessage({
-                        message: '请选择数据源！',
-                        type: 'warning',
-                    })
-                }
-                const res = await sourceConnTest(id)
-                if (res) {
-                    ElementPlus.ElNotification({
-                        title: 'Success',
-                        message: '测试连接成功',
-                        type: 'success',
-                    })
-                }else {
-                    ElementPlus.ElNotification({
-                        title: 'Error',
-                        message: '测试连接失败',
-                        type: 'error',
-                    })
-                }
             },
             /**
              * 判空
@@ -169,41 +133,6 @@ const Source = {
 
         const rules = Vue.ref({
             connName: [
-                {
-                    required: true,
-                    message: '该项不能为空！',
-                    trigger: 'blur',
-                }
-            ],
-            connUrl: [
-                {
-                    required: true,
-                    message: '该项不能为空！',
-                    trigger: 'blur',
-                }
-            ],
-            dbType: [
-                {
-                    required: true,
-                    message: '该项不能为空！',
-                    trigger: 'blur',
-                }
-            ],
-            username: [
-                {
-                    required: true,
-                    message: '该项不能为空！',
-                    trigger: 'blur',
-                }
-            ],
-            password: [
-                {
-                    required: true,
-                    message: '该项不能为空！',
-                    trigger: 'blur',
-                }
-            ],
-            status: [
                 {
                     required: true,
                     message: '该项不能为空！',
@@ -223,6 +152,6 @@ const Source = {
         }
     }
 }
-const app = Vue.createApp(Source);
+const app = Vue.createApp(Table);
 app.use(ElementPlus);
-app.mount("#source");
+app.mount("#table");

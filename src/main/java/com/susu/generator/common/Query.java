@@ -1,7 +1,7 @@
 package com.susu.generator.common;
 
 
-import com.susu.generator.constant.Constant;
+import com.susu.generator.common.constant.Constant;
 
 import java.util.LinkedHashMap;
 import java.util.Map;

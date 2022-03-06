@@ -88,6 +88,8 @@ public class TableDTO extends BaseDTO implements Serializable {
      **/
     private List<ColumnEntity> columns;
 
+    private Integer dbType;
+
 
     public String getClassname() {
         return classname;

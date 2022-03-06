@@ -1,4 +1,4 @@
-package com.susu.generator.constant;
+package com.susu.generator.common.constant;
 
 /**
  * 常量

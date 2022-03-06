@@ -1,5 +1,7 @@
 package com.susu.generator.service.impl;
 
+import com.susu.generator.common.ConvertUtils;
+import com.susu.generator.common.DBUtils;
 import com.susu.generator.common.base.BaseServiceImpl;
 import com.susu.generator.dao.SourceDao;
 import com.susu.generator.dto.SourceDTO;
@@ -13,4 +15,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class SourceServiceImpl extends BaseServiceImpl<SourceDao,SourceEntity,SourceDTO> implements SourceService {
 
+    @Override
+    public Boolean connTest(Long id) {
+        SourceEntity entity = baseDao.selectById(id);
+        if (entity == null) {
+            return false;
+        }
+        SourceDTO dto = ConvertUtils.sourceToTarget(entity, SourceDTO.class);
+        return DBUtils.connTest(dto);
+    }
 }

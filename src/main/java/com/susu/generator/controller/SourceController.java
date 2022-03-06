@@ -14,10 +14,10 @@ import java.util.Map;
 @RequestMapping("/source")
 public class SourceController {
 
-    private final SourceService sourceService;
+    private final SourceService service;
 
-    public SourceController(SourceService sourceService) {
-        this.sourceService = sourceService;
+    public SourceController(SourceService service) {
+        this.service = service;
     }
 
     /**
@@ -25,19 +25,19 @@ public class SourceController {
      */
     @GetMapping("/page")
     public Result page(@RequestParam Map<String, Object> params){
-        PageData<SourceDTO> page = sourceService.page(new Query(params));
+        PageData<SourceDTO> page = service.page(new Query(params));
         return Result.ok(page);
     }
 
     @GetMapping("{id}")
     public Result info(@PathVariable("id") Long id){
-        SourceDTO dto = sourceService.info(id);
+        SourceDTO dto = service.info(id);
         return Result.ok(dto);
     }
 
     @PostMapping
     public Result save(@RequestBody SourceDTO dto) {
-        Boolean flag = sourceService.save(dto);
+        Boolean flag = service.save(dto);
         if (!flag) {
             return Result.error();
         }
@@ -46,7 +46,7 @@ public class SourceController {
 
     @PutMapping
     public Result update(@RequestBody SourceDTO dto) {
-        Boolean flag = sourceService.update(dto);
+        Boolean flag = service.update(dto);
         if (!flag) {
             return Result.error();
         }
@@ -55,11 +55,14 @@ public class SourceController {
 
     @DeleteMapping
     public Result delete(@RequestBody Long[] id) {
-        sourceService.delete(id);
+        service.delete(id);
         return Result.ok();
     }
 
-
-
+    @GetMapping("/test/{id}")
+    public Result connTest(@PathVariable("id") Long id){
+        Boolean flag = service.connTest(id);
+        return Result.ok(flag);
+    }
 
 }

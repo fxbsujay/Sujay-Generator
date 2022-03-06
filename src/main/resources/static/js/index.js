@@ -4,19 +4,24 @@ const App = {
         const data = Vue.reactive({
             menu: {
                 index: 1,
-                path: 'source.html',
-                title: "数据源",
+                path: 'main.html',
+                title: '首页'
             },
             menuList: [
                 {
                     index: 1,
+                    path: 'main.html',
+                    title: '首页'
+                },
+                {
+                    index: 2,
                     path: 'source.html',
                     title: '数据源'
                 },
                 {
-                    index: 2,
-                    path: 'main.html',
-                    title: 'main'
+                    index: 3,
+                    path: 'table.html',
+                    title: '数据表'
                 }
             ]
         })
