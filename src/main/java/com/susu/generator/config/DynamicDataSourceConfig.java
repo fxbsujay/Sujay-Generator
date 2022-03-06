@@ -6,9 +6,10 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * @Author sujay
- * @Description 描述
- * @Date 22:35 2022/3/6
+ * <p> 动态数据源配置 </p>
+ * @author fxbsujay@gmail.com
+ * @date 22:35 2022/3/6
+ * @version 1.0
  */
 public class DynamicDataSourceConfig extends AbstractRoutingDataSource {
 
@@ -17,7 +18,7 @@ public class DynamicDataSourceConfig extends AbstractRoutingDataSource {
     public static Map<Object, Object> dataSourcesMap = new ConcurrentHashMap<>(10);
 
     static {
-        dataSourcesMap.put("defaultDataSource", SpringUtils.getBean("defaultDataSource"));
+        dataSourcesMap.put("defaultDataSource", SpringBeanConfig.getBean("defaultDataSource"));
     }
 
     @Override
@@ -25,16 +26,26 @@ public class DynamicDataSourceConfig extends AbstractRoutingDataSource {
         return DynamicDataSourceConfig.DATA_SOURCE_KEY.get();
     }
 
+    /**
+     * 新增数据源
+     * @param dataSource 数据源
+     */
     public static void setDataSource(String dataSource) {
         DynamicDataSourceConfig.DATA_SOURCE_KEY.set(dataSource);
-        DynamicDataSourceConfig dynamicDataSource = (DynamicDataSourceConfig) SpringUtils.getBean("dataSource");
+        DynamicDataSourceConfig dynamicDataSource = (DynamicDataSourceConfig) SpringBeanConfig.getBean("dataSource");
         dynamicDataSource.afterPropertiesSet();
     }
 
+    /**
+     * 获取数据源
+     */
     public static String getDataSource() {
-        return (String) DynamicDataSourceConfig.DATA_SOURCE_KEY.get();
+        return DynamicDataSourceConfig.DATA_SOURCE_KEY.get();
     }
 
+    /**
+     * 删除数据源
+     */
     public static void clear() {
         DynamicDataSourceConfig.DATA_SOURCE_KEY.remove();
     }

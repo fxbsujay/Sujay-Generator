@@ -7,33 +7,34 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 
 /**
- * @Author sujay
- * @Description 描述
- * @Date 22:30 2022/3/6
+ * <p> Spring Bean 工具类 </p>
+ * @author fxbsujay@gmail.com
+ * @date 22:35 2022/3/6
+ * @version 1.0
  */
 @Component
-public class SpringUtils implements ApplicationContextAware {
+public class SpringBeanConfig implements ApplicationContextAware {
 
     @Getter
     private static ApplicationContext applicationContext;
 
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        if (SpringUtils.applicationContext == null) {
-            SpringUtils.applicationContext = applicationContext;
+        if (SpringBeanConfig.applicationContext == null) {
+            SpringBeanConfig.applicationContext = applicationContext;
         }
     }
 
     public static Object getBean(Class clazz) {
-        return SpringUtils.applicationContext.getBean(clazz);
+        return SpringBeanConfig.applicationContext.getBean(clazz);
     }
 
     public static Object getBean(String name) {
-        return SpringUtils.applicationContext.getBean(name);
+        return SpringBeanConfig.applicationContext.getBean(name);
     }
 
     public static String getProperty(String key) {
-        return SpringUtils.applicationContext.getEnvironment().getProperty(key);
+        return SpringBeanConfig.applicationContext.getEnvironment().getProperty(key);
     }
 
 }

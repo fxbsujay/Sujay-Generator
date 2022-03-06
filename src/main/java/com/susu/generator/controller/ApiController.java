@@ -61,6 +61,7 @@ public class ApiController {
         DynamicDataSourceConfig.dataSourcesMap.put("dbkey", druidDataSource);
         DynamicDataSourceConfig.setDataSource("dbkey");
         Map<String, Object> params = new HashMap<>();
+        System.out.println(DynamicDataSourceConfig.dataSourcesMap.toString());
         params.put("page","1");
         params.put("limit","10");
         List<TableEntity> tableEntities = generatorService.queryTableList(new Query(params));

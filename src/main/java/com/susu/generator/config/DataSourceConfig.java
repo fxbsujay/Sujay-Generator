@@ -7,12 +7,15 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.annotation.Primary;
 
+
+
 import javax.sql.DataSource;
 
 /**
- * @Author sujay
- * @Description 描述
- * @Date 22:32 2022/3/6
+ * <p>Description: 数据源创建</p>
+ * @author fxbsujay@gmail.com
+ * @date 22:32 2022/3/6
+ * @version 1.0
  */
 @Configuration
 public class DataSourceConfig {
@@ -25,7 +28,7 @@ public class DataSourceConfig {
 
     @Bean
     @Primary
-    @DependsOn({"springUtils", "defaultDataSource"})
+    @DependsOn({"springBeanConfig", "defaultDataSource"})
     public DynamicDataSourceConfig dataSource() {
         DynamicDataSourceConfig dynamicDataSource = new DynamicDataSourceConfig();
         dynamicDataSource.setTargetDataSources(DynamicDataSourceConfig.dataSourcesMap);
