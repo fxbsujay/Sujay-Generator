@@ -11,22 +11,22 @@ public class ConfigUtils {
 
     private static final String FILE_NAME = "generator.properties";
 
-    private static final Configuration config;
+    private static final Configuration CONFIG;
 
     static {
         try {
-            config =  new PropertiesConfiguration(FILE_NAME);
+            CONFIG =  new PropertiesConfiguration(FILE_NAME);
         } catch (ConfigurationException e) {
             throw new GeneratorException("获取配置文件失败，", e);
         }
     }
 
     public static String getString(String key) {
-        return config.getString(key);
+        return CONFIG.getString(key);
     }
 
     public static List<String> getStringArray(String key) {
-        String[] stringArray = config.getStringArray(key);
+        String[] stringArray = CONFIG.getStringArray(key);
         return Arrays.asList(stringArray);
     }
 

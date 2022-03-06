@@ -8,8 +8,7 @@ import java.util.List;
 /**
  * <p>Description: Pager</p>
  * <p>分页器</p>
- * @author sujay
- * @email fxbsujay@gmail.com
+ * @author fxbsujay@gmail.com
  * @date 9:40 2022/2/22
  * @version 1.0
  */

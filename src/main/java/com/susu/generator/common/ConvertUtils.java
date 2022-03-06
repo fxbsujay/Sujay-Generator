@@ -1,5 +1,6 @@
 package com.susu.generator.common;
 
+import com.susu.generator.exception.GeneratorException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import java.lang.reflect.Field;
@@ -15,25 +16,6 @@ import java.util.List;
 @Slf4j
 public class ConvertUtils {
 
-    public static boolean checkDTO(Object object){
-        if (null == object) {
-            return false;
-        }
-        try {
-            for(Field f : object.getClass().getDeclaredFields()){
-                f.setAccessible(true);
-                if(f.get(object) == null || "".equals(f.get(object))){
-                    return false;
-                }
-
-            }
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
-
-        return true;
-    }
-
     public static <T> T sourceToTarget(Object source, Class<T> target){
         if(source == null){
             return null;
@@ -43,7 +25,7 @@ public class ConvertUtils {
             targetObject = target.newInstance();
             BeanUtils.copyProperties(source, targetObject);
         } catch (Exception e) {
-            log.error("convert error ", e);
+            throw new GeneratorException("convert error",e);
         }
 
         return targetObject;
@@ -62,7 +44,7 @@ public class ConvertUtils {
                 targetList.add(targetObject);
             }
         }catch (Exception e){
-            log.error("convert error ", e);
+            throw new GeneratorException("convert error",e);
         }
 
         return targetList;

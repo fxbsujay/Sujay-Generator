@@ -9,8 +9,7 @@ import java.util.Map;
 /**
  * <p>Description: Query</p>
  * <p>条件构造器</p>
- * @author sujay
- * @email fxbsujay@gmail.com
+ * @author fxbsujay@gmail.com
  * @date 9:43 2022/2/22
  * @version 1.0
  */
