@@ -7,7 +7,6 @@ import com.susu.generator.common.Result;
 import com.susu.generator.dto.SourceDTO;
 import com.susu.generator.service.SourceService;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.Map;
 
 @RestController

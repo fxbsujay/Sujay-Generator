@@ -6,6 +6,7 @@ import com.susu.generator.common.Result;
 import com.susu.generator.dto.TableDTO;
 import com.susu.generator.service.TableService;
 import org.springframework.web.bind.annotation.*;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -56,5 +57,12 @@ public class TableController {
         service.delete(id);
         return Result.ok();
     }
+
+    @GetMapping("/selectTableListBySourceId/{id}")
+    public Result selectTableListBySourceId(@PathVariable("id") Long id){
+        List<TableDTO> list = service.selectTableListBySourceId(id);
+        return Result.ok(list);
+    }
+
 
 }
