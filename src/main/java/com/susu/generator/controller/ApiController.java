@@ -65,6 +65,7 @@ public class ApiController {
         params.put("page","1");
         params.put("limit","10");
         List<TableEntity> tableEntities = generatorService.queryTableList(new Query(params));
+        DynamicDataSourceConfig.clear();
         return Result.ok(tableEntities);
     }
 

@@ -53,6 +53,7 @@ public class TableServiceImpl  extends BaseServiceImpl<TableDao, TableEntity, Ta
         }
 
         List<TableEntity> list = generatorDao.queryList(new HashMap<>(1));
+        DynamicDataSourceConfig.clear();
         return ConvertUtils.sourceToTarget(list,TableDTO.class);
     }
 }

@@ -1,7 +1,6 @@
 package com.susu.generator.config;
 
 import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
-
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -23,6 +22,7 @@ public class DynamicDataSourceConfig extends AbstractRoutingDataSource {
 
     @Override
     protected Object determineCurrentLookupKey() {
+        System.out.println(DynamicDataSourceConfig.DATA_SOURCE_KEY.get());
         return DynamicDataSourceConfig.DATA_SOURCE_KEY.get();
     }
 
