@@ -7,6 +7,8 @@ import com.susu.generator.common.Result;
 import com.susu.generator.dto.SourceDTO;
 import com.susu.generator.service.SourceService;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -26,6 +28,12 @@ public class SourceController {
     public Result page(@RequestParam Map<String, Object> params){
         PageData<SourceDTO> page = service.page(new Query(params));
         return Result.ok(page);
+    }
+
+    @GetMapping("/list")
+    public Result list(@RequestParam Map<String, Object> params){
+        List<SourceDTO> list = service.list(new Query(params));
+        return Result.ok(list);
     }
 
     @GetMapping("{id}")

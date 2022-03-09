@@ -58,7 +58,14 @@ public class TableController {
         return Result.ok();
     }
 
-    @GetMapping("/selectTableListBySourceId/{id}")
+    /**
+     * <p> 查询数据库的所有表 </p>
+     * @author SuJay
+     * @date 13:15 2022/3/8
+     * @param id: 数据源id
+     * @return com.susu.generator.common.Result
+     **/
+    @GetMapping("/queryTableListBySourceId/{id}")
     public Result selectTableListBySourceId(@PathVariable("id") Long id){
         List<TableDTO> list = service.selectTableListBySourceId(id);
         return Result.ok(list);

@@ -63,6 +63,19 @@ function sourcePage(data) {
 }
 
 /**
+ * <p>Description: 数据源分页查询 API</p>
+ * @author sujay
+ * @version 15:56 2022/2/24
+ */
+function sourceList(data) {
+    return request({
+        url: '/source/list',
+        method: 'get',
+        params: data
+    })
+}
+
+/**
  * <p>Description: 数据源详情查询 API</p>
  * @author sujay
  * @version 23:39 2022/3/3
@@ -140,6 +153,19 @@ function tablePage(data) {
 }
 
 /**
+ * <p>Description: 表查询 API</p>
+ * @author sujay
+ * @version 15:56 2022/2/24
+ */
+function tableList(data) {
+    return request({
+        url: '/table/list',
+        method: 'get',
+        params: data
+    })
+}
+
+/**
  * <p>Description: 表详情查询 API</p>
  * @author sujay
  * @version 23:39 2022/3/3
@@ -188,5 +214,18 @@ function tableDelete(data) {
         url: '/table',
         method: 'delete',
         data
+    })
+}
+
+
+/**
+ * <p>Description: 数据源表导入 API</p>
+ * @author sujay
+ * @version 13::13 2022/3/8
+ */
+function queryTableListBySourceId(id) {
+    return request({
+        url: '/table/queryTableListBySourceId/' + id,
+        method: 'get'
     })
 }

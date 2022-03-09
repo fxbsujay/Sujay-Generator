@@ -9,13 +9,15 @@ const Table = {
             total: 0,
             dataListSelections: [],
             list: [],
+            sourceList: [],
             listQuery: {
                 page: 1,
                 limit: 10
             },
             dataForm: {
                 id: '',
-                tableName: ''
+                tableName: '',
+                sourceId: ''
             },
 
             /**
@@ -75,6 +77,7 @@ const Table = {
                         ...res
                     }
                 }
+                data.sourceList = await sourceList()
             },
             /**
              * 清空表单

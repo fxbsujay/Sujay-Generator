@@ -33,14 +33,13 @@ public class Query extends LinkedHashMap<String, Object> {
         String limit = (String) params.get(Constant.LIMIT);
         if (StringUtils.isNotBlank(page)) {
             this.page = Integer.parseInt(page);
+            this.put("page", this.page);
         }
         if (StringUtils.isNotBlank(limit)) {
             this.limit = Integer.parseInt(limit);
             this.put("offset", (this.page - 1) * this.limit);
+            this.put("limit", this.limit);
         }
-
-        this.put("page", this.page);
-        this.put("limit", this.limit);
     }
 
 

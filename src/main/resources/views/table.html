@@ -94,10 +94,17 @@
              :model="dataForm"
              :rules="rules"
              abel-width="120px">
-      <el-form-item label="表名" prop="connName">
-        <el-input clearable v-model="dataForm.tableName"></el-input>
+      <el-form-item label="数据源选择" prop="connName">
+        <el-select v-model="dataForm.sourceId" class="m-2" placeholder="Select" size="large">
+          <el-option
+                  v-for="item in sourceList"
+                  :key="item.id"
+                  :label="item.connName"
+                  :value="item.id"
+          >
+          </el-option>
+        </el-select>
       </el-form-item>
-
       <el-form-item>
         <el-button @click="dialogVisible = false">关闭</el-button>
         <el-button type="primary" @click="submitHandle"

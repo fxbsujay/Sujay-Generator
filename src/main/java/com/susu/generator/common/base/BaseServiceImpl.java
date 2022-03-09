@@ -30,6 +30,12 @@ public abstract class BaseServiceImpl <M extends BaseDao<T>, T extends BaseEntit
     }
 
     @Override
+    public List<D> list(Query query) {
+        List<T> list = baseDao.queryList(query);
+        return ConvertUtils.sourceToTarget(list, currentDtoClass());
+    }
+
+    @Override
     public D info(Long id) {
         T entity = baseDao.selectById(id);
         return ConvertUtils.sourceToTarget(entity,currentDtoClass());
