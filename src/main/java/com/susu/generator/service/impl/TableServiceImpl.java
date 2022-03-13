@@ -59,7 +59,7 @@ public class TableServiceImpl  extends BaseServiceImpl<TableDao, TableEntity, Ta
     }
 
     @Override
-    public Boolean save(TableDTO dto) {
+    public void importTable(TableDTO dto) {
         Long sourceId = dto.getSourceId();
         SourceEntity entity = sourceDao.selectById(sourceId);
 
@@ -82,12 +82,6 @@ public class TableServiceImpl  extends BaseServiceImpl<TableDao, TableEntity, Ta
         dto.setTableComment(tableEntity.getTableComment());
         dto.setEngine(tableEntity.getEngine());
         super.save(dto);
-        return true;
-    }
-
-    @Override
-    public void importTable(TableDTO dto) {
-        SourceEntity entity = sourceDao.selectById(dto.getSourceId());
 
     }
 }

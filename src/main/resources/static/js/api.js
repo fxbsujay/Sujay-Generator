@@ -217,9 +217,8 @@ function tableDelete(data) {
     })
 }
 
-
 /**
- * <p>Description: 数据源表导入 API</p>
+ * <p>Description: 数据源表导入查询 API</p>
  * @author sujay
  * @version 13::13 2022/3/8
  */
@@ -227,5 +226,18 @@ function queryTableListBySourceId(id) {
     return request({
         url: '/table/queryTableListBySourceId/' + id,
         method: 'get'
+    })
+}
+
+/**
+ * <p>Description: 数据源表导入查询 API</p>
+ * @author sujay
+ * @version 13::13 2022/3/8
+ */
+function importTable(data) {
+    return request({
+        url: '/table/importTable',
+        method: 'post',
+        data
     })
 }

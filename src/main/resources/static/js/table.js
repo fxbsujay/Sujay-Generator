@@ -6,7 +6,8 @@ const Table = {
         const data = Vue.reactive({
             tableKey: 0,
             listLoading: true,
-            dialogVisible: false,
+            importDialogVisible: false,
+            updateDialogVisible: false,
             total: 0,
             dataListSelections: [],
             list: [],
@@ -78,20 +79,22 @@ const Table = {
              * @returns {Promise<void>}
              */
             async init(id) {
-                data.dialogVisible = true
                 if (id) {
                     const res = await tableInfo(id)
                     data.dataForm = {
                         ...data.dataForm,
                         ...res
                     }
+                    data.updateDialogVisible = true
+                }else {
+                    sourceList({ status: 0 }).then( res => {
+                        data.sourceList = res
+                    })
+                    queryTableListBySourceId(data.dataForm.sourceId ? data.dataForm.sourceId : 0).then( res => {
+                        data.tableList = res
+                    })
+                    data.importDialogVisible = true
                 }
-                sourceList({ status: 0 }).then( res => {
-                    data.sourceList = res
-                })
-                queryTableListBySourceId(data.dataForm.sourceId ? data.dataForm.sourceId : 0).then( res => {
-                    data.tableList = res
-                })
             },
             /**
              * 清空表单
@@ -116,11 +119,12 @@ const Table = {
                         fullscreenLoading.value = true
                         if (data.dataForm.id) {
                             await tableUpdate(data.dataForm)
+                            fullscreenLoading.value = false
                         } else {
-                            await tableSave(data.dataForm)
+                            await importTable(data.dataForm)
+                            fullscreenLoading.value = false
+                            data.importDialogVisible = false
                         }
-                        fullscreenLoading.value = false
-                        data.dialogVisible = false
                         await data.getList()
                     } else {
                         return false
