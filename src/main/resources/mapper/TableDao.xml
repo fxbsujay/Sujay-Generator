@@ -7,6 +7,7 @@
 		<result column="source_id" property="sourceId" />
 		<result column="table_name" property="tableName" />
 		<result column="table_comment" property="tableComment" />
+		<result column="engine" property="engine" />
 		<result column="class_name" property="className" />
 		<result column="base_class_id" property="baseClassId" />
 		<result column="module_name" property="moduleName" />
@@ -44,6 +45,9 @@
 		<if test="packageName != null and packageName !=''">
 			package_name,
 		</if>
+		<if test="engine != null and engine !=''">
+			engine,
+		</if>
 		source_id)
 		VALUES (
 		<if test="tableName != null and tableName !=''">
@@ -69,6 +73,9 @@
 		</if>
 		<if test="packageName != null and packageName !=''">
 			#{packageName},
+		</if>
+		<if test="engine != null and engine !=''">
+			#{engine},
 		</if>
 		#{sourceId})
 	</insert>
@@ -101,6 +108,9 @@
 		</if>
 		<if test="packageName != null and packageName != ''">
 			package_name =#{packageName},
+		</if>
+		<if test="engine != null and engine != ''">
+			engine =#{engine},
 		</if>
 		id = #{id}
 		where id =#{id}

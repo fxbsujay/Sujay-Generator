@@ -86,7 +86,7 @@ const Table = {
                         ...res
                     }
                 }
-                sourceList({}).then( res => {
+                sourceList({ status: 0 }).then( res => {
                     data.sourceList = res
                 })
                 queryTableListBySourceId(data.dataForm.sourceId ? data.dataForm.sourceId : 0).then( res => {

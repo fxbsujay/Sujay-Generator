@@ -76,8 +76,17 @@
 		delete from `source` where id = #{id}
 	</delete>
 
+	<sql id="whereParams">
+		<where>
+			<if test="status != null">
+				status = #{status}
+			</if>
+		</where>
+	</sql>
+
 	<select id="queryList" resultMap="resultMap">
 		SELECT * FROM `source`
+		<include refid="whereParams"></include>
 		ORDER BY update_date DESC
 	</select>
 
