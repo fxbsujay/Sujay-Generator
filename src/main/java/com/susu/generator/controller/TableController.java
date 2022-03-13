@@ -71,5 +71,18 @@ public class TableController {
         return Result.ok(list);
     }
 
+    /**
+     * <p> 导入表 </p>
+     * @author SuJay
+     * @date 13:15 2022/3/8
+     * @param dto: 数据源和表名
+     * @return com.susu.generator.common.Result
+     **/
+    @PostMapping("/importTable")
+    public Result importTable(@RequestBody TableDTO dto){
+        service.importTable(dto);
+        return Result.ok();
+    }
+
 
 }

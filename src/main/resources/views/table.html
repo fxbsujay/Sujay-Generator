@@ -94,7 +94,7 @@
              :model="dataForm"
              :rules="rules"
              abel-width="120px">
-      <el-form-item label="数据源选择" prop="connName">
+      <el-form-item label="数据源选择" prop="sourceId">
         <el-select v-model="dataForm.sourceId" class="m-2" placeholder="Select" size="large">
           <el-option
                   v-for="item in sourceList"
@@ -105,9 +105,20 @@
           </el-option>
         </el-select>
       </el-form-item>
+      <el-form-item label="数据表选择" prop="tableName">
+        <el-select v-model="dataForm.tableName" class="m-2" placeholder="Select" size="large">
+          <el-option
+                  v-for="item in tableList"
+                  :key="item.tableName"
+                  :label="item.tableComment ? item.tableComment : item.tableName"
+                  :value="item.tableName"
+          >
+          </el-option>
+        </el-select>
+      </el-form-item>
       <el-form-item>
         <el-button @click="dialogVisible = false">关闭</el-button>
-        <el-button type="primary" @click="submitHandle"
+        <el-button v-loading.fullscreen.lock="fullscreenLoading" type="primary" @click="submitHandle"
         >提交</el-button
         >
       </el-form-item>

@@ -74,7 +74,7 @@ public class GeneratorServiceImpl implements GeneratorService {
 
         for (ColumnEntity column : columnList) {
 
-            // 列名转换成Java属性名
+          /*  // 列名转换成Java属性名
             String attrName = columnToJava(column.getColumnName());
             column.setAttrName(attrName);
             column.setAttrname(StringUtils.uncapitalize(attrName));
@@ -87,7 +87,7 @@ public class GeneratorServiceImpl implements GeneratorService {
             }
             if (!hasList && "array".equals(column.getExtra())) {
                 hasList = true;
-            }
+            }*/
 
             //是否主键
             if ("PRI".equalsIgnoreCase(column.getColumnKey())) {

@@ -2,6 +2,7 @@ const Table = {
     name: 'Table',
     setup() {
         const form = Vue.ref(null)
+        const fullscreenLoading = Vue.ref(false)
         const data = Vue.reactive({
             tableKey: 0,
             listLoading: true,
@@ -9,7 +10,14 @@ const Table = {
             total: 0,
             dataListSelections: [],
             list: [],
+            /**
+             * 数据源数组
+             */
             sourceList: [],
+            /**
+             * 数据源下的所有表
+             */
+            tableList: [],
             listQuery: {
                 page: 1,
                 limit: 10
@@ -17,7 +25,8 @@ const Table = {
             dataForm: {
                 id: '',
                 tableName: '',
-                sourceId: ''
+                sourceId: '',
+                tableComment: ''
             },
 
             /**
@@ -65,7 +74,7 @@ const Table = {
             },
             /**
              * 表单初始化
-             * @param id  数据源id
+             * @param id  表id
              * @returns {Promise<void>}
              */
             async init(id) {
@@ -77,7 +86,12 @@ const Table = {
                         ...res
                     }
                 }
-                data.sourceList = await sourceList()
+                sourceList({}).then( res => {
+                    data.sourceList = res
+                })
+                queryTableListBySourceId(data.dataForm.sourceId ? data.dataForm.sourceId : 0).then( res => {
+                    data.tableList = res
+                })
             },
             /**
              * 清空表单
@@ -99,11 +113,13 @@ const Table = {
                 if (!form) return
                 form.value.validate(async (valid) => {
                     if (valid) {
+                        fullscreenLoading.value = true
                         if (data.dataForm.id) {
-                            await tableSave(data.dataForm)
-                        } else {
                             await tableUpdate(data.dataForm)
+                        } else {
+                            await tableSave(data.dataForm)
                         }
+                        fullscreenLoading.value = false
                         data.dialogVisible = false
                         await data.getList()
                     } else {
@@ -131,11 +147,18 @@ const Table = {
              */
             isNotBlank (str = '') {
                 return isNotBlank(str)
-            },
+            }
         })
 
         const rules = Vue.ref({
-            connName: [
+            sourceId: [
+                {
+                    required: true,
+                    message: '该项不能为空！',
+                    trigger: 'blur',
+                }
+            ],
+            tableName: [
                 {
                     required: true,
                     message: '该项不能为空！',
@@ -149,6 +172,7 @@ const Table = {
         })
         return {
             form,
+            fullscreenLoading,
             rules,
             ...Vue.toRefs(data)
 

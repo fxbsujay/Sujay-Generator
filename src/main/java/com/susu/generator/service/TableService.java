@@ -18,4 +18,11 @@ public interface TableService extends BaseService<TableEntity, TableDTO> {
      * @return Result<TableDTO>
      */
     List<TableDTO> selectTableListBySourceId(Long sourceId);
+
+    /**
+     * 从数据源中导入这个表
+     *
+     * @param dto 表名，数据源
+     */
+    void importTable(TableDTO dto);
 }

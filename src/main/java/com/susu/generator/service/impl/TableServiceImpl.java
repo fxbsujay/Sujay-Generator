@@ -10,6 +10,7 @@ import com.susu.generator.dao.SourceDao;
 import com.susu.generator.dao.TableDao;
 import com.susu.generator.dto.SourceDTO;
 import com.susu.generator.dto.TableDTO;
+import com.susu.generator.entity.ColumnEntity;
 import com.susu.generator.entity.SourceEntity;
 import com.susu.generator.entity.TableEntity;
 import com.susu.generator.exception.GeneratorException;
@@ -55,5 +56,38 @@ public class TableServiceImpl  extends BaseServiceImpl<TableDao, TableEntity, Ta
         List<TableEntity> list = generatorDao.queryList(new HashMap<>(1));
         DynamicDataSourceConfig.clear();
         return ConvertUtils.sourceToTarget(list,TableDTO.class);
+    }
+
+    @Override
+    public Boolean save(TableDTO dto) {
+        Long sourceId = dto.getSourceId();
+        SourceEntity entity = sourceDao.selectById(sourceId);
+
+        Boolean flag = DBUtils.connTest(ConvertUtils.sourceToTarget(entity, SourceDTO.class));
+
+        if (!flag) {
+            throw new GeneratorException("数据源连接失败！");
+        }
+
+        DruidDataSource dbSource = new DruidDataSource();
+        dbSource.setUrl(entity.getConnUrl());
+        dbSource.setUsername(entity.getUsername());
+        dbSource.setPassword(entity.getPassword());
+        DynamicDataSourceConfig.dataSourcesMap.put("dbKey", dbSource);
+        DynamicDataSourceConfig.setDataSource("dbKey");
+        TableEntity tableEntity = generatorDao.queryTable(dto.getTableName());
+        List<ColumnEntity> columnList = generatorDao.queryColumns(dto.getTableName());
+        DynamicDataSourceConfig.clear();
+
+        dto.setTableComment(tableEntity.getTableComment());
+        dto.setEngine(tableEntity.getEngine());
+        super.save(dto);
+        return true;
+    }
+
+    @Override
+    public void importTable(TableDTO dto) {
+        SourceEntity entity = sourceDao.selectById(dto.getSourceId());
+
     }
 }
