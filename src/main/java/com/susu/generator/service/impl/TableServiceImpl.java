@@ -5,6 +5,7 @@ import com.susu.generator.common.ConvertUtils;
 import com.susu.generator.common.DBUtils;
 import com.susu.generator.common.base.BaseServiceImpl;
 import com.susu.generator.config.DynamicDataSourceConfig;
+import com.susu.generator.dao.ColumnDao;
 import com.susu.generator.dao.GeneratorDao;
 import com.susu.generator.dao.SourceDao;
 import com.susu.generator.dao.TableDao;
@@ -32,6 +33,9 @@ public class TableServiceImpl  extends BaseServiceImpl<TableDao, TableEntity, Ta
 
     @Resource
     private GeneratorDao generatorDao;
+
+    @Resource
+    private ColumnDao columnDao;
 
     @Override
     public List<TableDTO> selectTableListBySourceId(Long sourceId) {
@@ -82,6 +86,10 @@ public class TableServiceImpl  extends BaseServiceImpl<TableDao, TableEntity, Ta
         dto.setTableComment(tableEntity.getTableComment());
         dto.setEngine(tableEntity.getEngine());
         super.save(dto);
+
+        columnList.forEach( item -> {
+            columnDao.insert(item);
+        });
 
     }
 }
