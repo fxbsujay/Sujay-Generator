@@ -39,13 +39,6 @@ public class TableDTO extends BaseDTO implements Serializable {
      **/
     public String className;
 
-
-    /**
-     * 类名
-     **/
-    public String classname;
-
-
     /**
      * 基类
      **/
@@ -89,14 +82,5 @@ public class TableDTO extends BaseDTO implements Serializable {
     private List<ColumnEntity> columns;
 
     private Integer dbType;
-
-
-    public String getClassname() {
-        return classname;
-    }
-
-    public void setClassname(String classname) {
-        this.classname = classname;
-    }
 
 }

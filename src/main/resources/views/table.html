@@ -130,17 +130,53 @@
   <el-dialog
           v-model="updateDialogVisible"
           title="配置信息"
-          width="30%"
           @close="resetForm"
   >
-
     <el-form ref="form"
              label-position="right"
-             label-width="100px"
+             label-width="80px"
              :model="dataForm"
              :rules="rules"
              abel-width="120px">
-
+      <el-row :gutter="20">
+        <el-col :span="12">
+          <el-form-item label="表名">
+            <el-input v-model="dataForm.tableName" disabled placeholder="生成路径" />
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="类名">
+            <el-input v-model="dataForm.className" placeholder="类名" />
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-row :gutter="20">
+        <el-col :span="12">
+          <el-form-item label="模块名">
+            <el-input v-model="dataForm.moduleName" placeholder="模块名" />
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="子模块名">
+            <el-input v-model="dataForm.subModuleName" placeholder="子模块名" />
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-row :gutter="20">
+        <el-col :span="12">
+          <el-form-item label="包名">
+            <el-input v-model="dataForm.packageName" placeholder="包名" />
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item label="基类">
+            <el-input v-model="dataForm.baseClassId" placeholder="基类" />
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-form-item label="生成路径">
+        <el-input v-model="dataForm.backendPath" placeholder="生成路径" />
+      </el-form-item>
       <el-form-item>
         <el-button @click="updateDialogVisible = false">关闭</el-button>
         <el-button v-loading.fullscreen.lock="fullscreenLoading" type="primary" @click="submitHandle"

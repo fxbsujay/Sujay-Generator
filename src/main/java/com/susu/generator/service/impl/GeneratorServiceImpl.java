@@ -65,7 +65,7 @@ public class GeneratorServiceImpl implements GeneratorService {
         // 表名转换成Java类名
         String className = columnToJava(table.getTableName());
         table.setClassName(className);
-        table.setClassname(StringUtils.uncapitalize(className));
+        table.setClassName(StringUtils.uncapitalize(className));
 
         boolean hasBigDecimal = false;
         boolean hasList = false;
@@ -110,8 +110,8 @@ public class GeneratorServiceImpl implements GeneratorService {
         map.put("tableComment", table.getTableComment());
         map.put("pk", table.getPk());
         map.put("className", table.getClassName());
-        map.put("classname", table.getClassname());
-        map.put("pathName", table.getClassname().toLowerCase());
+        map.put("classname", table.getClassName());
+        map.put("pathName", table.getClassName().toLowerCase());
         map.put("columnList", table.getColumns());
         map.put("hasBigDecimal", hasBigDecimal);
         map.put("hasList", hasList);

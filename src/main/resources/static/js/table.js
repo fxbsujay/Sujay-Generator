@@ -27,7 +27,12 @@ const Table = {
                 id: '',
                 tableName: '',
                 sourceId: '',
-                tableComment: ''
+                tableComment: '',
+                moduleName: '',
+                subModuleName: '',
+                packageName: '',
+                backendPath: '',
+                baseClassId: ''
             },
 
             /**
