@@ -82,7 +82,7 @@ public class TableServiceImpl  extends BaseServiceImpl<TableDao, TableEntity, Ta
         TableEntity tableEntity = generatorDao.queryTable(dto.getTableName());
         List<ColumnEntity> columnList = generatorDao.queryColumns(dto.getTableName());
         DynamicDataSourceConfig.clear();
-
+        dto.setCreateTime(tableEntity.getCreateTime());
         dto.setTableComment(tableEntity.getTableComment());
         dto.setEngine(tableEntity.getEngine());
         super.save(dto);
