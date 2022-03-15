@@ -88,6 +88,7 @@ public class TableServiceImpl  extends BaseServiceImpl<TableDao, TableEntity, Ta
         super.save(dto);
 
         columnList.forEach( item -> {
+            item.setTableId(dto.getId());
             columnDao.insert(item);
         });
 

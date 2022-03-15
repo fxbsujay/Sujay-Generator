@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.susu.generator.dao.ColumnDao">
+
+	<resultMap id="resultMap" type="com.susu.generator.entity.ColumnEntity">
+		<result column="table_id" property="tableId" />
+		<result column="column_name" property="columnName" />
+		<result column="data_type" property="dataType" />
+		<result column="column_comment" property="columnComment" />
+		<result column="column_key" property="columnKey" />
+		<result column="extra" property="extra" />
+		<result column="create_date" property="createDate" />
+		<result column="update_date" property="updateDate" />
+	</resultMap>
+
+	<insert id="insert" parameterType="com.susu.generator.entity.ColumnEntity" useGeneratedKeys="true" keyProperty="id">
+		INSERT  INTO `column` (
+		<if test="columnName != null and columnName !=''">
+			column_name,
+		</if>
+		<if test="dataType != null and dataType !=''">
+			data_type,
+		</if>
+		<if test="columnComment != null and columnComment !=''">
+			column_comment,
+		</if>
+		<if test="columnKey != null and columnKey !=''">
+			column_key,
+		</if>
+		<if test="extra != null and extra !=''">
+			extra,
+		</if>
+			table_id)
+		VALUES (
+		<if test="columnName != null and columnName !=''">
+			#{columnName},
+		</if>
+		<if test="dataType != null and dataType !=''">
+			#{dataType},
+		</if>
+		<if test="columnComment != null and columnComment !=''">
+			#{columnComment},
+		</if>
+		<if test="columnKey != null and columnKey !=''">
+			#{columnKey},
+		</if>
+		<if test="extra != null and extra !=''">
+			#{extra},
+		</if>
+			#{tableId})
+	</insert>
+
+	<update id="updateById" parameterType="com.susu.generator.entity.ColumnEntity">
+		update `column` set
+		<if test="columnName != null and columnName !=''">
+			column_name =#{columnName},
+		</if>
+		<if test="dataType != null and dataType != ''">
+			data_type =#{dataType},
+		</if>
+		<if test="columnComment != null and columnComment != ''">
+			column_comment =#{columnComment},
+		</if>
+		<if test="columnKey != null and columnKey != ''">
+			column_key =#{columnKey},
+		</if>
+		<if test="extra != null and extra != ''">
+			extra =#{extra},
+		</if>
+		<if test="tableId != null">
+			table_id =#{tableId},
+		</if>
+		    id =#{id}
+		where id =#{id}
+	</update>
+
+	<delete id="deleteById">
+		delete from `column` where id = #{id}
+	</delete>
+
+	<sql id="whereParams">
+		<where>
+			<if test="columnKey != null and columnKey != ''">
+				column_key = #{columnKey}
+			</if>
+		</where>
+	</sql>
+
+	<select id="queryList" resultMap="resultMap">
+		SELECT * FROM `column`
+		<include refid="whereParams"></include>
+		ORDER BY update_date DESC
+	</select>
+
+	<select id="selectById" resultMap="resultMap" >
+		select * from `column` where id = #{id}
+	</select>
+
+
+</mapper>

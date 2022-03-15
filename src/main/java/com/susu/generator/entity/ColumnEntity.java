@@ -16,6 +16,11 @@ public class ColumnEntity extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
+	 * 关联表
+	 */
+	private Long tableId;
+
+	/**
 	 * 列名
 	 **/
     private String columnName;
