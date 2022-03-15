@@ -98,7 +98,7 @@
 			module_name =#{moduleName},
 		</if>
 		<if test="baseClassId != null and baseClassId != ''">
-			base_classId =#{baseClassId},
+			base_class_id =#{baseClassId},
 		</if>
 		<if test="subModuleName != null and subModuleName != ''">
 			sub_module_name =#{subModuleName},

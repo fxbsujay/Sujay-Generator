@@ -125,6 +125,7 @@ const Table = {
                         if (data.dataForm.id) {
                             await tableUpdate(data.dataForm)
                             fullscreenLoading.value = false
+                            data.updateDialogVisible = false
                         } else {
                             await importTable(data.dataForm)
                             fullscreenLoading.value = false
@@ -134,7 +135,7 @@ const Table = {
                     } else {
                         return false
                     }
-                })
+
             },1000,true),
             /**
              * 删除
