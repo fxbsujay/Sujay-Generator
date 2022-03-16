@@ -41,4 +41,9 @@ public class ColumnDTO extends BaseDTO implements Serializable {
 	 **/
     private String extra;
 
+	/**
+	 * 序号
+	 **/
+	private Integer number;
+
 }

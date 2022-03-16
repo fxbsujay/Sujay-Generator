@@ -86,11 +86,12 @@ public class TableServiceImpl  extends BaseServiceImpl<TableDao, TableEntity, Ta
         dto.setTableComment(tableEntity.getTableComment());
         dto.setEngine(tableEntity.getEngine());
         super.save(dto);
-
-        columnList.forEach( item -> {
-            item.setTableId(dto.getId());
+        for (int i = 0; i < columnList.size(); i++) {
+            ColumnEntity item = columnList.get(i);
+            item.setTableId(tableEntity.getId());
+            item.setNumber(i);
             columnDao.insert(item);
-        });
+        }
 
     }
 }
