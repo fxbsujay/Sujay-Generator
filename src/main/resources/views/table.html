@@ -16,6 +16,7 @@
 <body>
 <div id="table" class="app-container">
 
+  <!-- 顶部搜索框 -->
   <el-row :gutter="20">
     <el-col :span="6">
       <el-input class="w-50 m-2" placeholder="Type something"/>
@@ -38,6 +39,8 @@
     <el-col :span="6"><div class="grid-content bg-purple"></div></el-col>
   </el-row>
   <el-divider></el-divider>
+
+  <!-- 表格 -->
   <el-table
           :header-cell-style="{background:'#eef1f6',color:'#0f59a4'}"
           :data="list"
@@ -54,6 +57,7 @@
     <el-table-column align="center" prop="updateDate" label="修改时间"></el-table-column>
     <el-table-column align="center" label="操作">
       <template #default="scope">
+        <el-button size="small" type="primary" @click="columnDrawerInit(scope.row.id)">字段信息</el-button>
         <el-button size="small" type="primary" @click="init(scope.row.id)">配置信息</el-button>
         <el-popconfirm
                 title="您确定要删除吗?"
@@ -83,6 +87,8 @@
   >
   </el-pagination>
 
+
+  <!-- 导入 -->
   <el-dialog
           v-model="importDialogVisible"
           title="导入"
@@ -118,15 +124,18 @@
           </el-option>
         </el-select>
       </el-form-item>
-      <el-form-item>
+    </el-form>
+    <template #footer>
+      <div style="flex: auto">
         <el-button @click="importDialogVisible = false">关闭</el-button>
         <el-button v-loading.fullscreen.lock="fullscreenLoading" type="primary" @click="submitHandle"
         >提交</el-button
         >
-      </el-form-item>
-    </el-form>
+      </div>
+    </template>
   </el-dialog>
 
+  <!-- 配置信息 -->
   <el-dialog
           v-model="updateDialogVisible"
           title="配置信息"
@@ -177,14 +186,50 @@
       <el-form-item label="生成路径">
         <el-input v-model="dataForm.backendPath" placeholder="生成路径" />
       </el-form-item>
-      <el-form-item>
+    </el-form>
+    <template #footer>
+      <div style="flex: auto">
         <el-button @click="updateDialogVisible = false">关闭</el-button>
         <el-button v-loading.fullscreen.lock="fullscreenLoading" type="primary" @click="submitHandle"
         >提交</el-button
         >
-      </el-form-item>
-    </el-form>
+      </div>
+    </template>
   </el-dialog>
+
+  <!-- 字段信息 -->
+  <el-drawer
+          v-model="columnDrawerVisible"
+          direction="ttb"
+          size="100%"
+          :with-header="false"
+  >
+      <!-- 表格 -->
+      <el-table
+              size="default"
+              :header-cell-style="{color:'#0f59a4'}"
+              :data="columnList"
+              stripe
+              class="el-table"
+              v-loading="columnListLoading"
+      >
+        <el-table-column align="center" prop="number" label="#" width="55"></el-table-column>
+        <el-table-column align="center" label="字段">
+          <el-table-column align="center" prop="columnName" label="字段名"></el-table-column>
+          <el-table-column align="center" prop="dataType" label="字段类型"></el-table-column>
+          <el-table-column align="center" prop="columnComment" label="说明"></el-table-column>
+          <el-table-column align="center" prop="columnKey" label="主键"></el-table-column>
+          <el-table-column align="center" prop="extra" label="策略"></el-table-column>
+        </el-table-column>
+      </el-table>
+    <template #footer>
+      <div style="flex: auto;margin-right: 5%">
+        <el-button size="large" @click="columnDrawerVisible = false">关闭</el-button>
+        <el-button size="large" type="primary" @click="columnDrawerSubmit">提交</el-button>
+      </div>
+    </template>
+  </el-drawer>
+
 
 </div>
 <script src="js/table.js"></script>

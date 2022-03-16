@@ -17,6 +17,7 @@ import com.susu.generator.entity.TableEntity;
 import com.susu.generator.exception.GeneratorException;
 import com.susu.generator.service.TableService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
@@ -63,6 +64,7 @@ public class TableServiceImpl  extends BaseServiceImpl<TableDao, TableEntity, Ta
     }
 
     @Override
+    @Transactional
     public void importTable(TableDTO dto) {
         Long sourceId = dto.getSourceId();
         SourceEntity entity = sourceDao.selectById(sourceId);

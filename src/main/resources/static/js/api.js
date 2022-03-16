@@ -241,3 +241,82 @@ function importTable(data) {
         data
     })
 }
+
+
+/**
+ * <p>Description: 字段分页查询 API</p>
+ * @author sujay
+ * @version 0:43 2022/3/17
+ */
+function columnPage(data) {
+    return request({
+        url: '/column/page',
+        method: 'get',
+        params: data
+    })
+}
+
+/**
+ * <p>Description: 字段分页查询 API</p>
+ * @author sujay
+ * @version 0:43 2022/3/17
+ */
+function columnList(data) {
+    return request({
+        url: '/column/list',
+        method: 'get',
+        params: data
+    })
+}
+
+/**
+ * <p>Description: 字段详情查询 API</p>
+ * @author sujay
+ * @version 0:43 2022/3/17
+ */
+function columnInfo(id) {
+    return request({
+        url: '/column/' + id,
+        method: 'get'
+    })
+}
+
+
+/**
+ * <p>Description: 字段新增 API</p>
+ * @author sujay
+ * @version 0:43 2022/3/17
+ */
+function columnSave(data) {
+    return request({
+        url: '/column',
+        method: 'post',
+        data
+    })
+}
+
+/**
+ * <p>Description: 字段修改 API</p>
+ * @author sujay
+ * @version 0:43 2022/3/17
+ */
+function columnUpdate(data) {
+    return request({
+        url: '/column',
+        method: 'put',
+        data
+    })
+}
+
+/**
+ * <p>Description: 字段删除 API</p>
+ * @author sujay
+ * @version 0:43 2022/3/17
+ */
+function columnDelete(data) {
+    return request({
+        url: '/column',
+        method: 'delete',
+        data
+    })
+}

@@ -81,8 +81,8 @@
 
 	<sql id="whereParams">
 		<where>
-			<if test="columnKey != null and columnKey != ''">
-				column_key = #{columnKey}
+			<if test="tableId != null">
+				table_id = #{tableId}
 			</if>
 		</where>
 	</sql>
@@ -90,7 +90,7 @@
 	<select id="queryList" resultMap="resultMap">
 		SELECT * FROM `column`
 		<include refid="whereParams"></include>
-		ORDER BY update_date DESC
+		ORDER BY `number`
 	</select>
 
 	<select id="selectById" resultMap="resultMap" >

@@ -6,8 +6,10 @@ const Table = {
         const data = Vue.reactive({
             tableKey: 0,
             listLoading: true,
+            columnListLoading: true,
             importDialogVisible: false,
             updateDialogVisible: false,
+            columnDrawerVisible: false,
             total: 0,
             dataListSelections: [],
             list: [],
@@ -19,6 +21,10 @@ const Table = {
              * 数据源下的所有表
              */
             tableList: [],
+            /**
+             * 字段信息数组
+             */
+            columnList: [],
             listQuery: {
                 page: 1,
                 limit: 10
@@ -150,6 +156,28 @@ const Table = {
                 await tableDelete(id ? [id] : this.dataListSelections.map(item => item['id']))
                 await data.getList()
             },
+            /**
+             * 字段信息抽屉初始化
+             * @param id table_id
+             */
+            async columnDrawerInit(id) {
+                const res = await columnList({ tableId: id} )
+                data.columnList = res
+                data.columnDrawerVisible = true
+                data.columnListLoading = false
+            },
+            /**
+             * 字段信息抽屉提交
+             */
+            columnDrawerSubmit: debounce(function (){
+                 ElementPlus.ElMessageBox.confirm(`Are you confirm to chose  ?`)
+                    .then(() => {
+                        data.columnDrawerVisible = false
+                    })
+                    .catch(() => {
+                        // catch error
+                    })
+            },1000,true),
             /**
              * 判空
              * @param str
