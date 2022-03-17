@@ -27,6 +27,9 @@ public class Query extends LinkedHashMap<String, Object> {
      **/
     private int limit = 10;
 
+    public Query() {
+    }
+
     public Query(Map<String, Object> params){
         this.putAll(params);
         String page = (String) params.get(Constant.PAGE);

@@ -2,6 +2,7 @@ package com.susu.generator.common.base;
 
 import com.susu.generator.common.Query;
 import com.susu.generator.entity.SourceEntity;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -22,7 +23,7 @@ public interface BaseDao<T> {
      * @param id  对象主键
      * @return 实体对象
      */
-    T selectById(Long id);
+    T selectById(@Param("id") Long id);
 
     /**
      * 新增
@@ -33,10 +34,10 @@ public interface BaseDao<T> {
 
     /**
      * 新增
-     * @param entities 实体对象
+     * @param list 实体对象
      * @return 影响条数
      */
-    int insertBatch(List<T> entities);
+    int insertBatch(@Param("list") List<T> list);
 
     /**
      * 修改
@@ -55,17 +56,17 @@ public interface BaseDao<T> {
 
     /**
      * 修改
-     * @param entities 实体对象
+     * @param list 实体对象
      * @return 影响条数
      */
-    int updateBatch(List<T> entities);
+    int updateBatch(@Param("list") List<T> list);
 
     /**
      * 删除
      * @param id 对象主键
      * @return 影响条数
      */
-    int deleteById(Long id);
+    int deleteById(@Param("id") Long id);
 
     /**
      * 删除

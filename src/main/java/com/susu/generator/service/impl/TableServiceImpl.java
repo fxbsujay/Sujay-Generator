@@ -3,6 +3,7 @@ package com.susu.generator.service.impl;
 import com.alibaba.druid.pool.DruidDataSource;
 import com.susu.generator.common.ConvertUtils;
 import com.susu.generator.common.DBUtils;
+import com.susu.generator.common.Query;
 import com.susu.generator.common.base.BaseServiceImpl;
 import com.susu.generator.config.DynamicDataSourceConfig;
 import com.susu.generator.dao.ColumnDao;
@@ -64,7 +65,6 @@ public class TableServiceImpl  extends BaseServiceImpl<TableDao, TableEntity, Ta
     }
 
     @Override
-    @Transactional
     public void importTable(TableDTO dto) {
         Long sourceId = dto.getSourceId();
         SourceEntity entity = sourceDao.selectById(sourceId);
@@ -88,12 +88,17 @@ public class TableServiceImpl  extends BaseServiceImpl<TableDao, TableEntity, Ta
         dto.setTableComment(tableEntity.getTableComment());
         dto.setEngine(tableEntity.getEngine());
         super.save(dto);
-        for (int i = 0; i < columnList.size(); i++) {
-            ColumnEntity item = columnList.get(i);
-            item.setTableId(tableEntity.getId());
-            item.setNumber(i);
-            columnDao.insert(item);
-        }
+        columnList.forEach( item -> {
+            item.setTableId(dto.getId());
+        });
+        columnDao.insertBatch(columnList);
+    }
 
+    @Override
+    public int delete(Long[] ids) {
+        Query query = new Query();
+        query.put("tableIds",ids);
+        columnDao.delete(query);
+        return super.delete(ids);
     }
 }

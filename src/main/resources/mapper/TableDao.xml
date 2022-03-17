@@ -20,7 +20,7 @@
 	</resultMap>
 
 	<insert id="insert" parameterType="com.susu.generator.entity.TableEntity" useGeneratedKeys="true" keyProperty="id">
-		INSERT  INTO `table` (
+		INSERT  INTO `g_table` (
 		<if test="tableName != null and tableName !=''">
 			table_name,
 		</if>
@@ -81,7 +81,7 @@
 	</insert>
 
 	<update id="updateById" parameterType="com.susu.generator.entity.TableEntity">
-		update `table` set
+		update `g_table` set
 		<if test="sourceId != null and sourceId !=''">
 			source_id =#{sourceId},
 		</if>
@@ -117,16 +117,16 @@
 	</update>
 
 	<delete id="deleteById">
-		delete from `table` where id = #{id}
+		delete from `g_table` where id = #{id}
 	</delete>
 
 	<select id="queryList" resultMap="resultMap">
-		select * from `table`
+		select * from `g_table`
 		order by create_date desc
 	</select>
 
 	<select id="selectById" resultMap="resultMap" >
-		select * from `table` where id = #{id}
+		select * from `g_table` where id = #{id}
 	</select>
 
 </mapper>

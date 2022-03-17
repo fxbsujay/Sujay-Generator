@@ -10,12 +10,13 @@
 		<result column="column_comment" property="columnComment" />
 		<result column="column_key" property="columnKey" />
 		<result column="extra" property="extra" />
+		<result column="number" property="number" />
 		<result column="create_date" property="createDate" />
 		<result column="update_date" property="updateDate" />
 	</resultMap>
 
 	<insert id="insert" parameterType="com.susu.generator.entity.ColumnEntity" useGeneratedKeys="true" keyProperty="id">
-		INSERT  INTO `column` (
+		INSERT  INTO `g_column` (
 		<if test="columnName != null and columnName !=''">
 			column_name,
 		</if>
@@ -30,6 +31,9 @@
 		</if>
 		<if test="extra != null and extra !=''">
 			extra,
+		</if>
+		<if test="number != null">
+			number,
 		</if>
 			table_id)
 		VALUES (
@@ -48,11 +52,37 @@
 		<if test="extra != null and extra !=''">
 			#{extra},
 		</if>
+		<if test="number != null">
+			#{number},
+		</if>
 			#{tableId})
+	</insert>
+	
+	<insert id="insertBatch" parameterType="com.susu.generator.entity.ColumnEntity">
+		INSERT  INTO `g_column` (
+			column_name,
+			data_type,
+			column_comment,
+			column_key,
+			extra,
+			number,
+			table_id
+		) VALUES
+		<foreach collection="list" item="item" index="index" separator="," >
+		(
+			#{item.columnName,jdbcType=VARCHAR},
+			#{item.dataType,jdbcType=VARCHAR},
+			#{item.columnComment,jdbcType=VARCHAR},
+			#{item.columnKey,jdbcType=VARCHAR},
+			#{item.extra,jdbcType=VARCHAR},
+			#{index,jdbcType=INTEGER},
+			#{item.tableId,jdbcType=BIGINT}
+		)
+		</foreach>
 	</insert>
 
 	<update id="updateById" parameterType="com.susu.generator.entity.ColumnEntity">
-		update `column` set
+		update `g_column` set
 		<if test="columnName != null and columnName !=''">
 			column_name =#{columnName},
 		</if>
@@ -70,31 +100,48 @@
 		</if>
 		<if test="tableId != null">
 			table_id =#{tableId},
+		</if>,
+		<if test="number != null">
+			number =#{number},
 		</if>
 		    id =#{id}
 		where id =#{id}
 	</update>
 
 	<delete id="deleteById">
-		delete from `column` where id = #{id}
+		delete from `g_column` where id = #{id}
+	</delete>
+
+	<delete id="delete">
+		delete from `g_column`
+		<include refid="whereParams"></include>
 	</delete>
 
 	<sql id="whereParams">
 		<where>
+			<if test="id != null">
+				id = #{id}
+			</if>
 			<if test="tableId != null">
-				table_id = #{tableId}
+				and table_id = #{tableId}
+			</if>
+			<if test="tableIds != null">
+				and table_id in
+				<foreach collection="tableIds" item="tableId" index="index" open="(" separator="," close=")">
+					#{tableId}
+				</foreach>
 			</if>
 		</where>
 	</sql>
 
 	<select id="queryList" resultMap="resultMap">
-		SELECT * FROM `column`
+		SELECT * FROM `g_column`
 		<include refid="whereParams"></include>
 		ORDER BY `number`
 	</select>
 
 	<select id="selectById" resultMap="resultMap" >
-		select * from `column` where id = #{id}
+		select * from `g_column` where id = #{id}
 	</select>
 
 
