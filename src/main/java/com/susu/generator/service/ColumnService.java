@@ -5,9 +5,9 @@ import com.susu.generator.dto.ColumnDTO;
 import com.susu.generator.entity.ColumnEntity;
 
 /**
- * @Author sujay
- * @Description 描述
- * @Date 0:01 2022/3/16
+ * <p> Description: 字段关系 </p>
+ * @author sujay
+ * @version 0:01 2022/3/16
  */
 public interface ColumnService extends BaseService<ColumnEntity, ColumnDTO> {
 }

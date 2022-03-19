@@ -43,7 +43,6 @@ public class TableServiceImpl  extends BaseServiceImpl<TableDao, TableEntity, Ta
     @Resource
     private ColumnDao columnDao;
 
-
     @Autowired
     DataSourceTransactionManager dataSourceTransactionManager;
 

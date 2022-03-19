@@ -216,10 +216,14 @@
         <el-table-column align="center" prop="number" label="#" width="55"></el-table-column>
         <el-table-column align="center" label="字段">
           <el-table-column align="center" prop="columnName" label="字段名"></el-table-column>
-          <el-table-column align="center" prop="dataType" label="字段类型"></el-table-column>
+          <el-table-column align="center" prop="columnType" label="字段类型"></el-table-column>
           <el-table-column align="center" prop="columnComment" label="说明"></el-table-column>
           <el-table-column align="center" prop="columnKey" label="主键"></el-table-column>
           <el-table-column align="center" prop="extra" label="策略"></el-table-column>
+        </el-table-column>
+        <el-table-column align="center" label="属性">
+          <el-table-column align="center" prop="attrName" label="属性名称"></el-table-column>
+          <el-table-column align="center" prop="attrType" label="属性类型"></el-table-column>
         </el-table-column>
       </el-table>
     <template #footer>
