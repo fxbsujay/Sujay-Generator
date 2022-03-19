@@ -65,6 +65,7 @@ public class TableServiceImpl  extends BaseServiceImpl<TableDao, TableEntity, Ta
     }
 
     @Override
+    @Transactional
     public void importTable(TableDTO dto) {
         Long sourceId = dto.getSourceId();
         SourceEntity entity = sourceDao.selectById(sourceId);
