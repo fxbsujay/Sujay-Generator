@@ -32,7 +32,6 @@ public class FieldTypeDTO extends BaseDTO implements Serializable {
      **/
     private Integer project;
 
-
     /**
      * 序号
      **/
