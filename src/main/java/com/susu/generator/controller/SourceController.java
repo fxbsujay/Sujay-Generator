@@ -1,13 +1,11 @@
 package com.susu.generator.controller;
 
-
 import com.susu.generator.common.PageData;
 import com.susu.generator.common.Query;
 import com.susu.generator.common.Result;
 import com.susu.generator.dto.SourceDTO;
 import com.susu.generator.service.SourceService;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.Map;
 

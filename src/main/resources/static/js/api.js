@@ -321,11 +321,10 @@ function columnDelete(data) {
     })
 }
 
-
 /**
- * <p>Description: 数据源分页查询 API</p>
+ * <p>Description: 字段关系分页查询 API</p>
  * @author sujay
- * @version 15:56 2022/2/24
+ * @version 00:20 2022/3/20
  */
 function fieldTypePage(data) {
     return request({
@@ -336,9 +335,9 @@ function fieldTypePage(data) {
 }
 
 /**
- * <p>Description: 数据源分页查询 API</p>
+ * <p>Description: 字段关系查询全部 API</p>
  * @author sujay
- * @version 15:56 2022/2/24
+ * @version 00:20 2022/3/20
  */
 function fieldTypeList(data) {
     return request({
@@ -349,9 +348,9 @@ function fieldTypeList(data) {
 }
 
 /**
- * <p>Description: 数据源详情查询 API</p>
+ * <p>Description: 字段关系详情查询 API</p>
  * @author sujay
- * @version 23:39 2022/3/3
+ * @version 00:20 2022/3/20
  */
 function fieldTypeInfo(id) {
     return request({
@@ -362,9 +361,9 @@ function fieldTypeInfo(id) {
 
 
 /**
- * <p>Description: 数据源新增 API</p>
+ * <p>Description: 字段关系新增 API</p>
  * @author sujay
- * @version 23:39 2022/3/3
+ * @version 00:20 2022/3/20
  */
 function fieldTypeSave(data) {
     return request({
@@ -375,9 +374,9 @@ function fieldTypeSave(data) {
 }
 
 /**
- * <p>Description: 数据源修改 API</p>
+ * <p>Description: 字段关系修改 API</p>
  * @author sujay
- * @version 23:39 2022/3/3
+ * @version 00:20 2022/3/20
  */
 function fieldTypeUpdate(data) {
     return request({
@@ -388,13 +387,91 @@ function fieldTypeUpdate(data) {
 }
 
 /**
- * <p>Description: 数据源删除 API</p>
+ * <p>Description: 字段关系删除 API</p>
  * @author sujay
- * @version 16:09 2022/3/5
+ * @version 00:20 2022/3/20
  */
 function fieldTypeDelete(data) {
     return request({
         url: '/field-type',
+        method: 'delete',
+        data
+    })
+}
+
+/**
+ * <p>Description: 模板分页查询 API</p>
+ * @author sujay
+ * @version 00:20 2022/3/20
+ */
+function templatePage(data) {
+    return request({
+        url: '/template/page',
+        method: 'get',
+        params: data
+    })
+}
+
+/**
+ * <p>Description: 模板分页查询 API</p>
+ * @author sujay
+ * @version 00:20 2022/3/20
+ */
+function templateList(data) {
+    return request({
+        url: '/template/list',
+        method: 'get',
+        params: data
+    })
+}
+
+/**
+ * <p>Description: 模板详情查询 API</p>
+ * @author sujay
+ * @version 00:20 2022/3/20
+ */
+function templateInfo(id) {
+    return request({
+        url: '/template/' + id,
+        method: 'get'
+    })
+}
+
+
+/**
+ * <p>Description: 模板新增 API</p>
+ * @author sujay
+ * @version 00:20 2022/3/20
+ */
+function templateSave(data) {
+    return request({
+        url: '/template',
+        method: 'post',
+        data
+    })
+}
+
+/**
+ * <p>Description: 模板修改 API</p>
+ * @author sujay
+ * @version 00:20 2022/3/20
+ */
+function templateUpdate(data) {
+    return request({
+        url: '/template',
+        method: 'put',
+        data
+    })
+}
+
+/**
+ * <p>Description: 模板删除 API</p>
+ * @author sujay
+ * @version 00:20 2022/3/20
+ */
+function templateDelete(data) {
+    return request({
+        url: '/template',
         method: 'delete',
         data
     })

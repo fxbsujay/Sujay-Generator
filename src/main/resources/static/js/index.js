@@ -27,6 +27,11 @@ const App = {
                     index: 4,
                     path: 'fieldType.html',
                     title: '字段管理'
+                },
+                {
+                    index: 5,
+                    path: 'template.html',
+                    title: '模板管理'
                 }
             ]
         })

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>代码生成器</title>
+  <!-- 导入样式 -->
+  <link rel="stylesheet" href="lib/elment.css">
+  <link rel="stylesheet" href="css/index.css">
+  <script src="lib/axios.js"></script>
+  <script src="js/api.js"></script>
+  <script src="lib/vue.js"></script>
+  <script src="lib/elment-ui.js"></script>
+  <script src="js/utils.js"></script>
+</head>
+<body>
+<div id="template" class="app-container">
+
+  <el-row :gutter="20">
+    <el-col :span="6">
+      <el-input class="w-50 m-2" placeholder="Type something"/>
+    </el-col>
+    <el-col :span="6">
+        <el-button type="primary" @click="search">搜索</el-button>
+        <el-button type="success" @click="init()">新增</el-button>
+        <el-popconfirm
+                title="您确定要删除吗?"
+                @confirm="deleteHandle()"
+                confirm-button-text="确定"
+                cancel-button-text="取消"
+        >
+          <template #reference>
+            <el-button type="danger">删除</el-button>
+          </template>
+        </el-popconfirm>
+    </el-col>
+    <el-col :span="6"><div class="grid-content bg-purple"></div></el-col>
+    <el-col :span="6"><div class="grid-content bg-purple"></div></el-col>
+  </el-row>
+  <el-divider></el-divider>
+  <el-table
+          :header-cell-style="{background:'#eef1f6',color:'#0f59a4'}"
+          :data="list"
+          stripe
+          size="large"
+          v-loading="listLoading"
+          @selection-change="handleSelectionChange"
+          class="el-table"
+  >
+    <el-table-column type="selection" width="55" ></el-table-column>
+    <el-table-column align="center" prop="name" label="模板名"></el-table-column>
+    <el-table-column align="center" prop="fileName" label="文件名"></el-table-column>
+    <el-table-column align="center" prop="path" label="生成路径"></el-table-column>
+    <el-table-column align="center" prop="status" label="状态"></el-table-column>
+    <el-table-column align="center" prop="updateDate" label="修改时间"></el-table-column>
+    <el-table-column align="center" label="操作">
+      <template #default="scope">
+        <el-button size="small" type="primary" @click="init(scope.row.id)">修改</el-button>
+        <el-popconfirm
+                title="您确定要删除吗?"
+                @confirm="deleteHandle(scope.row.id)"
+                confirm-button-text="确定"
+                cancel-button-text="取消"
+        >
+          <template #reference>
+            <el-button size="small" type="danger">删除</el-button>
+          </template>
+        </el-popconfirm>
+      </template>
+    </el-table-column>
+  </el-table>
+
+  <el-pagination
+          class="el-pagination center"
+          background
+          v-show="total > 0"
+          v-model:page="listQuery.page"
+          v-model:limit="listQuery.limit"
+          :page-sizes="[10, 20, 50, 100]"
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
+          layout="total, sizes, prev, pager, next, jumper"
+          :total="total"
+  >
+  </el-pagination>
+
+  <el-dialog
+          v-model="dialogVisible"
+          :title="isNotBlank(dataForm.id) ? '修改' : '新增'"
+          width="30%"
+          draggable
+          @close="resetForm"
+  >
+
+    <el-form ref="form"
+             label-position="right"
+             label-width="100px"
+             :model="dataForm"
+             :rules="rules"
+             abel-width="120px">
+      <el-form-item label="模板名称" prop="name">
+        <el-input clearable v-model="dataForm.name"></el-input>
+      </el-form-item>
+      <el-form-item label="文件名称" prop="fileName">
+        <el-input clearable v-model="dataForm.fileName"></el-input>
+      </el-form-item>
+      <el-form-item label="生成路径" prop="path">
+        <el-input clearable v-model="dataForm.path"></el-input>
+      </el-form-item>
+      <el-form-item label="模板内容" prop="content">
+        <el-input clearable v-model="dataForm.content"></el-input>
+      </el-form-item>
+      <el-form-item label="状态" prop="status">
+        <el-input clearable v-model="dataForm.status"></el-input>
+      </el-form-item>
+      <el-form-item>
+        <el-button @click="dialogVisible = false">关闭</el-button>
+        <el-button type="primary" @click="submitHandle"
+        >提交</el-button
+        >
+      </el-form-item>
+    </el-form>
+  </el-dialog>
+
+</div>
+<script src="js/template.js"></script>
+</body>
+</html>
