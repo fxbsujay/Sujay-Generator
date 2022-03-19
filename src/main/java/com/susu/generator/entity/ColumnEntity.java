@@ -26,9 +26,19 @@ public class ColumnEntity extends BaseEntity implements Serializable {
     private String columnName;
 
 	/**
+	 * 属性名
+	 **/
+	private String attrName;
+
+	/**
+	 * 属性类型
+	 **/
+	private String attrType;
+
+	/**
 	 * 列名类型
 	 **/
-    private String dataType;
+    private String columnType;
 
 	/**
 	 * 列名备注

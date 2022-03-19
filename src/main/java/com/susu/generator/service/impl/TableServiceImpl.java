@@ -17,7 +17,11 @@ import com.susu.generator.entity.SourceEntity;
 import com.susu.generator.entity.TableEntity;
 import com.susu.generator.exception.GeneratorException;
 import com.susu.generator.service.TableService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.TransactionDefinition;
+import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
@@ -38,6 +42,13 @@ public class TableServiceImpl  extends BaseServiceImpl<TableDao, TableEntity, Ta
 
     @Resource
     private ColumnDao columnDao;
+
+
+    @Autowired
+    DataSourceTransactionManager dataSourceTransactionManager;
+
+    @Autowired
+    TransactionDefinition transactionDefinition;
 
     @Override
     public List<TableDTO> selectTableListBySourceId(Long sourceId) {
@@ -65,7 +76,6 @@ public class TableServiceImpl  extends BaseServiceImpl<TableDao, TableEntity, Ta
     }
 
     @Override
-    @Transactional
     public void importTable(TableDTO dto) {
         Long sourceId = dto.getSourceId();
         SourceEntity entity = sourceDao.selectById(sourceId);
@@ -88,11 +98,21 @@ public class TableServiceImpl  extends BaseServiceImpl<TableDao, TableEntity, Ta
         dto.setCreateTime(tableEntity.getCreateTime());
         dto.setTableComment(tableEntity.getTableComment());
         dto.setEngine(tableEntity.getEngine());
-        super.save(dto);
-        columnList.forEach( item -> {
-            item.setTableId(dto.getId());
-        });
-        columnDao.insertBatch(columnList);
+
+        TransactionStatus transactionStatus = null;
+        try {
+            transactionStatus = dataSourceTransactionManager.getTransaction(transactionDefinition);
+            super.save(dto);
+            columnList.forEach( item -> {
+                item.setTableId(dto.getId());
+            });
+            columnDao.insertBatch(columnList);
+            dataSourceTransactionManager.commit(transactionStatus);
+        }catch (Exception e) {
+            assert transactionStatus != null;
+            dataSourceTransactionManager.rollback(transactionStatus);
+        }
+
     }
 
     @Override

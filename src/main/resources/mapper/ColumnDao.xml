@@ -6,7 +6,9 @@
 	<resultMap id="resultMap" type="com.susu.generator.entity.ColumnEntity">
 		<result column="table_id" property="tableId" />
 		<result column="column_name" property="columnName" />
-		<result column="data_type" property="dataType" />
+		<result column="column_type" property="columnType" />
+		<result column="attr_name" property="attrName" />
+		<result column="attr_type" property="attrType" />
 		<result column="column_comment" property="columnComment" />
 		<result column="column_key" property="columnKey" />
 		<result column="extra" property="extra" />
@@ -20,8 +22,14 @@
 		<if test="columnName != null and columnName !=''">
 			column_name,
 		</if>
-		<if test="dataType != null and dataType !=''">
-			data_type,
+		<if test="columnType != null and columnType !=''">
+			column_type,
+		</if>
+		<if test="attrName != null and attrName !=''">
+			attr_name,
+		</if>
+		<if test="attrType != null and attrType !=''">
+			attr_type,
 		</if>
 		<if test="columnComment != null and columnComment !=''">
 			column_comment,
@@ -40,8 +48,14 @@
 		<if test="columnName != null and columnName !=''">
 			#{columnName},
 		</if>
-		<if test="dataType != null and dataType !=''">
-			#{dataType},
+		<if test="columnType != null and columnType !=''">
+			#{columnType},
+		</if>
+		<if test="attrName != null and attrName !=''">
+			#{attrName},
+		</if>
+		<if test="attrType != null and attrType !=''">
+			#{attrType},
 		</if>
 		<if test="columnComment != null and columnComment !=''">
 			#{columnComment},
@@ -61,7 +75,9 @@
 	<insert id="insertBatch" parameterType="com.susu.generator.entity.ColumnEntity">
 		INSERT  INTO `g_column` (
 			column_name,
-			data_type,
+			column_type,
+			attr_name,
+			attr_type,
 			column_comment,
 			column_key,
 			extra,
@@ -71,7 +87,9 @@
 		<foreach collection="list" item="item" index="index" separator="," >
 		(
 			#{item.columnName,jdbcType=VARCHAR},
-			#{item.dataType,jdbcType=VARCHAR},
+			#{item.columnType,jdbcType=VARCHAR},
+			#{item.attrName,jdbcType=VARCHAR},
+			#{item.attrType,jdbcType=VARCHAR},
 			#{item.columnComment,jdbcType=VARCHAR},
 			#{item.columnKey,jdbcType=VARCHAR},
 			#{item.extra,jdbcType=VARCHAR},
@@ -86,8 +104,14 @@
 		<if test="columnName != null and columnName !=''">
 			column_name =#{columnName},
 		</if>
-		<if test="dataType != null and dataType != ''">
-			data_type =#{dataType},
+		<if test="columnType != null and columnType != ''">
+			column_type =#{columnType},
+		</if>
+		<if test="attrName != null and attrName !=''">
+			attr_name =#{attrName},
+		</if>
+		<if test="attrType != null and attrType != ''">
+			attr_type =#{attrType},
 		</if>
 		<if test="columnComment != null and columnComment != ''">
 			column_comment =#{columnComment},
