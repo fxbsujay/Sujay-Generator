@@ -92,7 +92,7 @@
   <el-dialog
           v-model="importDialogVisible"
           title="导入"
-          width="30%"
+          width="20%"
           @close="resetForm"
   >
 
@@ -139,6 +139,7 @@
   <el-dialog
           v-model="updateDialogVisible"
           title="配置信息"
+          draggable
           @close="resetForm"
   >
     <el-form ref="form"
@@ -204,6 +205,7 @@
           size="100%"
           :with-header="false"
   >
+    <el-page-header content="close" @back="columnDrawerVisible = false" ></el-page-header>
       <!-- 表格 -->
       <el-table
               size="default"

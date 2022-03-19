@@ -22,6 +22,11 @@ const App = {
                     index: 3,
                     path: 'table.html',
                     title: '数据表'
+                },
+                {
+                    index: 4,
+                    path: 'fieldType.html',
+                    title: '字段管理'
                 }
             ]
         })

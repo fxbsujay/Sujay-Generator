@@ -22,4 +22,12 @@
 		select * from `g_template` where status = 0
 	</select>
 
+	<delete id="deleteBatch">
+		delete from `g_template`
+		where id in
+		<foreach collection="ids" item="id" index="index" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
 </mapper>

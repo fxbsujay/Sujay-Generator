@@ -59,6 +59,14 @@
 		delete from `g_field_type` where id = #{id}
 	</delete>
 
+	<delete id="deleteBatch">
+		delete from `g_field_type`
+		where id in
+		<foreach collection="ids" item="id" index="index" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
 	<sql id="whereParams">
 		<where>
 			<if test="attrType != null and attrType != ''">
@@ -70,7 +78,7 @@
 	<select id="queryList" resultMap="resultMap">
 		SELECT * FROM `g_field_type`
 		<include refid="whereParams"></include>
-		ORDER BY update_date DESC
+		ORDER BY `number`
 	</select>
 
 	<select id="selectById" resultMap="resultMap" >

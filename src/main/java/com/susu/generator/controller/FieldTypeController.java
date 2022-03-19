@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/field-type")
+@RequestMapping("field-type")
 public class FieldTypeController {
 
     private final FieldTypeService service;

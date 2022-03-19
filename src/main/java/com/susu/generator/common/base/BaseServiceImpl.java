@@ -64,10 +64,7 @@ public abstract class BaseServiceImpl <M extends BaseDao<T>, T extends BaseEntit
 
     @Override
     public int delete(Long[] ids) {
-        for (Long id : ids) {
-            baseDao.deleteById(id);
-        }
-        return 1;
+        return baseDao.deleteBatch(ids);
     }
 
     protected Class<D> currentDtoClass() {

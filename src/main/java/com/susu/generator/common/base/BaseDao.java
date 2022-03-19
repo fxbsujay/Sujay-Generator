@@ -69,6 +69,13 @@ public interface BaseDao<T> {
     int deleteById(@Param("id") Long id);
 
     /**
+     * 批量删除
+     * @param ids 实体对象
+     * @return 影响条数
+     */
+    int deleteBatch(@Param("ids") Long[] ids);
+
+    /**
      * 删除
      * @param query 删除条件
      * @return 影响条数

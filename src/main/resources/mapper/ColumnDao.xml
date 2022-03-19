@@ -141,6 +141,14 @@
 		<include refid="whereParams"></include>
 	</delete>
 
+	<delete id="deleteBatch">
+		delete from `g_column`
+		where id in
+		<foreach collection="ids" item="id" index="index" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
 	<sql id="whereParams">
 		<where>
 			<if test="id != null">

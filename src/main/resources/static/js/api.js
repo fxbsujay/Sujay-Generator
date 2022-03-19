@@ -320,3 +320,82 @@ function columnDelete(data) {
         data
     })
 }
+
+
+/**
+ * <p>Description: 数据源分页查询 API</p>
+ * @author sujay
+ * @version 15:56 2022/2/24
+ */
+function fieldTypePage(data) {
+    return request({
+        url: '/field-type/page',
+        method: 'get',
+        params: data
+    })
+}
+
+/**
+ * <p>Description: 数据源分页查询 API</p>
+ * @author sujay
+ * @version 15:56 2022/2/24
+ */
+function fieldTypeList(data) {
+    return request({
+        url: '/field-type/list',
+        method: 'get',
+        params: data
+    })
+}
+
+/**
+ * <p>Description: 数据源详情查询 API</p>
+ * @author sujay
+ * @version 23:39 2022/3/3
+ */
+function fieldTypeInfo(id) {
+    return request({
+        url: '/field-type/' + id,
+        method: 'get'
+    })
+}
+
+
+/**
+ * <p>Description: 数据源新增 API</p>
+ * @author sujay
+ * @version 23:39 2022/3/3
+ */
+function fieldTypeSave(data) {
+    return request({
+        url: '/field-type',
+        method: 'post',
+        data
+    })
+}
+
+/**
+ * <p>Description: 数据源修改 API</p>
+ * @author sujay
+ * @version 23:39 2022/3/3
+ */
+function fieldTypeUpdate(data) {
+    return request({
+        url: '/field-type',
+        method: 'put',
+        data
+    })
+}
+
+/**
+ * <p>Description: 数据源删除 API</p>
+ * @author sujay
+ * @version 16:09 2022/3/5
+ */
+function fieldTypeDelete(data) {
+    return request({
+        url: '/field-type',
+        method: 'delete',
+        data
+    })
+}

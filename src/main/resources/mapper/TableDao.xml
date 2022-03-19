@@ -120,6 +120,14 @@
 		delete from `g_table` where id = #{id}
 	</delete>
 
+	<delete id="deleteBatch">
+		delete from `g_table`
+		where id in
+		<foreach collection="ids" item="id" index="index" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
 	<select id="queryList" resultMap="resultMap">
 		select * from `g_table`
 		order by create_date desc

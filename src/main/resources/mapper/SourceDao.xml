@@ -76,6 +76,14 @@
 		delete from `g_source` where id = #{id}
 	</delete>
 
+	<delete id="deleteBatch">
+		delete from `g_source`
+		where id in
+		<foreach collection="ids" item="id" index="index" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
 	<sql id="whereParams">
 		<where>
 			<if test="status != null">
