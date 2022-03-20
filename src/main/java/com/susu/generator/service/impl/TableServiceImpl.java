@@ -108,6 +108,7 @@ public class TableServiceImpl  extends BaseServiceImpl<TableDao, TableEntity, Ta
             columnDao.insertBatch(columnList);
             dataSourceTransactionManager.commit(transactionStatus);
         }catch (Exception e) {
+            e.printStackTrace();
             assert transactionStatus != null;
             dataSourceTransactionManager.rollback(transactionStatus);
         }

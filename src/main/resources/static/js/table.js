@@ -25,6 +25,7 @@ const Table = {
              * 字段信息数组
              */
             columnList: [],
+            fieldType: [],
             listQuery: {
                 page: 1,
                 limit: 10
@@ -161,10 +162,10 @@ const Table = {
              * @param id table_id
              */
             async columnDrawerInit(id) {
-                const res = await columnList({ tableId: id} )
-                data.columnList = res
+                data.columnList = await columnList({tableId: id})
                 data.columnDrawerVisible = true
                 data.columnListLoading = false
+                data.fieldType = await fieldTypeList({})
             },
             /**
              * 字段信息抽屉提交

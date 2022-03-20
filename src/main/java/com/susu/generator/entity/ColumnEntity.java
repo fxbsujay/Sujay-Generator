@@ -33,7 +33,7 @@ public class ColumnEntity extends BaseEntity implements Serializable {
 	/**
 	 * 属性类型
 	 **/
-	private String attrType;
+	private Long attrType;
 
 	/**
 	 * 列名类型

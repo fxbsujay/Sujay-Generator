@@ -28,7 +28,7 @@
 		<if test="attrName != null and attrName !=''">
 			attr_name,
 		</if>
-		<if test="attrType != null and attrType !=''">
+		<if test="attrType != null">
 			attr_type,
 		</if>
 		<if test="columnComment != null and columnComment !=''">
@@ -54,7 +54,7 @@
 		<if test="attrName != null and attrName !=''">
 			#{attrName},
 		</if>
-		<if test="attrType != null and attrType !=''">
+		<if test="attrType != null">
 			#{attrType},
 		</if>
 		<if test="columnComment != null and columnComment !=''">
@@ -110,7 +110,7 @@
 		<if test="attrName != null and attrName !=''">
 			attr_name =#{attrName},
 		</if>
-		<if test="attrType != null and attrType != ''">
+		<if test="attrType != null">
 			attr_type =#{attrType},
 		</if>
 		<if test="columnComment != null and columnComment != ''">

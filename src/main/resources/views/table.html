@@ -224,8 +224,23 @@
           <el-table-column align="center" prop="extra" label="策略"></el-table-column>
         </el-table-column>
         <el-table-column align="center" label="属性">
-          <el-table-column align="center" prop="attrName" label="属性名称"></el-table-column>
-          <el-table-column align="center" prop="attrType" label="属性类型"></el-table-column>
+          <el-table-column align="center" prop="attrName" label="属性名称">
+            <template #default="scope">
+              <el-input v-model="scope.row.attrName" placeholder="属性名称" />
+            </template>
+          </el-table-column>
+          <el-table-column align="center" prop="attrType" label="属性类型">
+            <template #default="scope">
+              <el-select v-model="scope.row.attrType" class="m-2" placeholder="Select">
+                <el-option
+                        v-for="item in fieldType"
+                        :key="item.id"
+                        :label="item.attrType"
+                        :value="item.id"
+                />
+              </el-select>
+            </template>
+          </el-table-column>
         </el-table-column>
       </el-table>
     <template #footer>

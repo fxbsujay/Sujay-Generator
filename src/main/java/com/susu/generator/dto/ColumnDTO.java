@@ -34,7 +34,7 @@ public class ColumnDTO extends BaseDTO implements Serializable {
 	/**
 	 * 属性类型
 	 **/
-	private String attrType;
+	private Long attrType;
 
 	/**
 	 * 列名备注
