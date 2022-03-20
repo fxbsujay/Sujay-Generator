@@ -153,40 +153,61 @@
   >
   </el-pagination>
 
-  <el-dialog
-          v-model="dialogVisible"
-          :title="isNotBlank(dataForm.id) ? '修改' : '新增'"
-          draggable
-          fullscreen
+  <el-drawer
+          v-model="drawerVisible"
+          direction="ttb"
+          size="100%"
+          :with-header="false"
           @close="resetForm"
   >
-    <el-form ref="form"
-             label-position="right"
-             label-width="100px"
-             :model="dataForm"
-             :rules="rules"
-    >
-      <el-form-item label="模板名称" prop="name">
-        <el-input clearable v-model="dataForm.name"></el-input>
-      </el-form-item>
-      <el-form-item label="文件名称" prop="fileName">
-        <el-input clearable v-model="dataForm.fileName"></el-input>
-      </el-form-item>
-      <el-form-item label="生成路径" prop="path">
-        <el-input clearable v-model="dataForm.path"></el-input>
-      </el-form-item>
-      <el-form-item label="状态" prop="status">
-        <el-input clearable v-model="dataForm.status"></el-input>
-      </el-form-item>
-      <textarea name="code" id="editorArea" style="width: 100%;height: 100%" v-model="dataForm.content"></textarea>
-      <el-form-item>
-        <el-button @click="dialogVisible = false">关闭</el-button>
-        <el-button type="primary" @click="submitHandle"
-        >提交</el-button
-        >
-      </el-form-item>
-    </el-form>
-  </el-dialog>
+    <el-page-header :content="isNotBlank(dataForm.id) ? '修改' : '新增'" @back="drawerVisible = false" ></el-page-header>
+    <div style="margin-top: 20px;">
+      <el-form ref="form"
+               label-position="right"
+               label-width="100px"
+               :model="dataForm"
+               :rules="rules"
+
+      >
+        <el-row :gutter="20">
+          <el-col :span="10">
+            <el-form-item label="模板名称" prop="name">
+              <el-input clearable v-model="dataForm.name"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="10">
+            <el-form-item label="文件名称" prop="fileName">
+              <el-input clearable v-model="dataForm.fileName"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-row :gutter="20">
+          <el-col :span="10">
+            <el-form-item label="生成路径" prop="path">
+              <el-input clearable v-model="dataForm.path"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="10">
+            <el-form-item label="状态" prop="status">
+              <el-radio-group v-model="dataForm.status">
+                <el-radio :label="0">启用</el-radio>
+                <el-radio :label="1">禁用</el-radio>
+              </el-radio-group>
+            </el-form-item>
+          </el-col>
+        </el-row>
+        <el-form-item prop="content">
+        </el-form-item>
+      </el-form>
+      <textarea name="editorArea" id="editorArea"></textarea>
+    </div>
+    <template #footer>
+      <div style="flex: auto;margin-right: 5%;margin-top: 20px">
+        <el-button size="large" @click="drawerVisible = false">关闭</el-button>
+        <el-button size="large" type="primary" @click="submitHandle">提交</el-button>
+      </div>
+    </template>
+  </el-drawer>
 
 </div>
 <script src="js/template.js"></script>

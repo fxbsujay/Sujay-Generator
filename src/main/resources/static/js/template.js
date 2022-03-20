@@ -3,10 +3,9 @@ const Template = {
     setup() {
         const form = Vue.ref(null)
         const data = Vue.reactive({
-            editor: null,
             tableKey: 0,
             listLoading: true,
-            dialogVisible: false,
+            drawerVisible: false,
             total: 0,
             dataListSelections: [],
             list: [],
@@ -20,7 +19,21 @@ const Template = {
                 fileName: '',
                 content: '',
                 path: '',
-                status: null
+                status: 0
+            },
+            /**
+             * 编辑器实例
+             */
+            editor: null,
+            /**
+             * 编辑器属性
+             */
+            options: {
+                mode: "text/x-java",
+                lineNumbers: true,
+                styleActiveLine: true,
+                matchBrackets: true,
+                theme: 'darcula'
             },
             /**
              *  查询列表
@@ -71,7 +84,7 @@ const Template = {
              * @returns {Promise<void>}
              */
             async init(id) {
-                data.dialogVisible = true
+                data.drawerVisible = true
                 if (id) {
                     const res = await templateInfo(id)
                     data.dataForm = {
@@ -80,15 +93,16 @@ const Template = {
                     }
                 }
                 this.$nextTick(() => {
-                    if (!data.editor) {
-                        data.editor = CodeMirror.fromTextArea(document.getElementById("editorArea"), {
-                            mode: "text/x-java", //实现Java代码高亮
+                    if (!isNotBlank(data.editor)) {
+                        data.editor = CodeMirror.fromTextArea(document.getElementById('editorArea'),  {
+                            mode: "text/x-java",
                             lineNumbers: true,
                             styleActiveLine: true,
                             matchBrackets: true,
                             theme: 'darcula'
                         });
                     }
+                    data.editor.setValue(data.dataForm.content)
                 })
             },
             /**
@@ -111,13 +125,19 @@ const Template = {
                 if (!form) return
                 form.value.validate(async (valid) => {
                     if (valid) {
-                        if (data.dataForm.id) {
-                            await templateUpdate(data.dataForm)
-                        } else {
-                            await templateSave(data.dataForm)
-                        }
-                        data.dialogVisible = false
-                        await data.getList()
+                        ElementPlus.ElMessageBox.confirm(`Are you confirm to chose  ?`)
+                            .then(async () => {
+                                if (data.dataForm.id) {
+                                    await templateUpdate(data.dataForm)
+                                } else {
+                                    await templateSave(data.dataForm)
+                                }
+                                data.drawerVisible = false
+                                await data.getList()
+                            })
+                            .catch(() => {
+                                // catch error
+                            })
                     } else {
                         return false
                     }

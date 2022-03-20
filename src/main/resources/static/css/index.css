@@ -38,4 +38,7 @@
     align-content: center;
     text-align: center;
 }
+.CodeMirror {
+    height: 500px !important;
+}
 
