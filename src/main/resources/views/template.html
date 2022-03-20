@@ -5,8 +5,77 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>代码生成器</title>
   <!-- 导入样式 -->
+  <link rel="stylesheet" href="lib/codemirror.css">
   <link rel="stylesheet" href="lib/elment.css">
   <link rel="stylesheet" href="css/index.css">
+  <link rel="stylesheet" href="lib/mirror/theme/3024-day.css">
+  <link rel="stylesheet" href="lib/mirror/theme/3024-night.css">
+  <link rel="stylesheet" href="lib/mirror/theme/abbott.css">
+  <link rel="stylesheet" href="lib/mirror/theme/abcdef.css">
+  <link rel="stylesheet" href="lib/mirror/theme/ambiance.css">
+  <link rel="stylesheet" href="lib/mirror/theme/ayu-dark.css">
+  <link rel="stylesheet" href="lib/mirror/theme/ayu-mirage.css">
+  <link rel="stylesheet" href="lib/mirror/theme/base16-dark.css">
+  <link rel="stylesheet" href="lib/mirror/theme/bespin.css">
+  <link rel="stylesheet" href="lib/mirror/theme/base16-light.css">
+  <link rel="stylesheet" href="lib/mirror/theme/blackboard.css">
+  <link rel="stylesheet" href="lib/mirror/theme/cobalt.css">
+  <link rel="stylesheet" href="lib/mirror/theme/colorforth.css">
+  <link rel="stylesheet" href="lib/mirror/theme/dracula.css">
+  <link rel="stylesheet" href="lib/mirror/theme/duotone-dark.css">
+  <link rel="stylesheet" href="lib/mirror/theme/duotone-light.css">
+  <link rel="stylesheet" href="lib/mirror/theme/eclipse.css">
+  <link rel="stylesheet" href="lib/mirror/theme/elegant.css">
+  <link rel="stylesheet" href="lib/mirror/theme/erlang-dark.css">
+  <link rel="stylesheet" href="lib/mirror/theme/gruvbox-dark.css">
+  <link rel="stylesheet" href="lib/mirror/theme/hopscotch.css">
+  <link rel="stylesheet" href="lib/mirror/theme/icecoder.css">
+  <link rel="stylesheet" href="lib/mirror/theme/isotope.css">
+  <link rel="stylesheet" href="lib/mirror/theme/juejin.css">
+  <link rel="stylesheet" href="lib/mirror/theme/lesser-dark.css">
+  <link rel="stylesheet" href="lib/mirror/theme/liquibyte.css">
+  <link rel="stylesheet" href="lib/mirror/theme/lucario.css">
+  <link rel="stylesheet" href="lib/mirror/theme/material.css">
+  <link rel="stylesheet" href="lib/mirror/theme/material-darker.css">
+  <link rel="stylesheet" href="lib/mirror/theme/material-palenight.css">
+  <link rel="stylesheet" href="lib/mirror/theme/material-ocean.css">
+  <link rel="stylesheet" href="lib/mirror/theme/mbo.css">
+  <link rel="stylesheet" href="lib/mirror/theme/mdn-like.css">
+  <link rel="stylesheet" href="lib/mirror/theme/midnight.css">
+  <link rel="stylesheet" href="lib/mirror/theme/monokai.css">
+  <link rel="stylesheet" href="lib/mirror/theme/moxer.css">
+  <link rel="stylesheet" href="lib/mirror/theme/neat.css">
+  <link rel="stylesheet" href="lib/mirror/theme/neo.css">
+  <link rel="stylesheet" href="lib/mirror/theme/night.css">
+  <link rel="stylesheet" href="lib/mirror/theme/nord.css">
+  <link rel="stylesheet" href="lib/mirror/theme/oceanic-next.css">
+  <link rel="stylesheet" href="lib/mirror/theme/panda-syntax.css">
+  <link rel="stylesheet" href="lib/mirror/theme/paraiso-dark.css">
+  <link rel="stylesheet" href="lib/mirror/theme/paraiso-light.css">
+  <link rel="stylesheet" href="lib/mirror/theme/pastel-on-dark.css">
+  <link rel="stylesheet" href="lib/mirror/theme/railscasts.css">
+  <link rel="stylesheet" href="lib/mirror/theme/rubyblue.css">
+  <link rel="stylesheet" href="lib/mirror/theme/seti.css">
+  <link rel="stylesheet" href="lib/mirror/theme/shadowfox.css">
+  <link rel="stylesheet" href="lib/mirror/theme/solarized.css">
+  <link rel="stylesheet" href="lib/mirror/theme/the-matrix.css">
+  <link rel="stylesheet" href="lib/mirror/theme/tomorrow-night-bright.css">
+  <link rel="stylesheet" href="lib/mirror/theme/tomorrow-night-eighties.css">
+  <link rel="stylesheet" href="lib/mirror/theme/ttcn.css">
+  <link rel="stylesheet" href="lib/mirror/theme/twilight.css">
+  <link rel="stylesheet" href="lib/mirror/theme/vibrant-ink.css">
+  <link rel="stylesheet" href="lib/mirror/theme/xq-dark.css">
+  <link rel="stylesheet" href="lib/mirror/theme/xq-light.css">
+  <link rel="stylesheet" href="lib/mirror/theme/yeti.css">
+  <link rel="stylesheet" href="lib/mirror/theme/idea.css">
+  <link rel="stylesheet" href="lib/mirror/theme/darcula.css">
+  <link rel="stylesheet" href="lib/mirror/theme/yonce.css">
+  <link rel="stylesheet" href="lib/mirror/theme/zenburn.css">
+  <script src="lib/codemirror.js"></script>
+  <script src="lib/mirror/mode/clike.js"></script>
+  <script src="lib/mirror/javascript.js"></script>
+  <script src="lib/mirror/active-line.js"></script>
+  <script src="lib/mirror/matchbrackets.js"></script>
   <script src="lib/axios.js"></script>
   <script src="js/api.js"></script>
   <script src="lib/vue.js"></script>
@@ -87,17 +156,16 @@
   <el-dialog
           v-model="dialogVisible"
           :title="isNotBlank(dataForm.id) ? '修改' : '新增'"
-          width="30%"
           draggable
+          fullscreen
           @close="resetForm"
   >
-
     <el-form ref="form"
              label-position="right"
              label-width="100px"
              :model="dataForm"
              :rules="rules"
-             abel-width="120px">
+    >
       <el-form-item label="模板名称" prop="name">
         <el-input clearable v-model="dataForm.name"></el-input>
       </el-form-item>
@@ -107,12 +175,10 @@
       <el-form-item label="生成路径" prop="path">
         <el-input clearable v-model="dataForm.path"></el-input>
       </el-form-item>
-      <el-form-item label="模板内容" prop="content">
-        <el-input clearable v-model="dataForm.content"></el-input>
-      </el-form-item>
       <el-form-item label="状态" prop="status">
         <el-input clearable v-model="dataForm.status"></el-input>
       </el-form-item>
+      <textarea name="code" id="editorArea" style="width: 100%;height: 100%" v-model="dataForm.content"></textarea>
       <el-form-item>
         <el-button @click="dialogVisible = false">关闭</el-button>
         <el-button type="primary" @click="submitHandle"

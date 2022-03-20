@@ -3,6 +3,7 @@ const Template = {
     setup() {
         const form = Vue.ref(null)
         const data = Vue.reactive({
+            editor: null,
             tableKey: 0,
             listLoading: true,
             dialogVisible: false,
@@ -78,6 +79,17 @@ const Template = {
                         ...res
                     }
                 }
+                this.$nextTick(() => {
+                    if (!data.editor) {
+                        data.editor = CodeMirror.fromTextArea(document.getElementById("editorArea"), {
+                            mode: "text/x-java", //实现Java代码高亮
+                            lineNumbers: true,
+                            styleActiveLine: true,
+                            matchBrackets: true,
+                            theme: 'darcula'
+                        });
+                    }
+                })
             },
             /**
              * 清空表单
