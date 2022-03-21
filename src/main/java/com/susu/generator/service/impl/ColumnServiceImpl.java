@@ -7,10 +7,20 @@ import com.susu.generator.entity.ColumnEntity;
 import com.susu.generator.service.ColumnService;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * @author fxbsujay@gmail.com
  */
 @Service
 public class ColumnServiceImpl extends BaseServiceImpl<ColumnDao, ColumnEntity, ColumnDTO> implements ColumnService {
 
+    @Override
+    public ColumnDTO test() {
+        String time = new SimpleDateFormat("yyyy_MM").format( new Date());
+        String tableName = "lamp_inverter_data_" + time;
+        baseDao.createTable(tableName);
+        return null;
+    }
 }

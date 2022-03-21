@@ -10,7 +10,7 @@ spring:
     #MySQL配置
     driverClassName: com.mysql.cj.jdbc.Driver
     # rm-bp1uhk8d56815utb22o.mysql.rds.aliyuncs.com
-    url: jdbc:mysql://localhost:3306/generator?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://localhost:3306/generator?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai&allowMultiQueries=true
     username: root
     password: 123456
     #oracle配置

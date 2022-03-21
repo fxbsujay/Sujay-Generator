@@ -45,6 +45,12 @@ public class ColumnController {
         return Result.ok(dto);
     }
 
+    @GetMapping("/test")
+    public Result test(){
+        ColumnDTO dto = service.test();
+        return Result.ok(dto);
+    }
+
     @PostMapping
     public Result save(@RequestBody ColumnDTO dto) {
         Boolean flag = service.save(dto);
