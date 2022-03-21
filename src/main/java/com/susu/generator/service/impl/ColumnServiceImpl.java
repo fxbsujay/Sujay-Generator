@@ -16,11 +16,4 @@ import java.util.Date;
 @Service
 public class ColumnServiceImpl extends BaseServiceImpl<ColumnDao, ColumnEntity, ColumnDTO> implements ColumnService {
 
-    @Override
-    public ColumnDTO test() {
-        String time = new SimpleDateFormat("yyyy_MM").format( new Date());
-        String tableName = "lamp_inverter_data_" + time;
-        baseDao.createTable(tableName);
-        return null;
-    }
 }

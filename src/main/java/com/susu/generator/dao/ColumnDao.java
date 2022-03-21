@@ -8,5 +8,4 @@ import org.apache.ibatis.annotations.Param;
 @Mapper
 public interface ColumnDao extends BaseDao<ColumnEntity> {
 
-    void createTable(@Param("tableName") String tableName);
 }
