@@ -1,6 +1,7 @@
 package com.susu.generator.common;
 
 import com.susu.generator.exception.GeneratorException;
+import freemarker.cache.StringTemplateLoader;
 import org.apache.commons.configuration.Configuration;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
@@ -30,4 +31,14 @@ public class ConfigUtils {
         return Arrays.asList(stringArray);
     }
 
+    /**
+     * 配置 freemarker configuration
+     */
+    public static freemarker.template.Configuration configuration() {
+        freemarker.template.Configuration configuration = new freemarker.template.Configuration(freemarker.template.Configuration.VERSION_2_3_27);
+        StringTemplateLoader templateLoader = new StringTemplateLoader();
+        configuration.setTemplateLoader(templateLoader);
+        configuration.setDefaultEncoding("UTF-8");
+        return configuration;
+    }
 }

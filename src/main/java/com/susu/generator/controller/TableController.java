@@ -85,4 +85,9 @@ public class TableController {
     }
 
 
+    @GetMapping("/exportTable/{id}")
+    public Result exportTable(@PathVariable("id") Long id){
+        service.exportTable(id);
+        return Result.ok();
+    }
 }

@@ -220,7 +220,7 @@ function tableDelete(data) {
 /**
  * <p>Description: 数据源表导入查询 API</p>
  * @author sujay
- * @version 13::13 2022/3/8
+ * @version 13:13 2022/3/8
  */
 function queryTableListBySourceId(id) {
     return request({
@@ -232,7 +232,7 @@ function queryTableListBySourceId(id) {
 /**
  * <p>Description: 数据源表导入查询 API</p>
  * @author sujay
- * @version 13::13 2022/3/8
+ * @version 13:13 2022/3/8
  */
 function importTable(data) {
     return request({
@@ -242,6 +242,17 @@ function importTable(data) {
     })
 }
 
+/**
+ * <p>Description: 模板导出 API</p>
+ * @author sujay
+ * @version 18:05 2022/3/24
+ */
+function exportTable(id) {
+    return request({
+        url: '/table/exportTable/' + id,
+        method: 'get'
+    })
+}
 
 /**
  * <p>Description: 字段分页查询 API</p>

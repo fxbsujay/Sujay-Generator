@@ -45,9 +45,7 @@
 		<if test="attrType != null and attrType != ''">
 			attr_type =#{attrType},
 		</if>
-		<if test="project != null and project != ''">
-			project =#{project},
-		</if>
+		project =#{project},
 		<if test="number != null">
 			number =#{number},
 		</if>

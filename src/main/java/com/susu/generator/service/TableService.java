@@ -25,4 +25,10 @@ public interface TableService extends BaseService<TableEntity, TableDTO> {
      * @param dto 表名，数据源
      */
     void importTable(TableDTO dto);
+
+    /**
+     * 模板导出
+     * @param id 表id
+     */
+    void exportTable(Long id);
 }

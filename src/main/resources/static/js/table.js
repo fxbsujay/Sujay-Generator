@@ -180,6 +180,19 @@ const Table = {
                     })
             },1000,true),
             /**
+             * 数据表导出模板
+             */
+            async exportTable(id) {
+                const res = await exportTable(id)
+                if (res) {
+                    ElementPlus.ElNotification({
+                        title: 'Success',
+                        message: '导出成功！',
+                        type: 'success',
+                    })
+                }
+            },
+            /**
              * 判空
              * @param str
              * @returns {*}

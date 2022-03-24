@@ -59,6 +59,7 @@
       <template #default="scope">
         <el-button size="small" type="primary" @click="columnDrawerInit(scope.row.id)">字段信息</el-button>
         <el-button size="small" type="primary" @click="init(scope.row.id)">配置信息</el-button>
+        <el-button size="small" type="success" @click="exportTable(scope.row.id)">生成</el-button>
         <el-popconfirm
                 title="您确定要删除吗?"
                 @confirm="deleteHandle(scope.row.id)"

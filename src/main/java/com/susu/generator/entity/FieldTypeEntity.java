@@ -29,7 +29,7 @@ public class FieldTypeEntity extends BaseEntity implements Serializable {
     /**
      * 所在包
      **/
-    private Integer project;
+    private String project;
 
     /**
      * 序号

@@ -1,32 +1,33 @@
 package com.susu.generator.service.impl;
 
 import com.alibaba.druid.pool.DruidDataSource;
-import com.susu.generator.common.ConvertUtils;
-import com.susu.generator.common.DBUtils;
-import com.susu.generator.common.Query;
+import com.susu.generator.common.*;
 import com.susu.generator.common.base.BaseServiceImpl;
+import com.susu.generator.common.constant.TemplateConstant;
 import com.susu.generator.config.DynamicDataSourceConfig;
-import com.susu.generator.dao.ColumnDao;
-import com.susu.generator.dao.GeneratorDao;
-import com.susu.generator.dao.SourceDao;
-import com.susu.generator.dao.TableDao;
+import com.susu.generator.dao.*;
 import com.susu.generator.dto.SourceDTO;
 import com.susu.generator.dto.TableDTO;
 import com.susu.generator.entity.ColumnEntity;
 import com.susu.generator.entity.SourceEntity;
 import com.susu.generator.entity.TableEntity;
+import com.susu.generator.entity.TemplateEntity;
 import com.susu.generator.exception.GeneratorException;
 import com.susu.generator.service.TableService;
+import freemarker.template.Configuration;
+import freemarker.template.Template;
+import freemarker.template.TemplateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.TransactionStatus;
-import org.springframework.transaction.annotation.Transactional;
-
 import javax.annotation.Resource;
+import java.io.IOException;
+import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author 26933
@@ -42,6 +43,9 @@ public class TableServiceImpl  extends BaseServiceImpl<TableDao, TableEntity, Ta
 
     @Resource
     private ColumnDao columnDao;
+
+    @Resource
+    private TemplateDao templateDao;
 
     @Autowired
     DataSourceTransactionManager dataSourceTransactionManager;
@@ -115,6 +119,45 @@ public class TableServiceImpl  extends BaseServiceImpl<TableDao, TableEntity, Ta
 
     }
 
+    @Override
+    public void exportTable(Long id) {
+
+
+        Query templateQuery = new Query();
+        templateQuery.put("status",0);
+        List<TemplateEntity> templateList = templateDao.queryList(templateQuery);
+        if (templateList.isEmpty()) {
+            throw new GeneratorException("没有模板！");
+        }
+        Configuration configuration = ConfigUtils.configuration();
+        TableEntity table = baseDao.selectById(id);
+        Query columnQuery = new Query();
+        templateQuery.put("tableId",table.getId());
+        List<ColumnEntity> columnEntities = columnDao.queryList(columnQuery);
+
+        Map<String, Object> map = new HashMap<>();
+        map.put(TemplateConstant.PACKAGE_NAME, table.getPackageName());
+        map.put(TemplateConstant.MODULE_NAME, table.getModuleName());
+        map.put(TemplateConstant.SUB_MODULE_NAME, table.getSubModuleName());
+        map.put(TemplateConstant.TABLE_NAME,table.getTableName());
+        map.put(TemplateConstant.CLASS_NAME,table.getClassName());
+
+        try {
+            for (TemplateEntity templateEntity : templateList) {
+
+                String content = templateEntity.getContent();
+                String fileName = templateEntity.getFileName();
+                StringWriter stringWriter = new StringWriter();
+                Template template = new Template(fileName, content, configuration);
+                template.process(map, stringWriter);
+                System.out.println(stringWriter.toString());
+            }
+        } catch (IOException | TemplateException e) {
+            e.printStackTrace();
+        }
+
+    }
+    
     @Override
     public int delete(Long[] ids) {
         Query query = new Query();
