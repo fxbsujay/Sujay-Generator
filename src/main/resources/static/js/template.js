@@ -94,16 +94,35 @@ const Template = {
                 }
                 this.$nextTick(() => {
                     if (!isNotBlank(data.editor)) {
-                        data.editor = CodeMirror.fromTextArea(document.getElementById('editorArea'),  {
+                        data.editor = Vue.markRaw(CodeMirror.fromTextArea(document.getElementById('editorArea'),  {
                             mode: "text/x-java",
                             lineNumbers: true,
                             styleActiveLine: true,
                             matchBrackets: true,
-                            theme: 'darcula'
-                        });
+                            theme: 'darcula',
+                            autoRefresh: true
+                        }));
                     }
                     data.editor.setValue(data.dataForm.content)
+                    data.editor.on('change', cm => {
+                        this.$emit('changed', data.codeMirrorHandle());
+                        this.$emit('input', data.codeMirrorHandle());
+                    });
+                    data.codeMirrorRefresh()
                 })
+            },
+            /**
+             * 刷新CodeMirror组件
+             */
+            codeMirrorRefresh() {
+                data.editor && data.editor.refresh();
+            },
+            /**
+             * CodeMirror输入触发方法
+             */
+            codeMirrorHandle() {
+                data.dataForm.content = data.editor.getValue()
+                return data.editor.getValue()
             },
             /**
              * 清空表单
