@@ -11,7 +11,8 @@ const Source = {
             list: [],
             listQuery: {
                 page: 1,
-                limit: 10
+                limit: 10,
+                connName: ''
             },
             /**
              * 数据库类型常量
@@ -95,6 +96,7 @@ const Source = {
              */
             resetForm() {
                 form.value.resetFields()
+                data.dataForm.id = ''
             },
             /**
              * 多选

@@ -89,6 +89,9 @@
 			<if test="status != null">
 				status = #{status}
 			</if>
+			<if test="connName != null and connName != ''">
+				conn_name like "%" #{connName} "%"
+			</if>
 		</where>
 	</sql>
 

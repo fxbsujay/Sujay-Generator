@@ -70,6 +70,9 @@
 			<if test="attrType != null and attrType != ''">
 				attr_type = #{attrType}
 			</if>
+			<if test="columnType != null and columnType != ''">
+				column_type like "%" #{columnType} "%"
+			</if>
 		</where>
 	</sql>
 
@@ -86,6 +89,14 @@
     <select id="queryProjectListByTableId" resultType="java.lang.String">
 		SELECT project FROM `g_field_type`
 		WHERE id IN ( SELECT attr_type FROM `g_column` WHERE table_id = #{tableId} ) AND TRIM(project) != ''
+	</select>
+
+    <select id="countSizeByColumnType" resultType="java.lang.Integer">
+		SELECT COUNT(id) FROM `g_field_type` WHERE column_type = #{columnType}
+	</select>
+
+	<select id="countSizeByColumnTypeAndExId" resultType="java.lang.Integer">
+		SELECT COUNT(id) FROM `g_field_type` WHERE column_type = #{columnType} AND id != #{id}
 	</select>
 
 

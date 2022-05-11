@@ -86,6 +86,9 @@
 			<if test="status != null">
 				status = #{status}
 			</if>
+			<if test="name != null and name != ''">
+				`name` like "%" #{name} "%"
+			</if>
 		</where>
 	</sql>
 

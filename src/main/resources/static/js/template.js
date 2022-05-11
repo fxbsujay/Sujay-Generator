@@ -11,7 +11,8 @@ const Template = {
             list: [],
             listQuery: {
                 page: 1,
-                limit: 10
+                limit: 10,
+                name: ''
             },
             dataForm: {
                 id: '',
@@ -129,6 +130,7 @@ const Template = {
              */
             resetForm() {
                 form.value.resetFields()
+                data.dataForm.id = ''
             },
             /**
              * 多选

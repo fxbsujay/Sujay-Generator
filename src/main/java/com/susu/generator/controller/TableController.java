@@ -7,7 +7,6 @@ import com.susu.generator.common.Result;
 import com.susu.generator.dto.TableDTO;
 import com.susu.generator.service.TableService;
 import org.springframework.web.bind.annotation.*;
-
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;

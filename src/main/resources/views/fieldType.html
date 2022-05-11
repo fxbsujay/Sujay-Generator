@@ -18,7 +18,7 @@
 
   <el-row :gutter="20">
     <el-col :span="6">
-      <el-input class="w-50 m-2" placeholder="Type something"/>
+      <el-input class="w-50 m-2" v-model="listQuery.columnType" placeholder="请输入名称"/>
     </el-col>
     <el-col :span="6">
         <el-button type="primary" @click="search">搜索</el-button>

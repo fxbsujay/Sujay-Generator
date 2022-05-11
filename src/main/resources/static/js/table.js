@@ -28,7 +28,8 @@ const Table = {
             fieldType: [],
             listQuery: {
                 page: 1,
-                limit: 10
+                limit: 10,
+                tableName: ''
             },
             dataForm: {
                 id: '',
@@ -113,6 +114,7 @@ const Table = {
              */
             resetForm() {
                 form.value.resetFields()
+                data.dataForm.id = ''
             },
             /**
              * 多选

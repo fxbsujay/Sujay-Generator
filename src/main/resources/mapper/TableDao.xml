@@ -128,8 +128,17 @@
 		</foreach>
 	</delete>
 
+	<sql id="whereParams">
+		<where>
+			<if test="tableName != null and tableName != ''">
+				`table_name` like "%" #{tableName} "%"
+			</if>
+		</where>
+	</sql>
+
 	<select id="queryList" resultMap="resultMap">
 		select * from `g_table`
+		<include refid="whereParams"></include>
 		order by create_date desc
 	</select>
 
