@@ -55,7 +55,7 @@
     <el-table-column align="center" prop="tableComment" label="说明"></el-table-column>
     <el-table-column align="center" prop="engine" label="存储引擎"></el-table-column>
     <el-table-column align="center" prop="updateDate" label="修改时间"></el-table-column>
-    <el-table-column align="center" label="操作">
+    <el-table-column width="350" fixed="right" align="center" label="操作">
       <template #default="scope">
         <el-button size="small" type="primary" @click="columnDrawerInit(scope.row.id)">字段信息</el-button>
         <el-button size="small" type="primary" @click="init(scope.row.id)">配置信息</el-button>
