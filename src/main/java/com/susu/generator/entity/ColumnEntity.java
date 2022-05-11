@@ -36,6 +36,11 @@ public class ColumnEntity extends BaseEntity implements Serializable {
 	private Long attrType;
 
 	/**
+	 * 属性类型名称
+	 **/
+	private String attrTypeName;
+
+	/**
 	 * 列名类型
 	 **/
     private String columnType;
@@ -59,5 +64,4 @@ public class ColumnEntity extends BaseEntity implements Serializable {
 	 * 序号
 	 **/
 	private Integer number;
-
 }

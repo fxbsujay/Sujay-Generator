@@ -243,18 +243,6 @@ function importTable(data) {
 }
 
 /**
- * <p>Description: 模板导出 API</p>
- * @author sujay
- * @version 18:05 2022/3/24
- */
-function exportTable(id) {
-    return request({
-        url: '/table/exportTable/' + id,
-        method: 'get'
-    })
-}
-
-/**
  * <p>Description: 字段分页查询 API</p>
  * @author sujay
  * @version 0:43 2022/3/17

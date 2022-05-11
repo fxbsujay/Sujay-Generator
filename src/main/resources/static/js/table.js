@@ -182,15 +182,13 @@ const Table = {
             /**
              * 数据表导出模板
              */
-            async exportTable(id) {
-                const res = await exportTable(id)
-                if (res) {
-                    ElementPlus.ElNotification({
-                        title: 'Success',
-                        message: '导出成功！',
-                        type: 'success',
-                    })
-                }
+            exportTable(id) {
+                location.href = `http://localhost:8001/table/exportTable/${id}`
+                ElementPlus.ElNotification({
+                    title: '导出成功',
+                    message: '请在游览器的下载内容种查看下载文件',
+                    type: 'success'
+                });
             },
             /**
              * 判空

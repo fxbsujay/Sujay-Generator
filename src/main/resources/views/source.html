@@ -49,7 +49,11 @@
   >
     <el-table-column type="selection" width="55" ></el-table-column>
     <el-table-column align="center" prop="connName" label="连接名称"></el-table-column>
-    <el-table-column align="center" prop="connUrl" label="连接地址"></el-table-column>
+    <el-table-column align="center" prop="connUrl" label="连接地址">
+      <template #default="scope">
+        {{ beautySub(scope.row.connUrl) }}
+      </template>
+    </el-table-column>
     <el-table-column align="center" prop="dbType" label="类型">
       <template #default="scope">
         {{ dbTypeList.find( item => item.value === scope.row.dbType) ? dbTypeList.find( item => item.value === scope.row.dbType).label : '--'}}

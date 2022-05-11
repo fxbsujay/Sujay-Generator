@@ -165,6 +165,14 @@ const Source = {
             isNotBlank (str = '') {
                 return isNotBlank(str)
             },
+            /**
+             * 超长作固定长度加省略号（...）处理
+             * @param str
+             * @returns {*}
+             */
+            beautySub (str = '') {
+                return beautySub(str.toString(),15)
+            },
         })
 
         const rules = Vue.ref({

@@ -1,11 +1,15 @@
 package com.susu.generator.controller;
 
+import com.susu.generator.common.IOUtils;
 import com.susu.generator.common.PageData;
 import com.susu.generator.common.Query;
 import com.susu.generator.common.Result;
 import com.susu.generator.dto.TableDTO;
 import com.susu.generator.service.TableService;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -84,10 +88,14 @@ public class TableController {
         return Result.ok();
     }
 
-
     @GetMapping("/exportTable/{id}")
-    public Result exportTable(@PathVariable("id") Long id){
-        service.exportTable(id);
+    public Result exportTable(@PathVariable("id") Long id, HttpServletResponse response) throws IOException {
+        byte[] data = service.exportTable(id);
+        response.reset();
+        response.setHeader("Content-Disposition", "attachment; filename=\"sujay.zip\"");
+        response.addHeader("Content-Length", "" + data.length);
+        response.setContentType("application/octet-stream; charset=UTF-8");
+        IOUtils.write(data,response.getOutputStream());
         return Result.ok();
     }
 }

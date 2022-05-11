@@ -82,34 +82,34 @@
 
 	<update id="updateById" parameterType="com.susu.generator.entity.TableEntity">
 		update `g_table` set
-		<if test="sourceId != null and sourceId !=''">
+		<if test="sourceId != null">
 			source_id =#{sourceId},
 		</if>
-		<if test="tableName != null and tableName != ''">
+		<if test="tableName != null">
 			table_name =#{tableName},
 		</if>
-		<if test="tableComment != null and tableComment != ''">
+		<if test="tableComment != null">
 			table_comment =#{tableComment},
 		</if>
-		<if test="className != null and className != ''">
+		<if test="className != null">
 			class_name =#{className},
 		</if>
-		<if test="moduleName != null and moduleName != ''">
+		<if test="moduleName != null">
 			module_name =#{moduleName},
 		</if>
 		<if test="baseClassId != null and baseClassId != ''">
 			base_class_id =#{baseClassId},
 		</if>
-		<if test="subModuleName != null and subModuleName != ''">
+		<if test="subModuleName != null">
 			sub_module_name =#{subModuleName},
 		</if>
-		<if test="backendPath != null and backendPath != ''">
+		<if test="backendPath != null">
 			backend_path =#{backendPath},
 		</if>
-		<if test="packageName != null and packageName != ''">
+		<if test="packageName != null">
 			package_name =#{packageName},
 		</if>
-		<if test="engine != null and engine != ''">
+		<if test="engine != null">
 			engine =#{engine},
 		</if>
 		id = #{id}

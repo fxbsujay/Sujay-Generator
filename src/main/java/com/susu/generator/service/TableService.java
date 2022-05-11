@@ -30,5 +30,5 @@ public interface TableService extends BaseService<TableEntity, TableDTO> {
      * 模板导出
      * @param id 表id
      */
-    void exportTable(Long id);
+    byte[] exportTable(Long id);
 }

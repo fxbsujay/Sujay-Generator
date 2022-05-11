@@ -144,7 +144,7 @@ const Template = {
                 if (!form) return
                 form.value.validate(async (valid) => {
                     if (valid) {
-                        ElementPlus.ElMessageBox.confirm(`Are you confirm to chose  ?`)
+                        ElementPlus.ElMessageBox.confirm(`你确定保存并关闭窗口吗  ?`)
                             .then(async () => {
                                 if (data.dataForm.id) {
                                     await templateUpdate(data.dataForm)
@@ -182,6 +182,14 @@ const Template = {
              */
             isNotBlank (str = '') {
                 return isNotBlank(str)
+            },
+            /**
+             * 超长作固定长度加省略号（...）处理
+             * @param str
+             * @returns {*}
+             */
+            beautySub (str = '') {
+                return beautySub(str.toString(),15)
             },
         })
 

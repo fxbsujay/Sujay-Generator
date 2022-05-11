@@ -80,7 +80,12 @@
 	</select>
 
 	<select id="selectById" resultMap="resultMap" >
-		select * from `g_field_type` where id = #{id}
+		SELECT * FROM `g_field_type` WHERE id = #{id}
+	</select>
+
+    <select id="queryProjectListByTableId" resultType="java.lang.String">
+		SELECT project FROM `g_field_type`
+		WHERE id IN ( SELECT attr_type FROM `g_column` WHERE table_id = #{tableId} ) AND TRIM(project) != ''
 	</select>
 
 

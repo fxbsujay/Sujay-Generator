@@ -20,12 +20,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.TransactionStatus;
 import javax.annotation.Resource;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 /**
  * @author 26933
@@ -127,8 +130,10 @@ public class TableServiceImpl  extends BaseServiceImpl<TableDao, TableEntity, Ta
     }
 
     @Override
-    public void exportTable(Long id) {
+    public byte[] exportTable(Long id) {
 
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        ZipOutputStream zip = new ZipOutputStream(outputStream);
 
         Query templateQuery = new Query();
         templateQuery.put("status",0);
@@ -136,11 +141,9 @@ public class TableServiceImpl  extends BaseServiceImpl<TableDao, TableEntity, Ta
         if (templateList.isEmpty()) {
             throw new GeneratorException("没有模板！");
         }
+
         Configuration configuration = ConfigUtils.configuration();
         TableEntity table = baseDao.selectById(id);
-        Query columnQuery = new Query();
-        templateQuery.put("tableId",table.getId());
-        List<ColumnEntity> columnEntities = columnDao.queryList(columnQuery);
 
         Map<String, Object> map = new HashMap<>();
         map.put(TemplateConstant.PACKAGE_NAME, table.getPackageName());
@@ -148,28 +151,35 @@ public class TableServiceImpl  extends BaseServiceImpl<TableDao, TableEntity, Ta
         map.put(TemplateConstant.SUB_MODULE_NAME, table.getSubModuleName());
         map.put(TemplateConstant.TABLE_NAME,table.getTableName());
         map.put(TemplateConstant.CLASS_NAME,table.getClassName());
+        map.put(TemplateConstant.TABLE_COMMENT,table.getTableComment());
 
-        try {
-            for (TemplateEntity templateEntity : templateList) {
+        List<String> projectList = fieldTypeDao.queryProjectListByTableId(table.getId());
+        map.put(TemplateConstant.PROJECT_LIST,projectList);
 
-                String content = templateEntity.getContent();
-                String fileName = templateEntity.getFileName();
-                StringWriter stringWriter = new StringWriter();
+        List<ColumnEntity> columnEntities = columnDao.queryListByTableId(table.getId());
+        map.put(TemplateConstant.COLUMN_LIST,columnEntities);
+
+        for (TemplateEntity templateEntity : templateList) {
+            String content = templateEntity.getContent();
+            String fileName = templateEntity.getFileName();
+            StringWriter stringWriter = new StringWriter();
+            try {
                 Template template = new Template(fileName, content, configuration);
                 template.process(map, stringWriter);
-                System.out.println(stringWriter.toString());
+                zip.putNextEntry(new ZipEntry("Entity.java"));
+                IOUtils.write(stringWriter.toString(),zip,"UTF-8");
+            } catch (IOException | TemplateException e) {
+                throw new GeneratorException("渲染失败");
+            }finally {
+                IOUtils.closeQuietly(stringWriter);
+                try {
+                    zip.closeEntry();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
-        } catch (IOException | TemplateException e) {
-            e.printStackTrace();
         }
-
-    }
-    
-    @Override
-    public int delete(Long[] ids) {
-        Query query = new Query();
-        query.put("tableIds",ids);
-        columnDao.delete(query);
-        return super.delete(ids);
+        IOUtils.closeQuietly(zip);
+        return outputStream.toByteArray();
     }
 }

@@ -10,5 +10,5 @@ import com.susu.generator.entity.ColumnEntity;
  * @version 0:01 2022/3/16
  */
 public interface ColumnService extends BaseService<ColumnEntity, ColumnDTO> {
-    ColumnDTO test();
+
 }

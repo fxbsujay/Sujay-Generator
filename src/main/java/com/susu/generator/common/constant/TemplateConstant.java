@@ -50,12 +50,12 @@ public interface TemplateConstant {
     /**
      *  ${column.comment} 字段说明
      */
-    String COMMENT = "comment";
+    String COMMENT = "columnComment";
 
     /**
      *  ${column.attrType} 属性类型
      */
-    String ATTR_TYPE = "attrType";
+    String ATTR_TYPE = "attrTypeName";
 
     /**
      *  ${column.attrName} 属性名称

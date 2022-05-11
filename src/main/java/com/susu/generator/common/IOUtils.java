@@ -73,6 +73,18 @@ public class IOUtils {
     }
 
     /**
+     * <p>Description: Write stream</p>
+     * <p>写入流</p>
+     * @param data  数据
+     * @param out   流
+     */
+    public static void write(byte[] data, OutputStream out) throws IOException {
+        if (data != null) {
+            out.write(data);
+        }
+    }
+
+    /**
      * <p>Description: To string</p>
      * <p>转字符串</p>
      * @param in   流

@@ -173,25 +173,19 @@
 	</select>
 
 	<select id="selectById" resultMap="resultMap" >
-		select * from `g_column` where id = #{id}
+		SELECT * FROM `g_column` WHERE id = #{id}
 	</select>
 
-	<update id="createTable" parameterType="String">
-		CREATE TABLE ${tableName}  (
-									   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-									   `lamp_device_code` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '单灯控制器SN',
-									   `lamp_status` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '设备开关状态 (0为关灯，1为亮灯)',
-									   `voltage` int(6) NULL DEFAULT NULL COMMENT '当前电压(V)',
-									   `currency` int(6) NULL DEFAULT NULL COMMENT '当前电流（A）',
-									   `power` int(10) NULL DEFAULT NULL COMMENT '当前功率（w）',
-									   `power_factor` int(3) NULL DEFAULT NULL COMMENT '功率因数',
-									   `signal_number` int(3) NULL DEFAULT NULL COMMENT '信号',
-									   `created_at` timestamp(0) NULL DEFAULT CURRENT_TIMESTAMP(0),
-									   `updated_at` timestamp(0) NULL DEFAULT CURRENT_TIMESTAMP(0) ON UPDATE CURRENT_TIMESTAMP(0),
-									   PRIMARY KEY (`id`) USING BTREE
-		) ENGINE = InnoDB AUTO_INCREMENT = 5860 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '单灯设备原始数据表' ROW_FORMAT = Dynamic;
-		INSERT INTO ${tableName} select * from lamp_inverter_data;
-		TRUNCATE TABLE lamp_inverter_data
-	</update>
+	<select id="queryListByTableId" resultType="com.susu.generator.entity.ColumnEntity">
+		SELECT c.attr_name AS  attrName,
+		       c.column_comment AS columnComment,
+		       c.column_key AS columnKey,
+			   f.attr_type AS attrTypeName
+		FROM `g_column` c
+		LEFT JOIN `g_field_type` f
+		ON c.attr_type = f.id
+		WHERE c.table_id = #{tableId}
+		ORDER BY c.number
+	</select>
 
 </mapper>
