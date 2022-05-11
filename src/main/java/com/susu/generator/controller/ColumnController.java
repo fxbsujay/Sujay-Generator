@@ -68,4 +68,10 @@ public class ColumnController {
         service.delete(id);
         return Result.ok();
     }
+
+    @GetMapping("/test")
+    public Result test(){
+        ColumnDTO dto = service.test();
+        return Result.ok(dto);
+    }
 }

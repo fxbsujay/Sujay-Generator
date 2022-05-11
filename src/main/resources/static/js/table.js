@@ -171,7 +171,7 @@ const Table = {
              * 字段信息抽屉提交
              */
             columnDrawerSubmit: debounce(function (){
-                 ElementPlus.ElMessageBox.confirm(`Are you confirm to chose  ?`)
+                 ElementPlus.ElMessageBox.confirm(`你确定保存并关闭窗口吗  ?`)
                     .then(() => {
                         data.columnDrawerVisible = false
                     })

@@ -1,6 +1,5 @@
 package com.susu.generator.common;
 
-
 import java.util.UUID;
 
 /**
@@ -38,6 +37,40 @@ public class StringUtils {
         return result;
     }
 
+    /**
+     * <p>Description: The letter following the specified symbol is capitalized and the character is removed</p>
+     * <p>指定符号的后面的字母转大写，并去掉该字符</p>
+     * @param str 目标字符串
+     * @param regex 指定的字符
+     */
+    public static String firstLetterBig(String str,char regex) {
+        if (isEmpty(str)){
+            return str;
+        }
+        char[] cs = dispelBlank(str).toCharArray();
+        int len = cs.length;
+        for (char c : cs) {
+            if (c == regex) {
+                --len;
+            }
+        }
+        if (len == cs.length) {
+            return str;
+        }
+        char[] buf = new char[len];
+        int j = 0;
+        for (int i = 0; i < cs.length; i++) {
+            if (cs[i] == regex) {
+                if (cs[i + 1] >= 'a' && cs[i + 1] <= 'z') {
+                    cs[i + 1] -= 32;
+                }
+            }else {
+                buf[j] = cs[i];
+                j++;
+            }
+        }
+        return String.valueOf(buf);
+    }
 
     /**
      * <p>Description: First capital letter</p>
@@ -180,15 +213,37 @@ public class StringUtils {
         return cs == null ? 0 : cs.length();
     }
 
+    public static int remove(char[] cs, char val) {
+        int len = cs.length;
+        int i = 0, j = 0;
+
+        while (i < len && j < len) {
+            if (cs[j] != val) {
+                cs[i] = cs[j];
+                i++;
+            }
+            j++;
+        }
+        return i;
+    }
+
+    public static int removeElement(int[] nums, int val) {
+        int len = nums.length;
+        int i = 0;
+        int j = 0;
+        while (i < len && j < len) {
+            if (nums[j] != val) {
+                nums[i] = nums[j];
+                i++;
+            }
+            j++;
+        }
+        return i;
+    }
+
     public static void main(String[] args) {
-        String str = "  Hello Word Java ";
-        Object obj = "  Hello Word Java ";
-        System.out.println("删除前后空白" + dispelBlank(str));
-        System.out.println("删除字符串中所有空白" + dispelBlankAll(str));
-        System.out.println("字符串转换" + toString(obj));
-        System.out.println("首字母大写" + firstLetterBig(" hello"));
-        System.out.println("首字母小写" + firstLetterSmall(" Hello Word"));
-        System.out.println("是否全是数字" + isAllDigital(" 0000"));
+        System.out.println('d' > 'a');
+        System.out.println(firstLetterBig("create_date", '_'));
     }
 
 }

@@ -8,10 +8,7 @@ import com.susu.generator.config.DynamicDataSourceConfig;
 import com.susu.generator.dao.*;
 import com.susu.generator.dto.SourceDTO;
 import com.susu.generator.dto.TableDTO;
-import com.susu.generator.entity.ColumnEntity;
-import com.susu.generator.entity.SourceEntity;
-import com.susu.generator.entity.TableEntity;
-import com.susu.generator.entity.TemplateEntity;
+import com.susu.generator.entity.*;
 import com.susu.generator.exception.GeneratorException;
 import com.susu.generator.service.TableService;
 import freemarker.template.Configuration;
@@ -28,6 +25,7 @@ import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * @author 26933
@@ -46,6 +44,9 @@ public class TableServiceImpl  extends BaseServiceImpl<TableDao, TableEntity, Ta
 
     @Resource
     private TemplateDao templateDao;
+
+    @Resource
+    private FieldTypeDao fieldTypeDao;
 
     @Autowired
     DataSourceTransactionManager dataSourceTransactionManager;
@@ -102,12 +103,18 @@ public class TableServiceImpl  extends BaseServiceImpl<TableDao, TableEntity, Ta
         dto.setTableComment(tableEntity.getTableComment());
         dto.setEngine(tableEntity.getEngine());
 
+        List<FieldTypeEntity> fieldTypeEntities = fieldTypeDao.queryList(new Query());
+        Map<String, Long> fieldTypeMap = fieldTypeEntities.stream()
+                .collect(Collectors.toMap(FieldTypeEntity::getColumnType, FieldTypeEntity::getId));
+
         TransactionStatus transactionStatus = null;
         try {
             transactionStatus = dataSourceTransactionManager.getTransaction(transactionDefinition);
             super.save(dto);
             columnList.forEach( item -> {
+                item.setAttrName(StringUtils.firstLetterBig(item.getColumnName(),'_'));
                 item.setTableId(dto.getId());
+                item.setAttrType(fieldTypeMap.get(item.getColumnType()));
             });
             columnDao.insertBatch(columnList);
             dataSourceTransactionManager.commit(transactionStatus);
