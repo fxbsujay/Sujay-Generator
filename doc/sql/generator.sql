@@ -62,7 +62,6 @@ CREATE TABLE g_table(
     module_name VARCHAR(255)    COMMENT '模块名' ,
     sub_module_name VARCHAR(255)    COMMENT '子模块名' ,
     package_name VARCHAR(255)    COMMENT '包名' ,
-    backend_path VARCHAR(255)    COMMENT '生成路径' ,
     create_time DATETIME    COMMENT '表创建的时间' ,
     create_date DATETIME NOT NULL  DEFAULT 'CURRENT_TIMESTAMP' COMMENT '' ,
     update_date DATETIME   DEFAULT 'CURRENT_TIMESTAMP' COMMENT '' ,
