@@ -162,11 +162,31 @@ public class TableServiceImpl  extends BaseServiceImpl<TableDao, TableEntity, Ta
         for (TemplateEntity templateEntity : templateList) {
             String content = templateEntity.getContent();
             String fileName = templateEntity.getFileName();
+            String filePath = templateEntity.getPath();
             StringWriter stringWriter = new StringWriter();
             try {
-                Template template = new Template(fileName, content, configuration);
+
+                if ( RegexUtils.check(fileName, RegexUtils.IS_KEY_$)) {
+                    List<String> fileNameKeys = RegexUtils.getKeyList(fileName);
+                    String[] values = new String[fileNameKeys.size()];
+                    for (int i = 0; i < fileNameKeys.size(); i++) {
+                        values[i] = (String) map.get(fileNameKeys.get(i));
+                    }
+                    fileName = StringUtils.parse("${","}",fileName,values);
+                }
+
+                if ( RegexUtils.check(filePath, RegexUtils.IS_KEY_$)) {
+                    List<String> fileNameKeys = RegexUtils.getKeyList(filePath);
+                    String[] values = new String[fileNameKeys.size()];
+                    for (int i = 0; i < fileNameKeys.size(); i++) {
+                        values[i] = (String) map.get(fileNameKeys.get(i));
+                    }
+                    filePath = StringUtils.parse("${","}",filePath,values);
+                }
+
+                Template template = new Template(templateEntity.getFileName(), content, configuration);
                 template.process(map, stringWriter);
-                zip.putNextEntry(new ZipEntry("Entity.java"));
+                zip.putNextEntry(new ZipEntry(filePath + fileName));
                 IOUtils.write(stringWriter.toString(),zip,"UTF-8");
             } catch (IOException | TemplateException e) {
                 throw new GeneratorException("渲染失败");

@@ -10,7 +10,7 @@ public interface TemplateConstant {
     /**
      *  ${package} 包名
      */
-    String PACKAGE_NAME = "package";
+    String PACKAGE_NAME = "packageName";
 
     /**
      *  ${moduleName} 模块名

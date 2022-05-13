@@ -60,16 +60,9 @@ public class TableDTO extends BaseDTO implements Serializable {
     public String packageName;
 
     /**
-     * 生成路径
-     **/
-    public String backendPath;
-
-
-    /**
      * 创建时间
      **/
     public String createTime;
-
 
     /**
      * 主键

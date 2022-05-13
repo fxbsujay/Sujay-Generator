@@ -13,7 +13,6 @@
 		<result column="module_name" property="moduleName" />
 		<result column="sub_module_name" property="subModuleName" />
 		<result column="package_name" property="packageName" />
-		<result column="backend_path" property="backendPath" />
 		<result column="create_time" property="createTime" />
 		<result column="create_date" property="createDate" />
 		<result column="update_date" property="updateDate" />
@@ -38,9 +37,6 @@
 		</if>
 		<if test="subModuleName != null and subModuleName !=''">
 			sub_module_name,
-		</if>
-		<if test="backendPath != null and backendPath !=''">
-			backend_path,
 		</if>
 		<if test="packageName != null and packageName !=''">
 			package_name,
@@ -67,9 +63,6 @@
 		</if>
 		<if test="subModuleName != null and subModuleName !=''">
 			#{subModuleName},
-		</if>
-		<if test="backendPath != null and backendPath !=''">
-			#{backendPath},
 		</if>
 		<if test="packageName != null and packageName !=''">
 			#{packageName},
@@ -102,9 +95,6 @@
 		</if>
 		<if test="subModuleName != null">
 			sub_module_name =#{subModuleName},
-		</if>
-		<if test="backendPath != null">
-			backend_path =#{backendPath},
 		</if>
 		<if test="packageName != null">
 			package_name =#{packageName},

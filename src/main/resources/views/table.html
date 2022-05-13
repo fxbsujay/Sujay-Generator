@@ -152,7 +152,7 @@
       <el-row :gutter="20">
         <el-col :span="12">
           <el-form-item label="表名">
-            <el-input v-model="dataForm.tableName" disabled placeholder="生成路径" />
+            <el-input v-model="dataForm.tableName" disabled placeholder="表名" />
           </el-form-item>
         </el-col>
         <el-col :span="12">
@@ -185,9 +185,6 @@
           </el-form-item>
         </el-col>
       </el-row>
-      <el-form-item label="生成路径">
-        <el-input v-model="dataForm.backendPath" placeholder="生成路径" />
-      </el-form-item>
     </el-form>
     <template #footer>
       <div style="flex: auto">
